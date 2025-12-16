@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://4npx47ha3xu8"]
+
+[ext_resource type="Script" uid="uid://vk0w6kgge34y" path="res://scripts/deck.gd" id="1_1kc1q"]
+[ext_resource type="PackedScene" uid="uid://s2nouishoia4" path="res://scenes/card.tscn" id="1_s6dok"]
+
+[node name="scene" type="Node2D"]
+
+[node name="deck" type="Node2D" parent="."]
+script = ExtResource("1_1kc1q")
+
+[node name="card" parent="deck" instance=ExtResource("1_s6dok")]
+position = Vector2(545, 161)
+
+[node name="card2" parent="deck" instance=ExtResource("1_s6dok")]
+position = Vector2(348, 119)
