@@ -3,8 +3,9 @@ extends Node2D
 signal _on_hover
 signal _on_exit
 
-func _ready() -> void:
-	get_parent().connect_card_signals(self)
+@export var _color_picker: Sprite2D
+
+var _placed: bool = false
 
 func _process(_delta: float) -> void:
 	pass

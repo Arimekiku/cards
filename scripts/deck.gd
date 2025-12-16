@@ -1,65 +1,57 @@
 extends Node2D
 
-const COLLISION_MASK_I = 1
+const COUNT = 36
+const INITIAL = 5
 
-var _screen_size: Vector2
-var _is_hovering: bool = false
-var _card_drag: Node2D = null
+@export var hand: Node2D
+@export var card_handler: Node2D
+@export var label: Label
+
+var cards = []
 
 func _ready() -> void:
-	_screen_size = get_viewport_rect().size
+	var card = preload("res://scenes/card.tscn")
+	
+	for i in range(COUNT):
+		var instance = card.instantiate()
+		instance._color_picker.color_index = i
+		instance.name = "card"
+		
+		add_card_to_deck(instance)
+		label.text = str(cards.size())
+	
+	for i in range(INITIAL):
+		var instance = remove_card_from_deck()
+		
+		card_handler.connect_card_signals(instance)
+		hand.connect_card_signals(instance)
+		hand.add_card_to_hand(instance)
+		label.text = str(cards.size())
 
 func _process(_delta: float) -> void:
-	if _card_drag == null:
-		return
+	pass
+
+func add_card_to_deck(card: Node2D) -> void:
+	cards.push_front(card)
+	add_child(card)
+
+func remove_card_from_deck() -> Node2D:
+	var card = cards.pop_front()
+	remove_child(card)
 	
-	var mouse_pos = get_global_mouse_position()
-	_card_drag.position = Vector2(
-		clamp(mouse_pos.x, 0, _screen_size.x),
-		clamp(mouse_pos.y, 0, _screen_size.y)
-	)
+	return card
 
-func _input(event) -> void:
-	var mouse_event = event as InputEventMouseButton
+func resupply_cards() -> void:
+	var current_cards_num = hand.hand.size()
 	
-	if mouse_event and mouse_event.button_index == MOUSE_BUTTON_LEFT:
-		if event.is_pressed():
-			_card_drag = ray_card()
-		else:
-			_card_drag = null
-
-func ray_card() -> Node2D:
-	var space = get_world_2d().direct_space_state
-	var params = PhysicsPointQueryParameters2D.new()
-	params.position = get_global_mouse_position()
-	params.collide_with_areas = true
-	params.collision_mask = COLLISION_MASK_I
+	for i in range(hand.MAX_COUNT - current_cards_num):
+		var instance = remove_card_from_deck()
+		
+		card_handler.connect_card_signals(instance)
+		hand.connect_card_signals(instance)
+		hand.add_card_to_hand(instance)
 	
-	var result = space.intersect_point(params)
-	result.sort_custom(sort_highest_z)
-	return result[0].collider.get_parent() if result else null
+	label.text = str(cards.size())
 
-func connect_card_signals(card: Node2D) -> void:
-	card.connect("_on_hover", on_hovered_signal)
-	card.connect("_on_exit", on_exit_signal)
-
-func on_hovered_signal(card: Node2D) -> void:
-	if not _is_hovering:
-		_is_hovering = true
-		highlight_card(card, true)
-
-func on_exit_signal(card: Node2D) -> void:
-	highlight_card(card, false)
-	
-	var new_card_hovering = ray_card()
-	if new_card_hovering:
-		highlight_card(new_card_hovering, true)
-	else:
-		_is_hovering = false
-
-func highlight_card(card: Node2D, is_hovered: bool) -> void:
-	card.scale = Vector2(1.05, 1.05) if is_hovered else Vector2.ONE
-	card.z_index = 2 if is_hovered else 1
-
-func sort_highest_z(a, b) -> bool:
-	return a.collider.get_parent().z_index > b.collider.get_parent().z_index
+func _on_button_button_down() -> void:
+	resupply_cards()

@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
 uniform sampler2DArray tex_array;
-uniform int card_index = 0;
+uniform int card_index;
 
 void vertex() {
 	// Called for every vertex the material is visible on.

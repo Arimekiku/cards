@@ -1,15 +1,53 @@
-[gd_scene load_steps=3 format=3 uid="uid://4npx47ha3xu8"]
+[gd_scene load_steps=4 format=3 uid="uid://4npx47ha3xu8"]
 
-[ext_resource type="Script" uid="uid://vk0w6kgge34y" path="res://scripts/deck.gd" id="1_1kc1q"]
-[ext_resource type="PackedScene" uid="uid://s2nouishoia4" path="res://scenes/card.tscn" id="1_s6dok"]
+[ext_resource type="Script" uid="uid://vk0w6kgge34y" path="res://scripts/card_handler.gd" id="1_1kc1q"]
+[ext_resource type="Script" uid="uid://p4tjgme8ow6" path="res://scripts/hand.gd" id="3_4msxo"]
+[ext_resource type="Script" uid="uid://bagsuu07qpoih" path="res://scripts/deck.gd" id="3_5fb3c"]
 
 [node name="scene" type="Node2D"]
 
-[node name="deck" type="Node2D" parent="."]
+[node name="card_handler" type="Node2D" parent="."]
 script = ExtResource("1_1kc1q")
 
-[node name="card" parent="deck" instance=ExtResource("1_s6dok")]
-position = Vector2(545, 161)
+[node name="hand" type="Node2D" parent="."]
+script = ExtResource("3_4msxo")
 
-[node name="card2" parent="deck" instance=ExtResource("1_s6dok")]
-position = Vector2(348, 119)
+[node name="deck" type="Node2D" parent="." node_paths=PackedStringArray("hand", "card_handler", "label")]
+position = Vector2(556, 95)
+script = ExtResource("3_5fb3c")
+hand = NodePath("../hand")
+card_handler = NodePath("../card_handler")
+label = NodePath("number")
+
+[node name="number" type="Label" parent="deck"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = 84.99
+offset_right = 31.0
+offset_bottom = 107.990005
+grow_horizontal = 2
+grow_vertical = 2
+text = "number"
+
+[node name="ui" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="button" type="Button" parent="ui"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -148.0
+offset_right = -52.0
+offset_bottom = -98.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Get Cards"
+
+[connection signal="button_down" from="ui/button" to="deck" method="_on_button_button_down"]
