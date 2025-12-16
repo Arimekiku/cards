@@ -3,6 +3,7 @@ extends Node2D
 const COUNT = 36
 const INITIAL = 5
 
+@export var card_datas: Array[CardData]
 @export var hand: Node2D
 @export var card_handler: Node2D
 @export var label: Label
@@ -10,11 +11,16 @@ const INITIAL = 5
 var cards = []
 
 func _ready() -> void:
-	var card = preload("res://scenes/card.tscn")
+	var minion_card_prefab = preload("res://scenes/cards/minion_card_prefab.tscn")
+	var spell_card_prefab = preload("res://scenes/cards/spell_card_prefab.tscn")
 	
 	for i in range(COUNT):
-		var instance = card.instantiate()
-		instance._color_picker.color_index = i
+		var data = card_datas.pick_random()
+		var data_context = data.card_context
+		var selected_card_prefab = minion_card_prefab if data_context.get_card_type() == data_context.CardType.MINION else spell_card_prefab
+		
+		var instance = selected_card_prefab.instantiate()
+		instance.parse_card_data(data)
 		instance.name = "card"
 		
 		add_card_to_deck(instance)

@@ -1,0 +1,84 @@
+[gd_scene load_steps=4 format=3 uid="uid://s2nouishoia4"]
+
+[ext_resource type="Script" uid="uid://v57jlagugu45" path="res://scripts/cards/minion_card.gd" id="1_6d7je"]
+[ext_resource type="Texture2D" uid="uid://8psfrjxhqcee" path="res://resources/images/cards/card_hearts_03.png" id="2_185mk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fb3c"]
+size = Vector2(136, 136)
+
+[node name="minion_card" type="Node2D" node_paths=PackedStringArray("_health_text", "_damage_text", "_image_picker")]
+script = ExtResource("1_6d7je")
+_health_text = NodePath("interface/text_box/health_panel/health")
+_damage_text = NodePath("interface/text_box/damage_panel/damage")
+_image_picker = NodePath("graphics")
+
+[node name="graphics" type="Sprite2D" parent="."]
+scale = Vector2(8.605, 8.605)
+texture = ExtResource("2_185mk")
+region_rect = Rect2(0, 0, 128, 128)
+
+[node name="collision" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="collision"]
+shape = SubResource("RectangleShape2D_5fb3c")
+
+[node name="interface" type="Node2D" parent="."]
+position = Vector2(0, 32)
+
+[node name="text_box" type="Control" parent="interface"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="health_panel" type="Panel" parent="interface/text_box"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 40.0
+grow_vertical = 2
+
+[node name="health" type="RichTextLabel" parent="interface/text_box/health_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="damage_panel" type="Panel" parent="interface/text_box"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="damage" type="RichTextLabel" parent="interface/text_box/damage_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="collision" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="collision" to="." method="_on_area_2d_mouse_exited"]
