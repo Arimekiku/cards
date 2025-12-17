@@ -6,6 +6,7 @@ signal hovered(card)
 signal exited(card)
 
 var data: CardData
+var card_owner := CardBoard.Owner.PLAYER
 var placed := false
 
 @abstract func setup(card_data: CardData) -> void

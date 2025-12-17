@@ -17,7 +17,7 @@ func _ready() -> void:
 
 	for id in start_cards:
 		cards.append(database.cards_registry[id])
-	print(cards)
+	
 	_update_label()
 
 func draw_card() -> CardData:

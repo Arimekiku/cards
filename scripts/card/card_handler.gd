@@ -3,9 +3,12 @@ class_name CardHandler
 
 const MASK_CARD := 1
 
-var zone: CardZone
+var zones: Array[Node]
 var dragging: Card
 var grab_offset: Vector2
+
+func _ready() -> void:
+	zones = get_tree().get_nodes_in_group("card_zones")
 
 func _input(event) -> void:
 	if event is not InputEventMouseButton:
@@ -16,17 +19,21 @@ func _input(event) -> void:
 	
 	if event.pressed:
 		var potential_dragging = _ray_card()
-		
-		if potential_dragging.placed == false:
+		if potential_dragging == null:
+			return
+		if potential_dragging.placed == false or potential_dragging.card_owner == CardBoard.Owner.PLAYER:
 			dragging = _ray_card()
-		
 		if dragging != null:
 			grab_offset = dragging.global_position - get_global_mouse_position()
 	else:
 		if (dragging):
 			try_place(dragging)
-		dragging.input_phase(event)
+			dragging.input_phase(event)
+		
 		dragging = null
+	
+	for zone in zones:
+		zone.update_highlight(dragging)
 
 func _process(_delta) -> void:
 	if dragging == null:
@@ -57,7 +64,7 @@ func _ray_card() -> Card:
 	if r.is_empty():
 		return null
 	
-	return r[0].collider.get_parent()
+	return r[0].collider.get_parent() as Card
 
 func try_place(card) -> void:
 	for in_zone in get_tree().get_nodes_in_group("card_zones"):

@@ -4,6 +4,7 @@ class_name Game
 @export var deck: Deck
 @export var hand: Hand
 @export var card_handler: CardHandler
+@export var database: CardDatabase
 
 @export var minion_card_scene: PackedScene
 @export var spell_card_scene: PackedScene
@@ -25,16 +26,29 @@ func draw_card() -> void:
 	if data == null:
 		return
 	
+	var card := create_card_from_data(data)
+	card_handler.connect_card(card)
+	hand.add_card(card)
+
+func create_card(value: String) -> Card:
+	var data = database.cards_registry[value]
+	if data == null:
+		push_error("Unable to retrieve data from key: %s" % value)
+		return null
+	
+	return create_card_from_data(data)
+
+func create_card_from_data(value: CardData) -> Card:
 	var card: Card
-	match data.card_context.get_card_type():
+	
+	match value.card_context.get_card_type():
 		CardContext.CardType.MINION:
 			card = minion_card_scene.instantiate() as Card
 		CardContext.CardType.SPELL:
 			card = spell_card_scene.instantiate() as Card
 		_:
 			push_warning("Unknown card type")
-			return
+			return null
 	
-	card.setup(data)
-	card_handler.connect_card(card)
-	hand.add_card(card)
+	card.setup(value)
+	return card
