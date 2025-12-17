@@ -20,7 +20,7 @@ func setup(card_data: CardData) -> void:
 	_ui_update_health(health)
 	_ui_update_damage(damage)
 
-func input_phase(event: InputEventMouseButton) -> void:
+func input_phase(_event: InputEventMouseButton) -> void:
 	pass
 
 func take_damage(value: int) -> void:

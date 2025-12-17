@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://gar4rg447l67"]
+
+[ext_resource type="Script" uid="uid://dny071rt78bf6" path="res://scripts/text_wobble.gd" id="1_4nndk"]
+
+[node name="TextScene" type="Node2D"]
+position = Vector2(581, 319)
+
+[node name="Label" type="Node2D" parent="."]
+script = ExtResource("1_4nndk")
