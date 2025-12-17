@@ -16,7 +16,7 @@ func _ready() -> void:
 		return
 
 	for id in start_cards:
-		cards.append(database.cards[id])
+		cards.append(database.cards_registry[id])
 	print(cards)
 	_update_label()
 
