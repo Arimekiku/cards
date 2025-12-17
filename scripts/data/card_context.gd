@@ -1,7 +1,7 @@
+@abstract
 extends Resource
 class_name CardContext
 
-enum CardType { MINION, SPELL }
+enum CardType { MINION, SPELL, NONE }
 
-func get_card_type() -> CardType:
-	return CardType.MINION
+@abstract func get_card_type() -> CardType

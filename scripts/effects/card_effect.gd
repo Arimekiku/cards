@@ -1,5 +1,5 @@
+@abstract
 extends Resource
 class_name CardEffect
 
-func apply(context) -> void:
-	pass
+@abstract func resolve(context) -> void

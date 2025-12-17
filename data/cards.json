@@ -1,34 +1,33 @@
 {
-  "frost_frog": {
-	"name": "Морозна жаба",
-	"cost": 3,
-	"card_type": "creature",
-
-	"stats": {
-	  "health": 4,
-	  "damage": 2
+	"frost_frog": {
+		"name": "Морозна жаба",
+		"cost": 3,
+		"card_type": "creature",
+		"health": 8,
+		"damage": 2,
+		"description": "Заморожує ціль при атаці",
+		"effects": {
+			"print_effect": {
+				"value": "FREEZE!"
+			},
+		},
+		"keywords": ["freeze"],
+		"tribes": ["amphibian", "beast", "frog"],
+		"image": "res://resources/images/cards/card_clubs_02.png"
 	},
-
-	"description": "Заморожує ціль при атаці",
-
-	"effects": ["freeze_on_hover"],
-
-	"keywords": ["freeze"],
-
-	"tribes": ["amphibian", "beast", "frog"],
-
-	"image": "res://art/cards/frost_frog.png"
-  },
-
-  "fireball": {
-	"name": "Вогняна куля",
-	"cost": 4,
-	"card_type": "spell",
-
-	"description": "Завдає 6 шкоди",
-
-	"effects": ["deal_damage"],
-
-	"image": "res://art/cards/fireball.png"
-  }
+	"fireball": {
+		"name": "Вогняна куля",
+		"cost": 4,
+		"card_type": "spell",
+		"description": "Завдає 6 шкоди",
+		"effects": {
+			"print_effect": {
+				"value": "DAMAGE!"
+			},
+			"damage_effect": {
+				"value": 6
+			},
+		},
+		"image": "res://resources/images/cards/card_diamonds_07.png"
+	}
 }
