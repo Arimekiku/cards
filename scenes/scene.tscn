@@ -1,27 +1,34 @@
 [gd_scene load_steps=7 format=3 uid="uid://4npx47ha3xu8"]
 
-[ext_resource type="Script" uid="uid://vk0w6kgge34y" path="res://scripts/cards/card_handler.gd" id="1_1kc1q"]
-[ext_resource type="Script" uid="uid://p4tjgme8ow6" path="res://scripts/hand.gd" id="3_4msxo"]
-[ext_resource type="Script" uid="uid://bagsuu07qpoih" path="res://scripts/deck.gd" id="3_5fb3c"]
-[ext_resource type="Script" uid="uid://hraw6tokvt74" path="res://scripts/resources/card_data.gd" id="4_t7and"]
-[ext_resource type="Resource" uid="uid://byujv3jn2yvip" path="res://resources/cards/rat_card.tres" id="5_ruw3y"]
-[ext_resource type="Resource" uid="uid://c8jtblp0tu6m" path="res://resources/cards/spell_card.tres" id="6_7182s"]
+[ext_resource type="Script" uid="uid://6whq3hukih4c" path="res://scripts/card/card_handler.gd" id="1_4msxo"]
+[ext_resource type="Script" uid="uid://ceasvmta0a8fy" path="res://scripts/game/game.gd" id="1_5fb3c"]
+[ext_resource type="Script" uid="uid://c0vthsq306log" path="res://scripts/game/hand.gd" id="2_5fb3c"]
+[ext_resource type="PackedScene" uid="uid://2axk1jt0lify" path="res://scenes/cards/card.tscn" id="2_t7and"]
+[ext_resource type="Script" uid="uid://c4gwy3gthofjs" path="res://scripts/game/deck.gd" id="3_gjmho"]
+[ext_resource type="Script" uid="uid://cxp3b3bqnraxi" path="res://scripts/loaders/card_database.gd" id="4_tpwpp"]
 
-[node name="scene" type="Node2D"]
+[node name="scene" type="Node2D" node_paths=PackedStringArray("deck", "hand", "card_handler")]
+script = ExtResource("1_5fb3c")
+deck = NodePath("deck")
+hand = NodePath("hand")
+card_handler = NodePath("card_handler")
+minion_card_scene = ExtResource("2_t7and")
+spell_card_scene = ExtResource("2_t7and")
+
+[node name="card_database" type="Node2D" parent="."]
+script = ExtResource("4_tpwpp")
 
 [node name="card_handler" type="Node2D" parent="."]
-script = ExtResource("1_1kc1q")
+script = ExtResource("1_4msxo")
 
 [node name="hand" type="Node2D" parent="."]
-script = ExtResource("3_4msxo")
+script = ExtResource("2_5fb3c")
 
-[node name="deck" type="Node2D" parent="." node_paths=PackedStringArray("hand", "card_handler", "label")]
+[node name="deck" type="Node2D" parent="." node_paths=PackedStringArray("number_label", "database")]
 position = Vector2(556, 95)
-script = ExtResource("3_5fb3c")
-card_datas = Array[ExtResource("4_t7and")]([ExtResource("5_ruw3y"), ExtResource("6_7182s")])
-hand = NodePath("../hand")
-card_handler = NodePath("../card_handler")
-label = NodePath("number")
+script = ExtResource("3_gjmho")
+number_label = NodePath("number")
+database = NodePath("../card_database")
 
 [node name="number" type="Label" parent="deck"]
 anchors_preset = 8

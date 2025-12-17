@@ -1,26 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://s2nouishoia4"]
+[gd_scene load_steps=4 format=3 uid="uid://2axk1jt0lify"]
 
-[ext_resource type="Script" uid="uid://v57jlagugu45" path="res://scripts/cards/contexts/minion_context.gd" id="1_6d7je"]
-[ext_resource type="Texture2D" uid="uid://8psfrjxhqcee" path="res://resources/images/cards/card_hearts_03.png" id="2_185mk"]
+[ext_resource type="Script" uid="uid://cnt8betrt3hif" path="res://scripts/card/сard.gd" id="1_0qqw3"]
+[ext_resource type="Texture2D" uid="uid://8psfrjxhqcee" path="res://resources/images/cards/card_hearts_03.png" id="2_jl6rh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fb3c"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_73nwn"]
 size = Vector2(136, 136)
 
-[node name="minion_card" type="Node2D" node_paths=PackedStringArray("_health_text", "_damage_text", "_image_picker")]
-script = ExtResource("1_6d7je")
-_health_text = NodePath("interface/text_box/health_panel/health")
-_damage_text = NodePath("interface/text_box/damage_panel/damage")
-_image_picker = NodePath("graphics")
+[node name="Card" type="Node2D"]
+script = ExtResource("1_0qqw3")
 
 [node name="graphics" type="Sprite2D" parent="."]
 scale = Vector2(8.605, 8.605)
-texture = ExtResource("2_185mk")
+texture = ExtResource("2_jl6rh")
 region_rect = Rect2(0, 0, 128, 128)
 
 [node name="collision" type="Area2D" parent="."]
 
 [node name="shape" type="CollisionShape2D" parent="collision"]
-shape = SubResource("RectangleShape2D_5fb3c")
+shape = SubResource("RectangleShape2D_73nwn")
 
 [node name="interface" type="Node2D" parent="."]
 position = Vector2(0, 32)
@@ -40,6 +37,7 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="health_panel" type="Panel" parent="interface/text_box"]
 layout_mode = 1
@@ -47,6 +45,7 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 40.0
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="health" type="RichTextLabel" parent="interface/text_box/health_panel"]
 layout_mode = 1
@@ -58,6 +57,7 @@ grow_vertical = 2
 text = "99"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="damage_panel" type="Panel" parent="interface/text_box"]
 layout_mode = 1
@@ -68,6 +68,7 @@ anchor_bottom = 1.0
 offset_left = -40.0
 grow_horizontal = 0
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="damage" type="RichTextLabel" parent="interface/text_box/damage_panel"]
 layout_mode = 1
@@ -79,6 +80,4 @@ grow_vertical = 2
 text = "Test"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[connection signal="mouse_entered" from="collision" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="collision" to="." method="_on_area_2d_mouse_exited"]
+metadata/_edit_use_anchors_ = true
