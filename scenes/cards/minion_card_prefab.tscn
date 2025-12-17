@@ -1,16 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://s2nouishoia4"]
 
-[ext_resource type="Script" uid="uid://v57jlagugu45" path="res://scripts/cards/contexts/minion_context.gd" id="1_6d7je"]
+[ext_resource type="Script" uid="uid://dk5gb0ifeigp4" path="res://scripts/card/minion_card.gd" id="1_185mk"]
 [ext_resource type="Texture2D" uid="uid://8psfrjxhqcee" path="res://resources/images/cards/card_hearts_03.png" id="2_185mk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fb3c"]
 size = Vector2(136, 136)
 
-[node name="minion_card" type="Node2D" node_paths=PackedStringArray("_health_text", "_damage_text", "_image_picker")]
-script = ExtResource("1_6d7je")
-_health_text = NodePath("interface/text_box/health_panel/health")
-_damage_text = NodePath("interface/text_box/damage_panel/damage")
-_image_picker = NodePath("graphics")
+[node name="minion_card" type="Node2D"]
+script = ExtResource("1_185mk")
 
 [node name="graphics" type="Sprite2D" parent="."]
 scale = Vector2(8.605, 8.605)

@@ -25,5 +25,5 @@ func update_positions() -> void:
 	var center := get_viewport_rect().size.x / 2
 
 	for i in cards.size():
-		var x := center + i * card_width - total / 2
+		var x := center + i * card_width - total / 2.
 		cards[i].position = Vector2(x, hand_y)

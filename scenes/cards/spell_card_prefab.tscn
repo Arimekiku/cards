@@ -1,15 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://dqab4dsyv7pix"]
 
-[ext_resource type="Script" uid="uid://5p4nirn036ij" path="res://scripts/cards/contexts/spell_context.gd" id="1_w0aiq"]
+[ext_resource type="Script" uid="uid://ch6be0t1k06kp" path="res://scripts/card/spell_card.gd" id="1_d81wr"]
 [ext_resource type="Texture2D" uid="uid://c3st5bg5o053g" path="res://resources/images/cards/card_clubs_02.png" id="2_d81wr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fb3c"]
 size = Vector2(136, 136)
 
-[node name="spell_card" type="Node2D" node_paths=PackedStringArray("_description_text", "_image_picker")]
-script = ExtResource("1_w0aiq")
-_description_text = NodePath("interface/text_box/panel/text")
-_image_picker = NodePath("graphics")
+[node name="spell_card" type="Node2D"]
+script = ExtResource("1_d81wr")
 
 [node name="graphics" type="Sprite2D" parent="."]
 scale = Vector2(9.4, 9.4)

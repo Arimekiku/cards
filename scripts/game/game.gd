@@ -13,7 +13,6 @@ class_name Game
 func _ready() -> void:
 	_init_start_hand()
 
-
 func _init_start_hand() -> void:
 	draw_start_hand()
 
@@ -25,7 +24,7 @@ func draw_card() -> void:
 	var data := deck.draw_card()
 	if data == null:
 		return
-
+	
 	var card: Card
 	match data.card_context.get_card_type():
 		CardContext.CardType.MINION:
@@ -35,8 +34,7 @@ func draw_card() -> void:
 		_:
 			push_warning("Unknown card type")
 			return
-
-
+	
 	card.setup(data)
 	card_handler.connect_card(card)
 	hand.add_card(card)
