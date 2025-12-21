@@ -1,9 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://gar4rg447l67"]
+[gd_scene load_steps=3 format=3 uid="uid://gar4rg447l67"]
 
-[ext_resource type="Script" uid="uid://dny071rt78bf6" path="res://scripts/text_wobble.gd" id="1_4nndk"]
+[ext_resource type="Script" uid="uid://38dj3vlwn8nk" path="res://scripts/tools/ghost.gd" id="1_4nndk"]
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_y1qnp"]
+script = ExtResource("1_4nndk")
+metadata/_custom_type_script = "uid://38dj3vlwn8nk"
 
 [node name="TextScene" type="Node2D"]
-position = Vector2(581, 319)
 
-[node name="Label" type="Node2D" parent="."]
-script = ExtResource("1_4nndk")
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 504.0
+offset_top = 240.0
+offset_right = 664.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[ghost freq=5.0 span=10.0][wave]HELLO GO!!!![/wave][/ghost]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_y1qnp")]

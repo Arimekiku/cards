@@ -14,7 +14,7 @@ var cards: Array[Card] = []
 
 func _ready() -> void:
 	if board_owner == Owner.PLAYER:
-		return
+		return;
 	
 	var card = game.create_card("frost_frog")
 	card.card_owner = Owner.ENEMY

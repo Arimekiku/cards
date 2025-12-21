@@ -9,7 +9,7 @@
 		"effects": {
 			"print_effect": {
 				"value": "FREEZE!"
-			},
+			}
 		},
 		"keywords": ["freeze"],
 		"tribes": ["amphibian", "beast", "frog"],
@@ -26,7 +26,7 @@
 			},
 			"damage_effect": {
 				"value": 6
-			},
+			}
 		},
 		"image": "res://resources/images/cards/card_diamonds_07.png"
 	}
