@@ -8,6 +8,7 @@ var _is_hovering: bool = false
 var zones: Array[Node]
 var dragging: Card
 var grab_offset: Vector2
+var selected_attacker: MinionCard = null
 
 func _ready() -> void:
 	_screen_size = get_viewport_rect().size
@@ -21,10 +22,16 @@ func _input(event) -> void:
 		return
 	
 	if event.pressed:
-		var potential_dragging = _ray_card()
-		if potential_dragging == null:
+		var card = _ray_card()
+		
+		if card == null:
 			return
-		if potential_dragging.placed == false and potential_dragging.card_owner == CardBoard.Owner.PLAYER:
+			
+		if card is MinionCard and card.placed:
+			_handle_attack_click(card)
+			return
+			
+		if card.placed == false or card.card_owner == CardBoard.Owner.PLAYER:
 			dragging = _ray_card()
 		if dragging != null:
 			grab_offset = dragging.global_position - get_global_mouse_position()
@@ -90,6 +97,30 @@ func try_place(card) -> void:
 	
 	# fallback: return to original zone
 	#zone.layout()
+
+func _handle_attack_click(card: MinionCard) -> void:
+	if selected_attacker == null:
+		if card.card_owner != CardBoard.Owner.PLAYER:
+			return
+
+		selected_attacker = card
+		_highlight_attacker(card)
+		return
+
+	if card.card_owner == CardBoard.Owner.ENEMY:
+		selected_attacker.attack(card)
+		_clear_attack_selection()
+
+func _highlight_attacker(card: MinionCard) -> void:
+	card.scale = Vector2(1.15, 1.15)
+	card.z_index = 200
+	
+func _clear_attack_selection() -> void:
+	if selected_attacker:
+		selected_attacker.scale = Vector2.ONE
+		selected_attacker.z_index = 1
+	selected_attacker = null
+
 
 func sort_highest_z(a, b) -> bool:
 	return a.collider.get_parent().z_index > b.collider.get_parent().z_index

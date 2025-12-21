@@ -5,6 +5,7 @@ var health: int
 var damage: int
 var attacking := false
 
+signal died(card)
 
 func setup(card_data: CardData) -> void:
 	var type = card_data.card_context.get_card_type()
@@ -23,14 +24,7 @@ func setup(card_data: CardData) -> void:
 	_ui_update_damage(damage)
 
 func input_phase(event: InputEventMouseButton) -> void:
-	if event.pressed:
-		attacking = true
-	else:
-		if attacking:
-			var target := _ray_minion()
-			if target != null and target != self:
-				attack(target)
-		attacking = false
+	pass
 
 func _ray_minion() -> MinionCard:
 	var space = get_world_2d().direct_space_state
@@ -55,6 +49,7 @@ func attack(target: MinionCard) -> void:
 func take_damage(value: int) -> void:
 	health -= value
 	if health <= 0:
+		emit_signal("died", self)
 		queue_free()
 		return
 	_ui_update_health(health)

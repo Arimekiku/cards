@@ -31,6 +31,7 @@ func add_card(card: Card) -> bool:
 		return false
 	
 	cards.append(card)
+	card.died.connect(_on_card_died)
 	var parent = card.get_parent()
 	if parent:
 		parent.remove_child(card)
@@ -40,8 +41,10 @@ func add_card(card: Card) -> bool:
 	return true
 
 func remove_card(card: Card) -> void:
-	cards.erase(card)
+	if cards.has(card):
+		cards.erase(card)
 	layout()
+
 
 func layout() -> void:
 	var count := cards.size()
@@ -78,3 +81,6 @@ func update_highlight(card) -> void:
 		return
 	
 	graphics.self_modulate = Color.GREEN if can_accept(card) else Color.RED
+
+func _on_card_died(card: Card) -> void:
+	remove_card(card)
