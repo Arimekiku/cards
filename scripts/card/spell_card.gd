@@ -41,5 +41,6 @@ func _ray_card() -> Card:
 	var result = r.find_custom(not_self)
 	return r[result].collider.get_parent()
 
+
 func not_self(value) -> bool:
 	return value.collider.get_parent() != self
