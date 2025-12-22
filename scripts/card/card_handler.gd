@@ -11,7 +11,6 @@ var selected_attacker: MinionCard = null
 
 @export var hand: Hand
 @export var turn_manager: TurnManager
-@export var deck: Deck
 
 func _ready() -> void:
 	_screen_size = get_viewport_rect().size

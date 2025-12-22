@@ -15,6 +15,7 @@
 		"tribes": ["amphibian", "beast", "frog"],
 		"image": "res://resources/images/cards/jaba.png"
 	},
+	
 	"fireball": {
 		"name": "Вогняна куля",
 		"cost": 4,
@@ -29,5 +30,128 @@
 			}
 		},
 		"image": "res://resources/images/cards/fireball.png"
+	},
+	
+	"city_guard": {
+		"name": "Міський вартовий",
+		"cost": 2,
+		"card_type": "creature",
+		"health": 3,
+		"damage": 2,
+		"description": "Провокація",
+		"effects": {},
+		"keywords": ["taunt"],
+		"tribes": ["human", "guard"],
+		"image": "res://resources/images/cards/gay.png"
+	},
+
+	"ice_acolyte": {
+		"name": "Крижаний послідовник",
+		"cost": 3,
+		"card_type": "creature",
+		"health": 2,
+		"damage": 3,
+		"description": "Бойовий крик: заморожує ворожу істоту",
+		"effects": {
+			"battlecry_freeze": {
+				"target": "enemy_creature"
+			}
+		},
+		"keywords": ["freeze", "battlecry"],
+		"tribes": ["human", "mage"],
+		"image": "res://resources/images/cards/gay_wolf.png"
+	},
+
+	"archive_phantom": {
+		"name": "Фантом архіву",
+		"cost": 4,
+		"card_type": "creature",
+		"health": 4,
+		"damage": 3,
+		"description": "Фантомна (не може бути атакована напряму)",
+		"effects": {},
+		"keywords": ["phantom"],
+		"tribes": ["spirit"],
+		"image": "res://resources/images/cards/archive_phantom.png"
+	},
+
+	"street_raider": {
+		"name": "Вуличний рейдер",
+		"cost": 3,
+		"card_type": "creature",
+		"health": 1,
+		"damage": 4,
+		"description": "Ривок",
+		"effects": {},
+		"keywords": ["charge"],
+		"tribes": ["human", "rogue"],
+		"image": "res://resources/images/cards/street_raider.png"
+	},
+
+	"chronicler_scholar": {
+		"name": "Учений-хронік",
+		"cost": 3,
+		"card_type": "creature",
+		"health": 3,
+		"damage": 2,
+		"description": "Бойовий крик: гравець бере карту",
+		"effects": {
+			"battlecry_draw": {
+				"value": 1
+			}
+		},
+		"keywords": ["battlecry", "draw"],
+		"tribes": ["human", "scholar"],
+		"image": "res://resources/images/cards/chronicler_scholar.png"
+	},
+
+	"frozen_warrior": {
+		"name": "Заморожений воїн",
+		"cost": 4,
+		"card_type": "creature",
+		"health": 4,
+		"damage": 4,
+		"description": "Останній подих: заморожує випадкову ворожу істоту",
+		"effects": {
+			"deathrattle_freeze": {
+				"target": "random_enemy_creature"
+			}
+		},
+		"keywords": ["freeze", "deathrattle"],
+		"tribes": ["undead", "warrior"],
+		"image": "res://resources/images/cards/frozen_warrior.png"
+	},
+
+	"dark_bargain": {
+		"name": "Темна угода",
+		"cost": 1,
+		"card_type": "spell",
+		"description": "Візьми карту та отримай 1 шкоду",
+		"effects": {
+			"draw_effect": {
+				"value": 1
+			},
+			"damage_hero": {
+				"value": 1
+			}
+		},
+		"image": "res://resources/images/cards/dark_bargain.png"
+	},
+
+	"ice_bolt": {
+		"name": "Крижаний удар",
+		"cost": 2,
+		"card_type": "spell",
+		"description": "Завдає 2 шкоди та заморожує ціль",
+		"effects": {
+			"damage_effect": {
+				"value": 2
+			},
+			"freeze_effect": {
+				"target": "creature"
+			}
+		},
+		"keywords": ["freeze"],
+		"image": "res://resources/images/cards/ice_bolt.png"
 	}
 }
