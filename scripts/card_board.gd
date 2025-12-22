@@ -47,7 +47,6 @@ func remove_card(card: Card) -> void:
 		cards.erase(card)
 	layout()
 
-
 func layout() -> void:
 	var count := cards.size()
 	if count == 0:
@@ -88,8 +87,10 @@ func _on_card_died(card: Card) -> void:
 	remove_card(card)
 
 func on_turn_started(turn):
-	if turn == board_owner:
-		for card in cards:
-			if card is MinionCard:
-				print(card)
-				card.has_attacked = false
+	if turn != board_owner:
+		return
+	
+	for card in cards:
+		if card is MinionCard:
+			print(card)
+			card.has_attacked = false

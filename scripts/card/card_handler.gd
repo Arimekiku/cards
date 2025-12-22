@@ -4,7 +4,6 @@ class_name CardHandler
 const COLLISION_MASK_I := 1
 
 var _screen_size: Vector2
-var _is_hovering: bool = false
 var zones: Array[Node]
 var dragging: Card
 var grab_offset: Vector2
@@ -34,7 +33,6 @@ func _input(event) -> void:
 				return
 			_handle_attack_click(card)
 			return
-
 			
 		if card.placed == false and card.card_owner == CardBoard.Owner.PLAYER and turn_manager.current_turn == turn_manager.Turn.PLAYER:
 			dragging = _ray_card()
@@ -44,6 +42,7 @@ func _input(event) -> void:
 		if (dragging):
 			try_place(dragging)
 			dragging.input_phase(event)
+			dragging.drag_finished.emit(dragging)
 		
 		dragging = null
 	
@@ -62,23 +61,20 @@ func connect_card(card: Card) -> void:
 	card.exited.connect(_on_exit)
 
 func _on_hover(card: Card) -> void:
-	if _is_hovering:
+	if dragging:
 		return
 	
-	_is_hovering = true
 	card.scale = Vector2(1.05, 1.05)
 	card.z_index = 100
+	print("hover call")
 
 func _on_exit(card: Card) -> void:
+	if dragging:
+		return
+	
 	card.scale = Vector2.ONE
 	card.z_index = 1
-	
-	var new_card_hovering = _ray_card()
-	if new_card_hovering:
-		card.scale = Vector2(1.05, 1.05)
-		card.z_index = 100
-	else:
-		_is_hovering = false
+	print("hover exit")
 
 func _ray_card() -> Card:
 	var space = get_world_2d().direct_space_state
@@ -91,6 +87,7 @@ func _ray_card() -> Card:
 	if r.is_empty():
 		return null
 	
+	r.sort_custom(_sort_highest_z)
 	return r[0].collider.get_parent()
 
 func try_place(card) -> void:
@@ -98,6 +95,7 @@ func try_place(card) -> void:
 		if in_zone.can_accept(card) and in_zone.is_mouse_inside():
 			in_zone.add_card(card)
 			card.placed = true
+			card.z_index = 1
 			return
 	
 	# fallback: return to original zone
@@ -107,11 +105,11 @@ func _handle_attack_click(card: MinionCard) -> void:
 	if selected_attacker == null:
 		if card.card_owner != CardBoard.Owner.PLAYER:
 			return
-
+		
 		selected_attacker = card
 		_highlight_attacker(card)
 		return
-
+		
 	if card.card_owner == CardBoard.Owner.ENEMY:
 		selected_attacker.attack(card)
 		_clear_attack_selection()
@@ -119,13 +117,12 @@ func _handle_attack_click(card: MinionCard) -> void:
 func _highlight_attacker(card: MinionCard) -> void:
 	card.scale = Vector2(1.15, 1.15)
 	card.z_index = 200
-	
+
 func _clear_attack_selection() -> void:
 	if selected_attacker:
 		selected_attacker.scale = Vector2.ONE
 		selected_attacker.z_index = 1
 	selected_attacker = null
 
-
-func sort_highest_z(a, b) -> bool:
+func _sort_highest_z(a, b) -> bool:
 	return a.collider.get_parent().z_index > b.collider.get_parent().z_index

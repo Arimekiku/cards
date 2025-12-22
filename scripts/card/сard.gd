@@ -4,6 +4,7 @@ class_name Card
 
 signal hovered(card)
 signal exited(card)
+signal drag_finished(card)
 
 var data: CardData
 var card_owner := CardBoard.Owner.PLAYER

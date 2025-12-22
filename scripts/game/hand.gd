@@ -28,10 +28,10 @@ func _update_positions() -> void:
 		_animate_card_pos(cards[i], pos)
 
 func _connect_card_signals(card: Card) -> void:
-	card.exited.connect(_on_exit_signal)
+	card.drag_finished.connect(_on_exit_signal)
 
 func _disconnect_card_signals(card: Card) -> void:
-	card.exited.disconnect(_on_exit_signal)
+	card.drag_finished.disconnect(_on_exit_signal)
 
 func _on_exit_signal(card: Card) -> void:
 	if (card.placed):
