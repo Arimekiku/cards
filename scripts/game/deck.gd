@@ -3,7 +3,7 @@ class_name Deck
 
 @export var number_label: Label
 @export var database: CardDatabase
-@export var start_cards := ["frost_frog", "fireball"]
+@export var start_cards := ["frost_frog", "fireball", "fireball", "frost_frog", "fireball", "frost_frog", "fireball", "frost_frog", "fireball", "frost_frog"]
 
 var cards: Array[CardData] = []
 

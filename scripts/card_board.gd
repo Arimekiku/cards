@@ -14,10 +14,10 @@ enum Owner { PLAYER, ENEMY }
 var cards: Array[Card] = []
 
 func _ready() -> void:
+	turn_manager.turn_changed.connect(on_turn_started)
 	if board_owner == Owner.PLAYER:
 		return;
 	
-	turn_manager.turn_changed.connect(on_turn_started)
 	
 	var card = game.create_card("frost_frog")
 	card.card_owner = Owner.ENEMY
@@ -89,7 +89,8 @@ func _on_card_died(card: Card) -> void:
 	remove_card(card)
 
 func on_turn_started(turn):
-	if turn == TurnManager.Turn.PLAYER and board_owner == owner.PLAYER:
+	if turn == board_owner:
 		for card in cards:
 			if card is MinionCard:
+				print(card)
 				card.has_attacked = false

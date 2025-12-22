@@ -10,6 +10,8 @@ var dragging: Card
 var grab_offset: Vector2
 var selected_attacker: MinionCard = null
 
+@export var turn_manager: TurnManager
+
 func _ready() -> void:
 	_screen_size = get_viewport_rect().size
 	zones = get_tree().get_nodes_in_group("card_zones")
@@ -34,7 +36,7 @@ func _input(event) -> void:
 			return
 
 			
-		if card.placed == false or card.card_owner == CardBoard.Owner.PLAYER:
+		if card.placed == false and card.card_owner == CardBoard.Owner.PLAYER and turn_manager.current_turn == turn_manager.Turn.PLAYER:
 			dragging = _ray_card()
 		if dragging != null:
 			grab_offset = dragging.global_position - get_global_mouse_position()
