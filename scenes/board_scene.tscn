@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dqab4dsyv7pix" path="res://scenes/cards/spell_card_prefab.tscn" id="3_7ftgl"]
 [ext_resource type="Script" uid="uid://c4gwy3gthofjs" path="res://scripts/game/deck.gd" id="3_gjmho"]
 [ext_resource type="Script" uid="uid://cdukqjfjgmfyg" path="res://scripts/card_board.gd" id="7_7182s"]
-[ext_resource type="Script" path="res://scripts/game/deck_metadata.gd" id="7_plioj"]
+[ext_resource type="Script" uid="uid://0j6060vw6o6s" path="res://scripts/game/deck_metadata.gd" id="7_plioj"]
 [ext_resource type="Texture2D" uid="uid://b8iqdf5sjq0cu" path="res://resources/images/icon.svg" id="7_ruw3y"]
 [ext_resource type="Script" uid="uid://crw7xwg3y1jlb" path="res://scripts/game/turn_manager.gd" id="10_7ftgl"]
 
@@ -16,10 +16,11 @@ script = ExtResource("7_plioj")
 cards = Array[String](["frost_frog", "fireball", "frost_frog", "fireball", "frost_frog", "fireball", "frost_frog", "fireball", "frost_frog", "fireball"])
 metadata/_custom_type_script = "uid://0j6060vw6o6s"
 
-[node name="board" type="Node2D"]
+[node name="board" type="Node2D" node_paths=PackedStringArray("turn_manager")]
 script = ExtResource("1_5fb3c")
 minion_card_scene = ExtResource("2_tpwpp")
 spell_card_scene = ExtResource("3_7ftgl")
+turn_manager = NodePath("turn_manager")
 
 [node name="turn_manager" type="Node2D" parent="." node_paths=PackedStringArray("player_board", "enemy_board")]
 script = ExtResource("10_7ftgl")
@@ -64,6 +65,28 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "number"
 
+[node name="enemy_deck" type="Node2D" parent="." node_paths=PackedStringArray("number_label")]
+unique_name_in_owner = true
+position = Vector2(71, 45)
+script = ExtResource("3_gjmho")
+number_label = NodePath("number")
+start_cards = SubResource("Resource_qbqua")
+owned = 1
+
+[node name="number" type="Label" parent="enemy_deck"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = 84.99
+offset_right = 31.0
+offset_bottom = 107.990005
+grow_horizontal = 2
+grow_vertical = 2
+text = "number"
+
 [node name="ui" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
@@ -81,24 +104,26 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Get Cards"
 
-[node name="board_player" type="Node2D" parent="." node_paths=PackedStringArray("game", "graphics", "turn_manager") groups=["card_zones"]]
+[node name="board_player" type="Node2D" parent="." node_paths=PackedStringArray("game", "graphics", "turn_manager", "deck") groups=["card_zones"]]
 position = Vector2(635, 311)
 script = ExtResource("7_7182s")
 game = NodePath("..")
 graphics = NodePath("graphics")
 turn_manager = NodePath("../turn_manager")
+deck = NodePath("../deck")
 
 [node name="graphics" type="Sprite2D" parent="board_player"]
 scale = Vector2(6, 1)
 texture = ExtResource("7_ruw3y")
 
-[node name="board_enemy" type="Node2D" parent="." node_paths=PackedStringArray("game", "graphics", "turn_manager") groups=["card_zones"]]
+[node name="board_enemy" type="Node2D" parent="." node_paths=PackedStringArray("game", "graphics", "turn_manager", "deck") groups=["card_zones"]]
 position = Vector2(633, 127)
 script = ExtResource("7_7182s")
 game = NodePath("..")
 graphics = NodePath("graphics")
 board_owner = 1
 turn_manager = NodePath("../turn_manager")
+deck = NodePath("../enemy_deck")
 
 [node name="graphics" type="Sprite2D" parent="board_enemy"]
 scale = Vector2(6, 1)

@@ -16,7 +16,7 @@ func setup(card_data: CardData) -> void:
 	health = data.card_context.health
 	damage = data.card_context.damage
 	
-	$graphics.texture = data.image
+	$graphics2.texture = data.image
 	#$NameLabel.text = data.name
 	#$CostLabel.text = str(data.cost)
 	_ui_update_health(health)

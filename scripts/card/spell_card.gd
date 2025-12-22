@@ -9,7 +9,7 @@ func setup(card_data: CardData) -> void:
 	
 	data = card_data
 	
-	$graphics.texture = data.image
+	$graphics2.texture = data.image
 	#$NameLabel.text = data.name
 	#$CostLabel.text = str(data.cost)
 	$interface/text_box/panel/text.text = data.card_context.description

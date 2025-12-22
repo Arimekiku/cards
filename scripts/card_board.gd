@@ -10,6 +10,7 @@ enum Owner { PLAYER, ENEMY }
 @export var spacing := 160.0
 @export var drop_radius := 200.0
 @export var turn_manager: TurnManager
+@export var deck: Deck
 
 var cards: Array[Card] = []
 
@@ -85,12 +86,12 @@ func update_highlight(card) -> void:
 
 func _on_card_died(card: Card) -> void:
 	remove_card(card)
+	deck.add_to_discard_pile(card)
 
 func on_turn_started(turn):
 	if turn != board_owner:
 		return
-	
+
 	for card in cards:
 		if card is MinionCard:
-			print(card)
 			card.has_attacked = false

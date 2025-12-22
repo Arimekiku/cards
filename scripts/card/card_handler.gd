@@ -11,6 +11,7 @@ var selected_attacker: MinionCard = null
 
 @export var hand: Hand
 @export var turn_manager: TurnManager
+@export var deck: Deck
 
 func _ready() -> void:
 	_screen_size = get_viewport_rect().size
@@ -34,9 +35,11 @@ func _input(event) -> void:
 		if dragging != null:
 			grab_offset = dragging.global_position - get_global_mouse_position()
 		
-		dragging.rotation = 0
+		if dragging != null:
+			dragging.rotation = 0
 	else:
 		if (dragging):
+			print(dragging)
 			try_place(dragging)
 			dragging.input_phase(event)
 			dragging.drag_finished.emit(dragging)

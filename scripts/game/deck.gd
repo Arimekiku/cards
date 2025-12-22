@@ -1,10 +1,14 @@
 extends Node
 class_name Deck
 
+enum Owner { PLAYER, ENEMY }
+
 @export var number_label: Label
 @export var start_cards: DeckMetadata
+@export var owned: Owner
 
 var cards: Array[CardData] = []
+var discard_pile: Array[CardData] = []
 
 func initialize_deck(initial_cards: DeckMetadata) -> void:
 	if initial_cards == null:
@@ -31,3 +35,13 @@ func draw_card() -> CardData:
 func _update_label() -> void:
 	if number_label:
 		number_label.text = str(cards.size())
+
+func add_to_discard_pile(card):
+	discard_pile.append(card)
+	print(discard_pile)
+
+func reshuffle():
+	if cards.is_empty():
+		discard_pile.shuffle()
+		cards = discard_pile
+		discard_pile = []

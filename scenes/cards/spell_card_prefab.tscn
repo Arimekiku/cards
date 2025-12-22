@@ -1,20 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqab4dsyv7pix"]
+[gd_scene load_steps=7 format=3 uid="uid://dqab4dsyv7pix"]
 
 [ext_resource type="Script" uid="uid://ch6be0t1k06kp" path="res://scripts/card/spell_card.gd" id="1_d81wr"]
-[ext_resource type="Texture2D" uid="uid://c3st5bg5o053g" path="res://resources/images/cards/card_clubs_02.png" id="2_d81wr"]
+[ext_resource type="Texture2D" uid="uid://cpi5bit0vlmu6" path="res://resources/images/card_base_spell.png" id="2_d81wr"]
+[ext_resource type="Texture2D" uid="uid://6bjp3vc5hu56" path="res://resources/images/cards/jaba.png" id="2_howen"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fb3c"]
 size = Vector2(136, 136)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_howen"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4ejio"]
+
 [node name="spell_card" type="Node2D"]
 script = ExtResource("1_d81wr")
 
+[node name="graphics2" type="Sprite2D" parent="."]
+scale = Vector2(0.07305089, 0.07305089)
+texture = ExtResource("2_howen")
+region_rect = Rect2(0, 0, 128, 128)
+
 [node name="graphics" type="Sprite2D" parent="."]
-scale = Vector2(9, 9)
+scale = Vector2(0.10574489, 0.10574489)
 texture = ExtResource("2_d81wr")
 region_rect = Rect2(0, 0, 128, 128)
 
 [node name="collision" type="Area2D" parent="."]
+scale = Vector2(0.63912684, 0.9885508)
 
 [node name="shape" type="CollisionShape2D" parent="collision"]
 shape = SubResource("RectangleShape2D_5fb3c")
@@ -46,17 +57,39 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_howen")
 
 [node name="text" type="RichTextLabel" parent="interface/text_box/panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 16.0
+offset_right = 1.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Test"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="cost_panel" type="Panel" parent="interface/text_box"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = -67.0
+offset_right = 59.0
+offset_bottom = -27.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4ejio")
+
+[node name="cost" type="RichTextLabel" parent="interface/text_box/cost_panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.7925472, 0.7925472)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "3"
 
 [connection signal="mouse_entered" from="collision" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="collision" to="." method="_on_area_2d_mouse_exited"]

@@ -13,7 +13,7 @@
 		},
 		"keywords": ["freeze"],
 		"tribes": ["amphibian", "beast", "frog"],
-		"image": "res://resources/images/cards/card_clubs_02.png"
+		"image": "res://resources/images/cards/jaba.png"
 	},
 	"fireball": {
 		"name": "Вогняна куля",
@@ -28,6 +28,6 @@
 				"value": 6
 			}
 		},
-		"image": "res://resources/images/cards/card_diamonds_07.png"
+		"image": "res://resources/images/cards/fireball.png"
 	}
 }

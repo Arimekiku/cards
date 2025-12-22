@@ -2,6 +2,7 @@ extends Node2D
 class_name Game
 
 @onready var deck := %deck
+@onready var enemy_deck := %enemy_deck
 @onready var hand := %hand
 @onready var card_handler := %card_handler
 
@@ -10,6 +11,8 @@ class_name Game
 
 @export var start_hand_size := 5
 
+@export var turn_manager: TurnManager
+
 var player_meta_cards: DeckMetadata
 
 func initialize_game(deck_metadata: DeckMetadata) -> void:
@@ -17,6 +20,7 @@ func initialize_game(deck_metadata: DeckMetadata) -> void:
 
 func _ready() -> void:
 	deck.initialize_deck(player_meta_cards)
+	turn_manager.turn_changed.connect(on_turn_started)
 	
 	_init_start_hand()
 
@@ -25,11 +29,14 @@ func _init_start_hand() -> void:
 
 func draw_start_hand() -> void:
 	for i in range(start_hand_size):
-		draw_card()
+		draw_card(deck)
 
-func draw_card() -> void:
-	var data: CardData = deck.draw_card()
-	if data == null:
+func draw_card(_deck: Deck) -> void:
+	var data: CardData = _deck.draw_card()
+	if data == null and not _deck.discard_pile.is_empty():
+		_deck.reshuffle()
+		data = _deck.draw_card()
+	elif data == null:
 		return
 	
 	var card: Card = create_card_from_data(data)
@@ -58,3 +65,11 @@ func create_card_from_data(value: CardData) -> Card:
 	
 	card.setup(value)
 	return card
+
+func on_turn_started(current_turn):
+	if current_turn == turn_manager.Turn.PLAYER:
+		for i in range(2):
+			draw_card(deck)
+	else:
+		print("enemy soslo")
+		pass
