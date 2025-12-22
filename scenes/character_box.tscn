@@ -1,0 +1,154 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy526pp72gwes"]
+
+[ext_resource type="Script" uid="uid://bxsuhq766wkyl" path="res://scripts/ui/character_box.gd" id="1_ncpeh"]
+[ext_resource type="PackedScene" uid="uid://dpi02ygq5eldg" path="res://scenes/card_panel.tscn" id="2_xbrlh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_15sjh"]
+
+[node name="character_box" type="Button"]
+custom_minimum_size = Vector2(200, 240)
+offset_right = 200.0
+offset_bottom = 240.0
+script = ExtResource("1_ncpeh")
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="character_box" type="VBoxContainer" parent="margin"]
+layout_mode = 2
+
+[node name="character_name" type="Label" parent="margin/character_box"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Character Name"
+horizontal_alignment = 1
+
+[node name="separator" type="HSeparator" parent="margin/character_box"]
+layout_mode = 2
+
+[node name="cards_scroller" type="ScrollContainer" parent="margin/character_box"]
+custom_minimum_size = Vector2(160, 200)
+layout_mode = 2
+
+[node name="cards_container" type="VBoxContainer" parent="margin/character_box/cards_scroller"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 200)
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="card_panel" parent="margin/character_box/cards_scroller/cards_container" instance=ExtResource("2_xbrlh")]
+layout_mode = 2
+
+[node name="card_panel2" type="PanelContainer" parent="margin/character_box/cards_scroller/cards_container"]
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+
+[node name="container" type="HBoxContainer" parent="margin/character_box/cards_scroller/cards_container/card_panel2"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="card_name" type="Label" parent="margin/character_box/cards_scroller/cards_container/card_panel2/container"]
+layout_mode = 2
+text = "Fireball"
+
+[node name="separator" type="VSeparator" parent="margin/character_box/cards_scroller/cards_container/card_panel2/container"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_15sjh")
+
+[node name="card_quatity" type="Label" parent="margin/character_box/cards_scroller/cards_container/card_panel2/container"]
+layout_mode = 2
+text = "x5"
+
+[node name="card_panel3" type="PanelContainer" parent="margin/character_box/cards_scroller/cards_container"]
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+
+[node name="container" type="HBoxContainer" parent="margin/character_box/cards_scroller/cards_container/card_panel3"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="card_name" type="Label" parent="margin/character_box/cards_scroller/cards_container/card_panel3/container"]
+layout_mode = 2
+text = "Fireball"
+
+[node name="separator" type="VSeparator" parent="margin/character_box/cards_scroller/cards_container/card_panel3/container"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_15sjh")
+
+[node name="card_quatity" type="Label" parent="margin/character_box/cards_scroller/cards_container/card_panel3/container"]
+layout_mode = 2
+text = "x5"
+
+[node name="card_panel4" type="PanelContainer" parent="margin/character_box/cards_scroller/cards_container"]
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+
+[node name="container" type="HBoxContainer" parent="margin/character_box/cards_scroller/cards_container/card_panel4"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="card_name" type="Label" parent="margin/character_box/cards_scroller/cards_container/card_panel4/container"]
+layout_mode = 2
+text = "Fireball"
+
+[node name="separator" type="VSeparator" parent="margin/character_box/cards_scroller/cards_container/card_panel4/container"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_15sjh")
+
+[node name="card_quatity" type="Label" parent="margin/character_box/cards_scroller/cards_container/card_panel4/container"]
+layout_mode = 2
+text = "x5"
+
+[node name="card_panel5" type="PanelContainer" parent="margin/character_box/cards_scroller/cards_container"]
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+
+[node name="container" type="HBoxContainer" parent="margin/character_box/cards_scroller/cards_container/card_panel5"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="card_name" type="Label" parent="margin/character_box/cards_scroller/cards_container/card_panel5/container"]
+layout_mode = 2
+text = "Fireball"
+
+[node name="separator" type="VSeparator" parent="margin/character_box/cards_scroller/cards_container/card_panel5/container"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_15sjh")
+
+[node name="card_quatity" type="Label" parent="margin/character_box/cards_scroller/cards_container/card_panel5/container"]
+layout_mode = 2
+text = "x5"
+
+[node name="card_panel6" type="PanelContainer" parent="margin/character_box/cards_scroller/cards_container"]
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+
+[node name="container" type="HBoxContainer" parent="margin/character_box/cards_scroller/cards_container/card_panel6"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="card_name" type="Label" parent="margin/character_box/cards_scroller/cards_container/card_panel6/container"]
+layout_mode = 2
+text = "Fireball"
+
+[node name="separator" type="VSeparator" parent="margin/character_box/cards_scroller/cards_container/card_panel6/container"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_15sjh")
+
+[node name="card_quatity" type="Label" parent="margin/character_box/cards_scroller/cards_container/card_panel6/container"]
+layout_mode = 2
+text = "x5"

@@ -1,24 +1,26 @@
 extends Node
-class_name CardDatabase
 
-static var CARD_FACTORY_TYPES = {
+var CARD_FACTORY_TYPES = {
 	"creature": MinionContext,
 	"spell": SpellContext
 }
 
-static var EFFECT_FACTORY_TYPES = {
+var EFFECT_FACTORY_TYPES = {
 	"print_effect": PrintEffect,
 	"damage_effect": DamageEffect
 }
 
 @export var json_path := "res://data/cards.json"
 
-var cards_registry: Dictionary = {} # id -> CardData
+var _cards_registry: Dictionary[String, CardData]
 
 func _ready() -> void:
-	load_cards()
+	_load_cards()
 
-func load_cards() -> void:
+func get_from_registry(value: String) -> CardData:
+	return _cards_registry.get(value, null)
+
+func _load_cards() -> void:
 	var file := FileAccess.open(json_path, FileAccess.READ)
 	if file == null:
 		push_error("Cannot open cards.json")
@@ -30,7 +32,7 @@ func load_cards() -> void:
 		return
 	
 	for id in parsed.keys():
-		cards_registry[id] = _create_card_data(parsed[id])
+		_cards_registry[id] = _create_card_data(parsed[id])
 
 func _create_card_data(raw: Dictionary) -> CardData:
 	var card := CardData.new()

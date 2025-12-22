@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=3 uid="uid://gar4rg447l67"]
+
+[ext_resource type="Texture2D" uid="uid://djhxxsb7e5423" path="res://resources/images/keeper.jpg" id="1_270n5"]
+[ext_resource type="Script" uid="uid://38dj3vlwn8nk" path="res://scripts/tools/ghost.gd" id="2_wvtlg"]
+[ext_resource type="Script" uid="uid://uoc5ytv15u5" path="res://scripts/ui/buttons/button_switch_scene.gd" id="3_qbere"]
+[ext_resource type="Script" uid="uid://68yb4l6cegys" path="res://scripts/ui/buttons/button_exit_game.gd" id="5_vuyu4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bqqt6"]
+texture = ExtResource("1_270n5")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_y1qnp"]
+script = ExtResource("2_wvtlg")
+metadata/_custom_type_script = "uid://38dj3vlwn8nk"
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="bg" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_bqqt6")
+
+[node name="title" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "[ghost freq=5.0 span=10.0][wave]NOT HEARTSTONE[/wave][/ghost]"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_y1qnp")]
+
+[node name="buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -15.5
+offset_right = 21.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="start_button" type="Button" parent="buttons"]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+text = "Play"
+script = ExtResource("3_qbere")
+switch_scene = 2
+
+[node name="options_button" type="Button" parent="buttons"]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+text = "Options"
+script = ExtResource("3_qbere")
+switch_scene = 1
+
+[node name="exit_button" type="Button" parent="buttons"]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+text = "Exit"
+script = ExtResource("5_vuyu4")

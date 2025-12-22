@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CharacterMetadata" load_steps=4 format=3 uid="uid://lr5dymyb86cf"]
+
+[ext_resource type="Script" uid="uid://0j6060vw6o6s" path="res://scripts/game/deck_metadata.gd" id="1_exkj0"]
+[ext_resource type="Script" uid="uid://cdrnx4slri5l6" path="res://scripts/game/character.gd" id="2_yala5"]
+
+[sub_resource type="Resource" id="Resource_iwspc"]
+script = ExtResource("1_exkj0")
+cards = Array[String](["fireball", "fireball", "fireball", "fireball", "frost_frog", "frost_frog", "frost_frog", "fireball", "fireball", "frost_frog", "frost_frog", "frost_frog", "fireball", "fireball"])
+metadata/_custom_type_script = "uid://0j6060vw6o6s"
+
+[resource]
+script = ExtResource("2_yala5")
+character_name = "Big D"
+deck = SubResource("Resource_iwspc")
+metadata/_custom_type_script = "uid://cdrnx4slri5l6"

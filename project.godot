@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="cards"
-run/main_scene="uid://4npx47ha3xu8"
+run/main_scene="uid://gar4rg447l67"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://resources/images/icon.svg"
+
+[autoload]
+
+CardDatabase="*res://scripts/loaders/card_database.gd"
+Scenes="*res://scripts/utils/scenes.gd"
 
 [editor]
 

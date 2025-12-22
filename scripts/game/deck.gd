@@ -2,21 +2,18 @@ extends Node
 class_name Deck
 
 @export var number_label: Label
-@export var database: CardDatabase
-@export var start_cards := ["frost_frog", "fireball"]
+@export var start_cards: DeckMetadata
 
 var cards: Array[CardData] = []
 
 func _ready() -> void:
-	if database == null:
-		database = get_parent().get_node_or_null("CardDatabase")
-	
-	if database == null:
-		push_error("Deck: CardDatabase not found")
-		return
-
-	for id in start_cards:
-		cards.append(database.cards_registry[id])
+	for id in start_cards.cards:
+		var data = CardDatabase.get_from_registry(id)
+		if data == null:
+			push_error("Can't get requested card of type %s!" % id)
+			continue
+		
+		cards.append(data)
 	
 	_update_label()
 

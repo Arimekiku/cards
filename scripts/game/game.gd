@@ -4,12 +4,14 @@ class_name Game
 @export var deck: Deck
 @export var hand: Hand
 @export var card_handler: CardHandler
-@export var database: CardDatabase
 
 @export var minion_card_scene: PackedScene
 @export var spell_card_scene: PackedScene
 
 @export var start_hand_size := 5
+
+func initialize_game(deck_metadata: DeckMetadata) -> void:
+	deck.start_cards = deck_metadata
 
 func _ready() -> void:
 	_init_start_hand()
@@ -31,7 +33,7 @@ func draw_card() -> void:
 	hand.add_card(card)
 
 func create_card(value: String) -> Card:
-	var data = database.cards_registry[value]
+	var data = CardDatabase.get_from_registry(value)
 	if data == null:
 		push_error("Unable to retrieve data from key: %s" % value)
 		return null
