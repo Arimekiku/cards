@@ -35,11 +35,9 @@ func _input(event) -> void:
 		if dragging != null:
 			grab_offset = dragging.global_position - get_global_mouse_position()
 		
-		if dragging != null:
-			dragging.rotation = 0
+		dragging.rotation = 0
 	else:
 		if (dragging):
-			print(dragging)
 			try_place(dragging)
 			dragging.input_phase(event)
 			dragging.drag_finished.emit(dragging)

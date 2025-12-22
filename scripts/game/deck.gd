@@ -37,8 +37,8 @@ func _update_label() -> void:
 		number_label.text = str(cards.size())
 
 func add_to_discard_pile(card):
-	discard_pile.append(card)
-	print(discard_pile)
+	discard_pile.append(card.data)
+	print(discard_pile, card.data)
 
 func reshuffle():
 	if cards.is_empty():
