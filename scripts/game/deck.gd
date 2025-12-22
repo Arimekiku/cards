@@ -6,8 +6,11 @@ class_name Deck
 
 var cards: Array[CardData] = []
 
-func _ready() -> void:
-	for id in start_cards.cards:
+func initialize_deck(initial_cards: DeckMetadata) -> void:
+	if initial_cards == null:
+		initial_cards = start_cards
+	
+	for id in initial_cards.cards:
 		var data = CardDatabase.get_from_registry(id)
 		if data == null:
 			push_error("Can't get requested card of type %s!" % id)

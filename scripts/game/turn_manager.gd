@@ -17,7 +17,6 @@ func end_turn():
 	current_turn = Turn.ENEMY if current_turn == Turn.PLAYER else Turn.PLAYER
 	emit_signal("turn_changed", current_turn)
 
-
 func _on_button_pressed() -> void:
 	if current_turn == Turn.PLAYER:
 		end_turn()

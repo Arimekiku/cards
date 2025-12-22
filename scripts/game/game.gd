@@ -1,19 +1,23 @@
 extends Node2D
 class_name Game
 
-@export var deck: Deck
-@export var hand: Hand
-@export var card_handler: CardHandler
+@onready var deck := %deck
+@onready var hand := %hand
+@onready var card_handler := %card_handler
 
 @export var minion_card_scene: PackedScene
 @export var spell_card_scene: PackedScene
 
 @export var start_hand_size := 5
 
+var player_meta_cards: DeckMetadata
+
 func initialize_game(deck_metadata: DeckMetadata) -> void:
-	deck.start_cards = deck_metadata
+	player_meta_cards = deck_metadata
 
 func _ready() -> void:
+	deck.initialize_deck(player_meta_cards)
+	
 	_init_start_hand()
 
 func _init_start_hand() -> void:
@@ -24,11 +28,11 @@ func draw_start_hand() -> void:
 		draw_card()
 
 func draw_card() -> void:
-	var data := deck.draw_card()
+	var data: CardData = deck.draw_card()
 	if data == null:
 		return
 	
-	var card := create_card_from_data(data)
+	var card: Card = create_card_from_data(data)
 	card_handler.connect_card(card)
 	hand.add_card(card)
 
