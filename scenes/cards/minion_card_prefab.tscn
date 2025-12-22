@@ -42,8 +42,8 @@ mouse_filter = 2
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_left = 81.0
-offset_right = 121.0
+offset_left = 80.0
+offset_right = 120.0
 grow_vertical = 2
 
 [node name="health" type="RichTextLabel" parent="interface/text_box/health_panel"]
@@ -60,8 +60,14 @@ vertical_alignment = 1
 [node name="damage_panel" type="Panel" parent="interface/text_box"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 1
-offset_right = 40.0
-offset_bottom = 60.0
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_right = -80.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="damage" type="RichTextLabel" parent="interface/text_box/damage_panel"]
 layout_mode = 1

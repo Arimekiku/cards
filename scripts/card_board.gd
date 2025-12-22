@@ -9,12 +9,15 @@ enum Owner { PLAYER, ENEMY }
 @export var max_cards := 7
 @export var spacing := 160.0
 @export var drop_radius := 200.0
+@export var turn_manager: TurnManager
 
 var cards: Array[Card] = []
 
 func _ready() -> void:
+	turn_manager.turn_changed.connect(on_turn_started)
 	if board_owner == Owner.PLAYER:
 		return;
+	
 	
 	var card = game.create_card("frost_frog")
 	card.card_owner = Owner.ENEMY
@@ -31,6 +34,7 @@ func add_card(card: Card) -> bool:
 		return false
 	
 	cards.append(card)
+	card.died.connect(_on_card_died)
 	var parent = card.get_parent()
 	if parent:
 		parent.remove_child(card)
@@ -40,8 +44,10 @@ func add_card(card: Card) -> bool:
 	return true
 
 func remove_card(card: Card) -> void:
-	cards.erase(card)
+	if cards.has(card):
+		cards.erase(card)
 	layout()
+
 
 func layout() -> void:
 	var count := cards.size()
@@ -78,3 +84,13 @@ func update_highlight(card) -> void:
 		return
 	
 	graphics.self_modulate = Color.GREEN if can_accept(card) else Color.RED
+
+func _on_card_died(card: Card) -> void:
+	remove_card(card)
+
+func on_turn_started(turn):
+	if turn == board_owner:
+		for card in cards:
+			if card is MinionCard:
+				print(card)
+				card.has_attacked = false
