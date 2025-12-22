@@ -39,14 +39,15 @@ script = ExtResource("1_4msxo")
 hand = NodePath("../hand")
 turn_manager = NodePath("../turn_manager")
 
-[node name="hand" type="Node2D" parent="."]
+[node name="hand" type="Node2D" parent="." node_paths=PackedStringArray("deck")]
 unique_name_in_owner = true
 script = ExtResource("2_5fb3c")
 max_total_spread = 90.0
+deck = NodePath("../deck")
 
 [node name="deck" type="Node2D" parent="." node_paths=PackedStringArray("number_label")]
 unique_name_in_owner = true
-position = Vector2(71, 45)
+position = Vector2(73, 208)
 script = ExtResource("3_gjmho")
 number_label = NodePath("number")
 start_cards = SubResource("Resource_qbqua")

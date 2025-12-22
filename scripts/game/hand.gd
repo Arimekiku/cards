@@ -12,6 +12,8 @@ class_name Hand
 @export var max_total_spread: float = 60.0
 @export var animation_speed: float = 0.2
 
+@export var deck: Deck
+
 var hand_center: Vector2 
 var cards: Array[Card] = []
 
@@ -29,6 +31,8 @@ func add_card(card: Card) -> void:
 
 func remove_card(card: Card) -> void:
 	cards.erase(card)
+	if card is SpellCard:
+		deck.add_to_discard_pile(card)
 	remove_child(card)
 	update_hand_visuals()
 	_disconnect_card_signals(card)
