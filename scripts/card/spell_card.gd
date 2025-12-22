@@ -25,6 +25,7 @@ func cast_spell(card: Card) -> void:
 	for effect in data.effects:
 		effect.resolve(card)
 	
+	died.emit(self)
 	queue_free()
 
 func _ray_card() -> Card:
@@ -38,9 +39,8 @@ func _ray_card() -> Card:
 	if r.is_empty():
 		return null
 	
-	var result = r.find_custom(not_self)
+	var result = r.find_custom(_not_self)
 	return r[result].collider.get_parent()
 
-
-func not_self(value) -> bool:
+func _not_self(value) -> bool:
 	return value.collider.get_parent() != self

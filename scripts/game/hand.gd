@@ -1,54 +1,87 @@
 extends Node2D
 class_name Hand
 
+@export_group("Logic")
 @export var max_count := 8
 @export var card_width := 140
 @export var hand_y := 480
 
+@export_group("Animation")
+@export var hand_radius: float = 1000.0
+@export var card_angle_spread: float = 5.0
+@export var max_total_spread: float = 60.0
+@export var animation_speed: float = 0.2
+
+var hand_center: Vector2 
 var cards: Array[Card] = []
 
+func _ready():
+	var screen_size = get_viewport_rect().size
+	hand_center = Vector2(screen_size.x / 2, screen_size.y + hand_radius - 100)
+
 func add_card(card: Card) -> void:
-	if cards.size() >= max_count:
-		return
+	if cards.size() >= max_count: return
 
 	cards.append(card)
 	add_child(card)
+	update_hand_visuals()
 	_connect_card_signals(card)
-	_update_positions()
 
 func remove_card(card: Card) -> void:
 	cards.erase(card)
 	remove_child(card)
+	update_hand_visuals()
 	_disconnect_card_signals(card)
-	_update_positions()
-
-func _update_positions() -> void:
-	for i in cards.size():
-		var pos := _calculate_card_pos(i)
-		_animate_card_pos(cards[i], pos)
 
 func _connect_card_signals(card: Card) -> void:
 	card.drag_finished.connect(_on_exit_signal)
+	card.died.connect(remove_card)
 
 func _disconnect_card_signals(card: Card) -> void:
 	card.drag_finished.disconnect(_on_exit_signal)
+	card.died.disconnect(remove_card)
 
 func _on_exit_signal(card: Card) -> void:
 	if (card.placed):
 		return
 	
 	var index = cards.find(card)
-	var pos = _calculate_card_pos(index)
-	_animate_card_pos(card, pos)
-
-func _animate_card_pos(card: Node2D, pos: Vector2) -> void:
-	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", pos, 0.1)
-
-func _calculate_card_pos(index: int) -> Vector2:
-	var total_width = (cards.size() - 1) * card_width
-	var center_screen_x = get_viewport_rect().size.x / 2
+	var card_count = cards.size()
+	var current_spread = min(card_count * card_angle_spread, max_total_spread)
+	var angle_step = deg_to_rad(current_spread) / (card_count - 1)
+	var start_angle = deg_to_rad(-90) - (deg_to_rad(current_spread) / 2)
+	var current_angle = start_angle + (angle_step * index)
+	var target_pos = Vector2(
+		hand_center.x + hand_radius * cos(current_angle),
+		hand_center.y + hand_radius * sin(current_angle)
+	)
+	var target_rotation = current_angle + PI/2 
 	
-	var x_offset = center_screen_x + index * card_width - total_width / 2.
-	var y_offset = hand_y
-	return Vector2(x_offset, y_offset)
+	animate_card_to_position(card, target_pos, target_rotation)
+
+func update_hand_visuals():
+	var card_count = cards.size()
+	if card_count == 0: return
+
+	var current_spread = min(card_count * card_angle_spread, max_total_spread)
+	var angle_step = 0
+	if card_count > 1: angle_step = deg_to_rad(current_spread) / (card_count - 1)
+	
+	var start_angle = deg_to_rad(-90) - (deg_to_rad(current_spread) / 2)
+
+	for i in range(card_count):
+		var card = cards[i]
+		var current_angle = start_angle + (angle_step * i)
+		var target_pos = Vector2(
+			hand_center.x + hand_radius * cos(current_angle),
+			hand_center.y + hand_radius * sin(current_angle)
+		)
+		var target_rotation = current_angle + PI/2 
+		
+		animate_card_to_position(card, target_pos, target_rotation)
+
+func animate_card_to_position(card, target_pos, target_rot):
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(card, "global_position", target_pos, animation_speed)
+	tween.parallel().tween_property(card, "rotation", target_rot, animation_speed)

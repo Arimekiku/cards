@@ -4,6 +4,7 @@ class_name Card
 
 signal hovered(card)
 signal exited(card)
+signal died(card)
 signal drag_finished(card)
 
 var data: CardData
@@ -15,7 +16,7 @@ var placed := false
 @abstract func input_phase(event: InputEventMouseButton) -> void
 
 func _on_area_2d_mouse_entered() -> void:
-	emit_signal("hovered", self)
+	hovered.emit(self)
 
 func _on_area_2d_mouse_exited() -> void:
-	emit_signal("exited", self)
+	exited.emit(self)
