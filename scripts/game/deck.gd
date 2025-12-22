@@ -4,6 +4,7 @@ class_name Deck
 enum Owner { PLAYER, ENEMY }
 
 @export var number_label: Label
+@export var discard_label: Label
 @export var start_cards: DeckMetadata
 @export var owned: Owner
 
@@ -35,10 +36,12 @@ func draw_card() -> CardData:
 func _update_label() -> void:
 	if number_label:
 		number_label.text = str(cards.size())
+	if discard_label:
+		discard_label.text = str(discard_pile.size())
 
 func add_to_discard_pile(card):
 	discard_pile.append(card.data)
-	print(discard_pile, card.data)
+	_update_label()
 
 func reshuffle():
 	if cards.is_empty():
