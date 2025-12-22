@@ -28,8 +28,11 @@ func _input(event) -> void:
 			return
 			
 		if card is MinionCard and card.placed:
+			if card.has_attacked:
+				return
 			_handle_attack_click(card)
 			return
+
 			
 		if card.placed == false or card.card_owner == CardBoard.Owner.PLAYER:
 			dragging = _ray_card()

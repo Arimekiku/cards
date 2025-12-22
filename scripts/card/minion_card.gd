@@ -4,6 +4,7 @@ class_name MinionCard
 var health: int
 var damage: int
 var attacking := false
+var has_attacked := false
 
 signal died(card)
 
@@ -43,7 +44,12 @@ func _ray_minion() -> MinionCard:
 	
 	return null
 
-func attack(target: MinionCard) -> void:
+func attack(target: MinionCard):
+	if has_attacked:
+		return
+
+	has_attacked = true
+	
 	target.take_damage(damage)
 
 func take_damage(value: int) -> void:
