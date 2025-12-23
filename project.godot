@@ -42,6 +42,7 @@ right_mouse={
 [layer_names]
 
 2d_physics/layer_3="enemies"
+2d_physics/layer_4="allies"
 
 [rendering]
 

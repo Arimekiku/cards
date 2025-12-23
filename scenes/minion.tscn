@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=3 uid="uid://c22whlxirxvqy"]
+
+[ext_resource type="Script" uid="uid://du1y1qmodf36l" path="res://scripts/minion.gd" id="1_1ddg2"]
+[ext_resource type="Shader" uid="uid://bs15jvlh5m8do" path="res://resources/circle_cutout.gdshader" id="1_b4arb"]
+[ext_resource type="Texture2D" uid="uid://6bjp3vc5hu56" path="res://resources/images/cards/jaba.png" id="2_1ddg2"]
+[ext_resource type="Texture2D" uid="uid://80e3xy0r683c" path="res://resources/images/outline_battle.png" id="3_qqrhl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b4arb"]
+size = Vector2(76, 77)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ll15l"]
+shader = ExtResource("1_b4arb")
+shader_parameter/offset = Vector2(-0.1, -0.1)
+
+[node name="minion" type="Control"]
+custom_minimum_size = Vector2(80, 100)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_1ddg2")
+
+[node name="collider_detector" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 8
+
+[node name="collision" type="CollisionShape2D" parent="collider_detector"]
+position = Vector2(38, 38.5)
+shape = SubResource("RectangleShape2D_b4arb")
+
+[node name="mask" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="character_icon" type="TextureRect" parent="mask"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ll15l")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1ddg2")
+expand_mode = 1
+
+[node name="battle_outline" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_qqrhl")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="damage" type="Label" parent="battle_outline"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -46.0
+offset_right = 27.0
+offset_bottom = -22.0
+grow_vertical = 0
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="health" type="Label" parent="battle_outline"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -46.0
+offset_bottom = -22.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1

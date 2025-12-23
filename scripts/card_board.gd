@@ -4,49 +4,47 @@ class_name CardBoard
 @export var game: Game
 @export var graphics : Sprite2D
 @export var board_owner := Enums.CharacterType.PLAYER
-@export var max_cards := 7
+@export var max_minions := 7
 @export var spacing := 160.0
 @export var drop_radius := 200.0
 @export var turn_manager: TurnManager
 @export var deck: Deck
 
-var cards: Array[Card] = []
+var minions: Array[Minion] = []
 
 func _ready() -> void:
 	turn_manager.turn_changed.connect(on_turn_started)
-	if board_owner == Enums.CharacterType.PLAYER:
-		return;
+	if board_owner == Enums.CharacterType.PLAYER: return;
 	
-	var card = game.create_card("frost_frog")
-	card.card_owner = Enums.CharacterType.ENEMY
-	add_card(card)
-	var card2 = game.create_card("frost_frog")
-	card2.card_owner = Enums.CharacterType.ENEMY
-	add_card(card2)
-	var card3 = game.create_card("frost_frog")
-	card3.card_owner = Enums.CharacterType.ENEMY
-	add_card(card3)
+	var minion := game.create_minion("frost_frog")
+	minion.minion_owner = Enums.CharacterType.ENEMY
+	add_card(minion)
+	var minion2 := game.create_minion("frost_frog")
+	minion2.minion_owner = Enums.CharacterType.ENEMY
+	add_card(minion2)
+	var minion3 := game.create_minion("frost_frog")
+	minion3.minion_owner = Enums.CharacterType.ENEMY
+	add_card(minion3)
 
-func add_card(card: Card) -> bool:
-	if cards.size() >= max_cards:
+func add_card(minion: Minion) -> bool:
+	if minions.size() >= max_minions:
 		return false
 	
-	cards.append(card)
-	card.died_event.connect(_on_card_died)
-	var parent = card.get_parent()
+	minions.append(minion)
+	minion.died_event.connect(_on_card_died)
+	var parent = minion.get_parent()
 	if parent:
-		parent.remove_child(card)
-	add_child(card)
+		parent.remove_child(minion)
+	add_child(minion)
 	layout()
 	return true
 
-func remove_card(card: Card) -> void:
-	if cards.has(card):
-		cards.erase(card)
+func remove_card(minion: Minion) -> void:
+	if minions.has(minion): minions.erase(minion)
 	layout()
 
 func layout() -> void:
-	var count := cards.size()
+	var count := minions.size()
 	if count == 0:
 		return
 	
@@ -54,22 +52,21 @@ func layout() -> void:
 	var start_x = -total_width / 2.0
 	
 	for i in count:
+		var offset := minions[i].size / 2
 		var target := Vector2(global_position.x + start_x + i * spacing, global_position.y)
-		animate_card(cards[i], target)
+		animate_minion(minions[i], target - offset)
 
-func animate_card(card: Card, target: Vector2) -> void:
+func animate_minion(minion: Minion, target: Vector2) -> void:
 	var tween = create_tween()
-	tween.tween_property(card, "global_position", target, 0.25)\
+	tween.tween_property(minion, "global_position", target, 0.25)\
 	.set_trans(Tween.TRANS_QUAD)\
 	.set_ease(Tween.EASE_OUT)
 
-func can_accept(card: Card) -> bool:
-	if card.card_owner != board_owner:
-		return false
-	if card.data.card_context.get_card_type() == CardContext.CardType.SPELL:
+func can_accept(minion: Minion) -> bool:
+	if minion.card_owner != board_owner:
 		return false
 	
-	return cards.size() < max_cards
+	return minions.size() < max_minions
 
 func is_mouse_inside() -> bool:
 	return global_position.distance_to(get_global_mouse_position()) < drop_radius
@@ -81,14 +78,13 @@ func update_highlight(card) -> void:
 	
 	graphics.self_modulate = Color.GREEN if can_accept(card) else Color.RED
 
-func _on_card_died(card: Card) -> void:
-	remove_card(card)
-	deck.add_to_discard_pile(card)
+func _on_card_died(minion: Minion) -> void:
+	remove_card(minion)
+	deck.add_to_discard_pile(minion)
 
 func on_turn_started(turn):
 	if turn != board_owner:
 		return
 
-	for card in cards:
-		if card is MinionCard:
-			card.has_attacked = false
+	for minion in minions:
+		minion.has_attacked = false

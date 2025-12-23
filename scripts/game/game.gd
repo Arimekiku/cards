@@ -8,6 +8,7 @@ class_name Game
 
 @export var minion_card_scene: PackedScene
 @export var spell_card_scene: PackedScene
+@export var minion_scene: PackedScene
 
 @export var start_hand_size := 5
 
@@ -43,7 +44,7 @@ func draw_card(_deck: Deck) -> void:
 	hand.add_card(card)
 
 func create_card(value: String) -> Card:
-	var data = CardDatabase.get_from_registry(value)
+	var data := CardDatabase.get_from_registry(value)
 	if data == null:
 		push_error("Unable to retrieve data from key: %s" % value)
 		return null
@@ -64,6 +65,19 @@ func create_card_from_data(value: CardData) -> Card:
 	
 	card.setup(value)
 	return card
+
+func create_minion(value: String) -> Minion:
+	var data := CardDatabase.get_from_registry(value)
+	if data == null or data.card_context.get_card_type() != CardContext.CardType.MINION:
+		push_error("Unable to retrieve data from key: %s" % value)
+		return null
+	
+	return create_minion_from_data(data)
+
+func create_minion_from_data(value: CardData) -> Minion:
+	var minion: Minion = minion_scene.instantiate()
+	minion.setup(value)
+	return minion
 
 func on_turn_started(current_turn):
 	if current_turn == turn_manager.Turn.PLAYER:

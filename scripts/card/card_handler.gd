@@ -1,72 +1,27 @@
-extends Node2D
 class_name CardHandler
+extends Node2D
 
-const COLLISION_MASK_I := 1
-
-var _screen_size: Vector2
-var zones: Array[Node]
-var dragging: Card
-var grab_offset: Vector2
-var selected_attacker: MinionCard = null
+const COLLISION_MASK_I := 4
 
 @export var hand: Hand
 @export var turn_manager: TurnManager
 
-func _ready() -> void:
-	_screen_size = get_viewport_rect().size
-	zones = get_tree().get_nodes_in_group("card_zones")
+var selected_attacker: Minion
 
 func _input(event) -> void:
-	return
-	
 	if event is not InputEventMouseButton: return
-	if  event.button_index != MOUSE_BUTTON_LEFT: return
+	if event.button_index != MOUSE_BUTTON_LEFT: return
 	
 	if event.pressed:
-		var card = _ray_card()
-		if card == null: return
+		var potential_minion = _ray_minion()
+		if potential_minion == null: return
 			
-		if card is MinionCard and card.placed:
-			if card.has_attacked: return
-			_handle_attack_click(card)
+		if potential_minion is Minion:
+			if potential_minion.has_attacked: return
+			_handle_attack_click(potential_minion)
 			return
-			
-		if card.placed == false and card.card_owner == Enums.CharacterType.PLAYER and turn_manager.current_turn == turn_manager.Turn.PLAYER:
-			dragging = _ray_card()
-		if dragging != null:
-			grab_offset = dragging.global_position - get_global_mouse_position()
-		
-		dragging.rotation = 0
-	else:
-		if (dragging):
-			try_place(dragging)
-			dragging.input_phase(event)
-			dragging.drag_finished.emit(dragging)
-		
-		dragging = null
-	
-	for zone in zones:
-		zone.update_highlight(dragging)
 
-func _process(_delta) -> void:
-	if dragging == null or dragging.get_parent() is not Hand: return
-	
-	var target_pos = get_global_mouse_position() + grab_offset
-	dragging.global_position = target_pos
-
-func _on_hover(card: Card) -> void:
-	if dragging: return
-	
-	card.scale = Vector2(1.05, 1.05)
-	card.z_index = 100
-
-func _on_exit(card: Card) -> void:
-	if dragging: return
-	
-	card.scale = Vector2.ONE
-	card.z_index = 1
-
-func _ray_card() -> Card:
+func _ray_minion() -> Minion:
 	var space = get_world_2d().direct_space_state
 	var q := PhysicsPointQueryParameters2D.new()
 	q.position = get_global_mouse_position()
@@ -85,9 +40,6 @@ func try_place(card) -> void:
 			hand.remove_card(card)
 			in_zone.add_card(card)
 			
-			card.hovered.disconnect(_on_hover)
-			card.exited.disconnect(_on_exit)
-			
 			card.placed = true
 			card.scale = Vector2.ONE
 			card.z_index = 1
@@ -96,7 +48,7 @@ func try_place(card) -> void:
 	# fallback: return to original zone
 	#zone.layout()
 
-func _handle_attack_click(card: MinionCard) -> void:
+func _handle_attack_click(card: Minion) -> void:
 	if selected_attacker == null:
 		if card.card_owner != Enums.CharacterType.PLAYER: return
 		
@@ -117,7 +69,7 @@ func _highlight_enemies(color: Color) -> void:
 		for card in in_zone.cards:
 			card.modulate = color
 
-func _highlight_attacker(card: MinionCard) -> void:
+func _highlight_attacker(card: Minion) -> void:
 	card.scale = Vector2(1.15, 1.15)
 	card.z_index = 200
 

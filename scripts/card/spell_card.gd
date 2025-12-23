@@ -19,7 +19,6 @@ func setup(card_data: CardData) -> void:
 	state_machine = CardStateMachine.new(self, states, CardIdleState)
 	
 	data = card_data
-	
 	%portrait_image.texture = data.image
 	#$NameLabel.text = data.name
 	%cost_text.text = str(data.cost)
@@ -40,9 +39,9 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	super()
 
-func cast_spell(card: Card) -> void:
+func cast_spell(minion: Minion) -> void:
 	for effect in data.effects:
-		effect.resolve(card)
+		effect.resolve(minion)
 	
 	died_event.emit(self)
 	queue_free()

@@ -4,7 +4,7 @@ class_name DamageEffect
 @export var value: int
 
 func resolve(context) -> void:
-	if context is not MinionCard:
+	if context is not Minion:
 		printerr("Invalid spell context in DamageEffect")
 		return
 	

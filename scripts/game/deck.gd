@@ -37,8 +37,8 @@ func _update_label() -> void:
 	if discard_label:
 		discard_label.text = str(discard_pile.size())
 
-func add_to_discard_pile(card):
-	discard_pile.append(card.data)
+func add_to_discard_pile(context):
+	discard_pile.append(context.data)
 	_update_label()
 
 func reshuffle():
