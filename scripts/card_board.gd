@@ -1,11 +1,9 @@
 extends Node2D
 class_name CardBoard
 
-enum Owner { PLAYER, ENEMY }
-
 @export var game: Game
 @export var graphics : Sprite2D
-@export var board_owner := Owner.PLAYER
+@export var board_owner := Enums.CharacterType.PLAYER
 @export var max_cards := 7
 @export var spacing := 160.0
 @export var drop_radius := 200.0
@@ -16,17 +14,17 @@ var cards: Array[Card] = []
 
 func _ready() -> void:
 	turn_manager.turn_changed.connect(on_turn_started)
-	if board_owner == Owner.PLAYER:
+	if board_owner == Enums.CharacterType.PLAYER:
 		return;
 	
 	var card = game.create_card("frost_frog")
-	card.card_owner = Owner.ENEMY
+	card.card_owner = Enums.CharacterType.ENEMY
 	add_card(card)
 	var card2 = game.create_card("frost_frog")
-	card2.card_owner = Owner.ENEMY
+	card2.card_owner = Enums.CharacterType.ENEMY
 	add_card(card2)
 	var card3 = game.create_card("frost_frog")
-	card3.card_owner = Owner.ENEMY
+	card3.card_owner = Enums.CharacterType.ENEMY
 	add_card(card3)
 
 func add_card(card: Card) -> bool:

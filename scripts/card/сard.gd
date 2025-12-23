@@ -8,7 +8,7 @@ signal died(card)
 signal drag_finished(card)
 
 var data: CardData
-var card_owner := CardBoard.Owner.PLAYER
+var card_owner := Enums.CharacterType.PLAYER
 var placed := false
 
 @abstract func setup(card_data: CardData) -> void

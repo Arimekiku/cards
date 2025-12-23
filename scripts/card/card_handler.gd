@@ -29,7 +29,7 @@ func _input(event) -> void:
 			_handle_attack_click(card)
 			return
 			
-		if card.placed == false and card.card_owner == CardBoard.Owner.PLAYER and turn_manager.current_turn == turn_manager.Turn.PLAYER:
+		if card.placed == false and card.card_owner == Enums.CharacterType.PLAYER and turn_manager.current_turn == turn_manager.Turn.PLAYER:
 			dragging = _ray_card()
 		if dragging != null:
 			grab_offset = dragging.global_position - get_global_mouse_position()
@@ -100,21 +100,21 @@ func try_place(card) -> void:
 
 func _handle_attack_click(card: MinionCard) -> void:
 	if selected_attacker == null:
-		if card.card_owner != CardBoard.Owner.PLAYER: return
+		if card.card_owner != Enums.CharacterType.PLAYER: return
 		
 		selected_attacker = card
 		_highlight_attacker(card)
 		_highlight_enemies(Color.GREEN)
 		return
 	
-	if card.card_owner == CardBoard.Owner.ENEMY:
+	if card.card_owner == Enums.CharacterType.ENEMY:
 		selected_attacker.attack(card)
 		_clear_attack_selection()
 		_highlight_enemies(Color.WHITE)
 
 func _highlight_enemies(color: Color) -> void:
 	for in_zone: CardBoard in get_tree().get_nodes_in_group("card_zones"):
-		if in_zone.board_owner == CardBoard.Owner.PLAYER: continue
+		if in_zone.board_owner == Enums.CharacterType.PLAYER: continue
 		
 		for card in in_zone.cards:
 			card.modulate = color

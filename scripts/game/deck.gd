@@ -1,12 +1,10 @@
 extends Node
 class_name Deck
 
-enum Owner { PLAYER, ENEMY }
-
 @export var number_label: Label
 @export var discard_label: Label
 @export var start_cards: DeckMetadata
-@export var owned: Owner
+@export var owned: Enums.CharacterType
 
 var cards: Array[CardData] = []
 var discard_pile: Array[CardData] = []
