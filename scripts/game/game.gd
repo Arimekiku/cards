@@ -8,7 +8,6 @@ class_name Game
 
 @export var minion_card_scene: PackedScene
 @export var spell_card_scene: PackedScene
-@export var minion_scene: PackedScene
 
 @export var start_hand_size := 5
 
@@ -74,8 +73,10 @@ func create_minion(value: String) -> Minion:
 	
 	return create_minion_from_data(data)
 
-func create_minion_from_data(value: CardData) -> Minion:
-	var minion: Minion = minion_scene.instantiate()
+static func create_minion_from_data(value: CardData) -> Minion:
+	var temp_minion_scene := load("res://scenes/minion.tscn")
+	
+	var minion: Minion = temp_minion_scene.instantiate()
 	minion.setup(value)
 	return minion
 

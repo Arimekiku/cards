@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://4npx47ha3xu8"]
+[gd_scene load_steps=14 format=3 uid="uid://4npx47ha3xu8"]
 
 [ext_resource type="Script" uid="uid://6whq3hukih4c" path="res://scripts/card/card_handler.gd" id="1_4msxo"]
 [ext_resource type="Script" uid="uid://ceasvmta0a8fy" path="res://scripts/game/game.gd" id="1_5fb3c"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dqab4dsyv7pix" path="res://scenes/cards/spell_card_prefab.tscn" id="3_7ftgl"]
 [ext_resource type="Script" uid="uid://c4gwy3gthofjs" path="res://scripts/game/deck.gd" id="3_gjmho"]
 [ext_resource type="PackedScene" uid="uid://dpuabon5q0tlb" path="res://scenes/cards/card_target_selector/arrow_target_selector.tscn" id="4_4d81t"]
-[ext_resource type="PackedScene" uid="uid://c22whlxirxvqy" path="res://scenes/minion.tscn" id="4_rrvqk"]
 [ext_resource type="Script" uid="uid://cdukqjfjgmfyg" path="res://scripts/card_board.gd" id="7_7182s"]
 [ext_resource type="Script" path="res://scripts/game/deck_metadata.gd" id="7_plioj"]
 [ext_resource type="Texture2D" uid="uid://b8iqdf5sjq0cu" path="res://resources/images/icon.svg" id="7_ruw3y"]
@@ -25,7 +24,6 @@ metadata/_custom_type_script = "uid://0j6060vw6o6s"
 script = ExtResource("1_5fb3c")
 minion_card_scene = ExtResource("2_tpwpp")
 spell_card_scene = ExtResource("3_7ftgl")
-minion_scene = ExtResource("4_rrvqk")
 turn_manager = NodePath("turn_manager")
 metadata/_edit_lock_ = true
 

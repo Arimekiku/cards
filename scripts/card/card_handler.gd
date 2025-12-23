@@ -15,7 +15,7 @@ func _input(event) -> void:
 	if event.pressed:
 		var potential_minion = _ray_minion()
 		if potential_minion == null: return
-			
+		
 		if potential_minion is Minion:
 			if potential_minion.has_attacked: return
 			_handle_attack_click(potential_minion)
@@ -48,17 +48,17 @@ func try_place(card) -> void:
 	# fallback: return to original zone
 	#zone.layout()
 
-func _handle_attack_click(card: Minion) -> void:
+func _handle_attack_click(minion: Minion) -> void:
 	if selected_attacker == null:
-		if card.card_owner != Enums.CharacterType.PLAYER: return
+		if minion.minion_owner != Enums.CharacterType.PLAYER: return
 		
-		selected_attacker = card
-		_highlight_attacker(card)
+		selected_attacker = minion
+		_highlight_attacker(minion)
 		_highlight_enemies(Color.GREEN)
 		return
 	
-	if card.card_owner == Enums.CharacterType.ENEMY:
-		selected_attacker.attack(card)
+	if minion.minion_owner == Enums.CharacterType.ENEMY:
+		selected_attacker.attack(minion)
 		_clear_attack_selection()
 		_highlight_enemies(Color.WHITE)
 
@@ -66,8 +66,8 @@ func _highlight_enemies(color: Color) -> void:
 	for in_zone: CardBoard in get_tree().get_nodes_in_group("card_zones"):
 		if in_zone.board_owner == Enums.CharacterType.PLAYER: continue
 		
-		for card in in_zone.cards:
-			card.modulate = color
+		for minion in in_zone.minions:
+			minion.modulate = color
 
 func _highlight_attacker(card: Minion) -> void:
 	card.scale = Vector2(1.15, 1.15)

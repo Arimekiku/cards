@@ -18,15 +18,15 @@ func _ready() -> void:
 	
 	var minion := game.create_minion("frost_frog")
 	minion.minion_owner = Enums.CharacterType.ENEMY
-	add_card(minion)
+	add_minion(minion)
 	var minion2 := game.create_minion("frost_frog")
 	minion2.minion_owner = Enums.CharacterType.ENEMY
-	add_card(minion2)
+	add_minion(minion2)
 	var minion3 := game.create_minion("frost_frog")
 	minion3.minion_owner = Enums.CharacterType.ENEMY
-	add_card(minion3)
+	add_minion(minion3)
 
-func add_card(minion: Minion) -> bool:
+func add_minion(minion: Minion) -> bool:
 	if minions.size() >= max_minions:
 		return false
 	
@@ -63,7 +63,7 @@ func animate_minion(minion: Minion, target: Vector2) -> void:
 	.set_ease(Tween.EASE_OUT)
 
 func can_accept(minion: Minion) -> bool:
-	if minion.card_owner != board_owner:
+	if minion.minion_owner != board_owner:
 		return false
 	
 	return minions.size() < max_minions

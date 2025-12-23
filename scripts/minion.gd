@@ -80,6 +80,7 @@ func _animate_attack(target_node: Minion) -> void:
 
 func _on_impact(target: Minion):
 	target.take_damage(damage)
+	take_damage(target.damage)
 	
 	var shake = create_tween()
 	shake.tween_property(target, "position:x", 10.0, 0.05).as_relative()
