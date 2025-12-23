@@ -7,6 +7,8 @@ signal reparent_event(card: Card)
 @warning_ignore("unused_signal")
 signal died_event(card: Card)
 
+var parent: Control
+var tween: Tween
 var state_machine: CardStateMachine
 var data: CardData
 var card_owner := Enums.CharacterType.PLAYER
@@ -18,6 +20,13 @@ var card_owner := Enums.CharacterType.PLAYER
 func _input(event: InputEvent) -> void:
 	if not state_machine: return
 	state_machine.on_input(event)
+
+func animate_to_position(new_position: Vector2, duration: float) -> void:
+	tween = create_tween()\
+	.set_trans(Tween.TRANS_CIRC)\
+	.set_ease(Tween.EASE_OUT)
+	
+	tween.tween_property(self, "global_position", new_position, duration)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if not state_machine: return

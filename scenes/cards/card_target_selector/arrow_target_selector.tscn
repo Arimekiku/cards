@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpuabon5q0tlb"]
+
+[ext_resource type="PackedScene" uid="uid://2ewp07wy63o8" path="res://scenes/cards/card_target_selector/arrow_arc.tscn" id="1_67q20"]
+[ext_resource type="Script" uid="uid://da72ohurnwep" path="res://scripts/card/utils/card_target_selector.gd" id="1_qy2bs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uih2g"]
+size = Vector2(10, 10)
+
+[node name="arrow_target_selector" type="Node2D"]
+script = ExtResource("1_qy2bs")
+
+[node name="detector" type="Area2D" parent="."]
+collision_mask = 4
+monitoring = false
+monitorable = false
+
+[node name="collider" type="CollisionShape2D" parent="detector"]
+shape = SubResource("RectangleShape2D_uih2g")
+
+[node name="arrow_ui" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="arrow_arc" parent="arrow_ui" instance=ExtResource("1_67q20")]
+unique_name_in_owner = true
+
+[connection signal="area_entered" from="detector" to="." method="_on_detector_area_entered"]
+[connection signal="area_exited" from="detector" to="." method="_on_detector_area_exited"]

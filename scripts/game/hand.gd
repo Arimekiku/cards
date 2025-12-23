@@ -26,6 +26,7 @@ func add_card(card: Card) -> void:
 	
 	cards.append(card)
 	add_child(card)
+	card.parent = self
 	update_hand_visuals()
 	_connect_card_signals(card)
 
@@ -34,6 +35,7 @@ func remove_card(card: Card) -> void:
 	if card is SpellCard:
 		deck.add_to_discard_pile(card)
 	remove_child(card)
+	card.parent = null
 	update_hand_visuals()
 	_disconnect_card_signals(card)
 

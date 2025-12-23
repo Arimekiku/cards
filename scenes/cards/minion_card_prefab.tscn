@@ -14,15 +14,18 @@
 size = Vector2(118.66997, 126.01417)
 
 [node name="minion_card" type="Control"]
+custom_minimum_size = Vector2(80, 120)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_185mk")
 
 [node name="graphics" type="Control" parent="."]
-custom_minimum_size = Vector2(80, 120)
-anchors_preset = 0
-offset_right = 80.0
-offset_bottom = 120.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 mouse_behavior_recursive = 2
 

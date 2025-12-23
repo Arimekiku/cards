@@ -13,7 +13,8 @@ func setup(card_data: CardData) -> void:
 		CardIdleState.new(),
 		CardClickedState.new(),
 		CardDragState.new(),
-		CardReleasedState.new()
+		CardReleasedState.new(),
+		CardAimState.new()
 	]
 	state_machine = CardStateMachine.new(self, states, CardIdleState)
 	
@@ -25,10 +26,10 @@ func setup(card_data: CardData) -> void:
 	%description_text.text = data.card_context.description
 
 func _on_collision_detector_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.
+	super(area)
 
 func _on_collision_detector_area_exited(area: Area2D) -> void:
-	pass # Replace with function body.
+	super(area)
 
 func _on_gui_input(event: InputEvent) -> void:
 	super(event)
