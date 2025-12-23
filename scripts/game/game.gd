@@ -40,7 +40,6 @@ func draw_card(_deck: Deck) -> void:
 		return
 	
 	var card: Card = create_card_from_data(data)
-	card_handler.connect_card(card)
 	hand.add_card(card)
 
 func create_card(value: String) -> Card:

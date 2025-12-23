@@ -1,22 +1,39 @@
 @abstract
-extends Node2D
 class_name Card
+extends Control
 
-signal hovered(card)
-signal exited(card)
-signal died(card)
-signal drag_finished(card)
+@warning_ignore("unused_signal")
+signal reparent_event(card: Card)
+@warning_ignore("unused_signal")
+signal died_event(card: Card)
 
+var state_machine: CardStateMachine
 var data: CardData
 var card_owner := Enums.CharacterType.PLAYER
-var placed := false
+
+@onready var potential_targets: Array[Node] = []
 
 @abstract func setup(card_data: CardData) -> void
 
-@abstract func input_phase(event: InputEventMouseButton) -> void
+func _input(event: InputEvent) -> void:
+	if not state_machine: return
+	state_machine.on_input(event)
 
-func _on_area_2d_mouse_entered() -> void:
-	hovered.emit(self)
+func _on_gui_input(event: InputEvent) -> void:
+	if not state_machine: return
+	state_machine.on_gui_input(event)
 
-func _on_area_2d_mouse_exited() -> void:
-	exited.emit(self)
+func _on_mouse_entered() -> void:
+	if not state_machine: return
+	state_machine.on_mouse_enter()
+
+func _on_mouse_exited() -> void:
+	if not state_machine: return
+	state_machine.on_mouse_exit()
+
+func _on_collision_detector_area_entered(area: Area2D) -> void:
+	if potential_targets.has(area): return
+	potential_targets.push_back(area)
+
+func _on_collision_detector_area_exited(area: Area2D) -> void:
+	potential_targets.erase(area)

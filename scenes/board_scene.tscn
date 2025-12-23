@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dqab4dsyv7pix" path="res://scenes/cards/spell_card_prefab.tscn" id="3_7ftgl"]
 [ext_resource type="Script" uid="uid://c4gwy3gthofjs" path="res://scripts/game/deck.gd" id="3_gjmho"]
 [ext_resource type="Script" uid="uid://cdukqjfjgmfyg" path="res://scripts/card_board.gd" id="7_7182s"]
-[ext_resource type="Script" uid="uid://0j6060vw6o6s" path="res://scripts/game/deck_metadata.gd" id="7_plioj"]
+[ext_resource type="Script" path="res://scripts/game/deck_metadata.gd" id="7_plioj"]
 [ext_resource type="Texture2D" uid="uid://b8iqdf5sjq0cu" path="res://resources/images/icon.svg" id="7_ruw3y"]
 [ext_resource type="Script" uid="uid://crw7xwg3y1jlb" path="res://scripts/game/turn_manager.gd" id="10_7ftgl"]
 
@@ -21,6 +21,7 @@ script = ExtResource("1_5fb3c")
 minion_card_scene = ExtResource("2_tpwpp")
 spell_card_scene = ExtResource("3_7ftgl")
 turn_manager = NodePath("turn_manager")
+metadata/_edit_lock_ = true
 
 [node name="turn_manager" type="Node2D" parent="." node_paths=PackedStringArray("player_board", "enemy_board")]
 script = ExtResource("10_7ftgl")
@@ -36,77 +37,10 @@ offset_bottom = 244.0
 [node name="card_handler" type="Node2D" parent="." node_paths=PackedStringArray("hand", "turn_manager")]
 unique_name_in_owner = true
 script = ExtResource("1_4msxo")
-hand = NodePath("../hand")
+hand = NodePath("../ui/hand")
 turn_manager = NodePath("../turn_manager")
 
-[node name="hand" type="Node2D" parent="." node_paths=PackedStringArray("deck")]
-unique_name_in_owner = true
-script = ExtResource("2_5fb3c")
-max_total_spread = 90.0
-deck = NodePath("../deck")
-
-[node name="deck" type="Node2D" parent="." node_paths=PackedStringArray("number_label", "discard_label")]
-unique_name_in_owner = true
-position = Vector2(73, 208)
-script = ExtResource("3_gjmho")
-number_label = NodePath("number")
-discard_label = NodePath("Label")
-start_cards = SubResource("Resource_qbqua")
-
-[node name="number" type="Label" parent="deck"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -31.0
-offset_top = 84.99
-offset_right = 31.0
-offset_bottom = 107.990005
-grow_horizontal = 2
-grow_vertical = 2
-text = "number"
-
-[node name="Label" type="Label" parent="deck"]
-offset_left = 956.0
-offset_top = 96.0
-offset_right = 1006.0
-offset_bottom = 145.0
-text = "Відбій
-"
-
-[node name="enemy_deck" type="Node2D" parent="." node_paths=PackedStringArray("number_label", "discard_label")]
-unique_name_in_owner = true
-position = Vector2(71, 45)
-script = ExtResource("3_gjmho")
-number_label = NodePath("number")
-discard_label = NodePath("Label")
-start_cards = SubResource("Resource_qbqua")
-owned = 1
-
-[node name="number" type="Label" parent="enemy_deck"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -31.0
-offset_top = 84.99
-offset_right = 31.0
-offset_bottom = 107.990005
-grow_horizontal = 2
-grow_vertical = 2
-text = "number"
-
-[node name="Label" type="Label" parent="enemy_deck"]
-offset_left = 959.0
-offset_top = 64.0
-offset_right = 1009.0
-offset_bottom = 113.0
-text = "Відбій
-"
-
-[node name="ui" type="CanvasLayer" parent="."]
+[node name="ui" type="CanvasLayer" parent="." groups=["battle_ui_layer"]]
 follow_viewport_enabled = true
 
 [node name="button" type="Button" parent="ui"]
@@ -123,26 +57,112 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Get Cards"
 
-[node name="board_player" type="Node2D" parent="." node_paths=PackedStringArray("game", "graphics", "turn_manager", "deck") groups=["card_zones"]]
+[node name="hand" type="Control" parent="ui" node_paths=PackedStringArray("deck")]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("2_5fb3c")
+deck = NodePath("../deck")
+
+[node name="deck" type="Control" parent="ui" node_paths=PackedStringArray("number_label", "discard_label")]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 73.0
+offset_top = 208.0
+offset_right = 73.0
+offset_bottom = 208.0
+script = ExtResource("3_gjmho")
+number_label = NodePath("number")
+discard_label = NodePath("Label")
+start_cards = SubResource("Resource_qbqua")
+
+[node name="number" type="Label" parent="ui/deck"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = 84.99
+offset_right = 31.0
+offset_bottom = 107.990005
+grow_horizontal = 2
+grow_vertical = 2
+text = "number"
+
+[node name="Label" type="Label" parent="ui/deck"]
+layout_mode = 0
+offset_left = 956.0
+offset_top = 96.0
+offset_right = 1006.0
+offset_bottom = 145.0
+text = "Відбій
+"
+
+[node name="enemy_deck" type="Control" parent="ui" node_paths=PackedStringArray("number_label", "discard_label")]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 71.0
+offset_top = 45.0
+offset_right = 71.0
+offset_bottom = 45.0
+script = ExtResource("3_gjmho")
+number_label = NodePath("number")
+discard_label = NodePath("Label")
+start_cards = SubResource("Resource_qbqua")
+owned = 1
+
+[node name="number" type="Label" parent="ui/enemy_deck"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = 84.99
+offset_right = 31.0
+offset_bottom = 107.990005
+grow_horizontal = 2
+grow_vertical = 2
+text = "number"
+
+[node name="Label" type="Label" parent="ui/enemy_deck"]
+layout_mode = 0
+offset_left = 959.0
+offset_top = 64.0
+offset_right = 1009.0
+offset_bottom = 113.0
+text = "Відбій
+"
+
+[node name="board_player" type="Node2D" parent="." node_paths=PackedStringArray("game", "graphics", "turn_manager") groups=["card_zones"]]
 position = Vector2(635, 311)
 script = ExtResource("7_7182s")
 game = NodePath("..")
 graphics = NodePath("graphics")
 turn_manager = NodePath("../turn_manager")
-deck = NodePath("../deck")
 
 [node name="graphics" type="Sprite2D" parent="board_player"]
 scale = Vector2(6, 1)
 texture = ExtResource("7_ruw3y")
 
-[node name="board_enemy" type="Node2D" parent="." node_paths=PackedStringArray("game", "graphics", "turn_manager", "deck") groups=["card_zones"]]
+[node name="board_enemy" type="Node2D" parent="." node_paths=PackedStringArray("game", "graphics", "turn_manager") groups=["card_zones"]]
 position = Vector2(633, 127)
 script = ExtResource("7_7182s")
 game = NodePath("..")
 graphics = NodePath("graphics")
 board_owner = 1
 turn_manager = NodePath("../turn_manager")
-deck = NodePath("../enemy_deck")
 
 [node name="graphics" type="Sprite2D" parent="board_enemy"]
 scale = Vector2(6, 1)

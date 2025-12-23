@@ -1,5 +1,7 @@
-extends Card
 class_name MinionCard
+extends Card
+
+@onready var collision_detector := %collision_detector
 
 var health: int
 var damage: int
@@ -12,23 +14,43 @@ func setup(card_data: CardData) -> void:
 		push_error("Wrong type expected MINION, got: %s" % type)
 		return
 	
+	var states := [
+		CardIdleState.new(),
+		CardClickedState.new(),
+		CardDragState.new(),
+		CardReleasedState.new()
+	]
+	state_machine = CardStateMachine.new(self, states, CardIdleState)
+	
 	data = card_data
 	health = data.card_context.health
 	damage = data.card_context.damage
 	
-	$graphics2.texture = data.image
+	%portrait_image.texture = data.image
 	#$NameLabel.text = data.name
-	#$CostLabel.text = str(data.cost)
+	%cost_text.text = str(data.cost)
 	_ui_update_health(health)
 	_ui_update_damage(damage)
 
-func input_phase(_event: InputEventMouseButton) -> void:
-	pass
+func _on_collision_detector_area_entered(area: Area2D) -> void:
+	super(area)
+
+func _on_collision_detector_area_exited(area: Area2D) -> void:
+	super(area)
+
+func _on_gui_input(event: InputEvent) -> void:
+	super(event)
+
+func _on_mouse_entered() -> void:
+	super()
+
+func _on_mouse_exited() -> void:
+	super()
 
 func take_damage(value: int) -> void:
 	health -= value
 	if health <= 0:
-		died.emit(self)
+		died_event.emit(self)
 		queue_free()
 		return
 	_ui_update_health(health)

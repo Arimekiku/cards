@@ -32,11 +32,10 @@ func add_card(card: Card) -> bool:
 		return false
 	
 	cards.append(card)
-	card.died.connect(_on_card_died)
+	card.died_event.connect(_on_card_died)
 	var parent = card.get_parent()
 	if parent:
 		parent.remove_child(card)
-	card.placed = true
 	add_child(card)
 	layout()
 	return true

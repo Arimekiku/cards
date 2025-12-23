@@ -1,5 +1,5 @@
-extends Node2D
 class_name Hand
+extends Control
 
 @export_group("Logic")
 @export var max_count := 8
@@ -23,7 +23,7 @@ func _ready():
 
 func add_card(card: Card) -> void:
 	if cards.size() >= max_count: return
-
+	
 	cards.append(card)
 	add_child(card)
 	update_hand_visuals()
@@ -38,30 +38,16 @@ func remove_card(card: Card) -> void:
 	_disconnect_card_signals(card)
 
 func _connect_card_signals(card: Card) -> void:
-	card.drag_finished.connect(_on_exit_signal)
-	card.died.connect(remove_card)
+	card.reparent_event.connect(_on_reparent_event) 
+	card.died_event.connect(remove_card)
 
 func _disconnect_card_signals(card: Card) -> void:
-	card.drag_finished.disconnect(_on_exit_signal)
-	card.died.disconnect(remove_card)
+	card.reparent_event.disconnect(_on_reparent_event)
+	card.died_event.disconnect(remove_card)
 
-func _on_exit_signal(card: Card) -> void:
-	if (card.placed):
-		return
-	
-	var index = cards.find(card)
-	var card_count = cards.size()
-	var current_spread = min(card_count * card_angle_spread, max_total_spread)
-	var angle_step = deg_to_rad(current_spread) / (card_count - 1)
-	var start_angle = deg_to_rad(-90) - (deg_to_rad(current_spread) / 2)
-	var current_angle = start_angle + (angle_step * index)
-	var target_pos = Vector2(
-		hand_center.x + hand_radius * cos(current_angle),
-		hand_center.y + hand_radius * sin(current_angle)
-	)
-	var target_rotation = current_angle + PI/2 
-	
-	animate_card_to_position(card, target_pos, target_rotation)
+func _on_reparent_event(card: Card) -> void:
+	card.reparent(self)
+	update_hand_visuals()
 
 func update_hand_visuals():
 	var card_count = cards.size()

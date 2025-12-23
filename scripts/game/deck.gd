@@ -1,5 +1,5 @@
-extends Node
 class_name Deck
+extends Control
 
 @export var number_label: Label
 @export var discard_label: Label

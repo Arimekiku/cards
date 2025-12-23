@@ -17,6 +17,8 @@ func _ready() -> void:
 	zones = get_tree().get_nodes_in_group("card_zones")
 
 func _input(event) -> void:
+	return
+	
 	if event is not InputEventMouseButton: return
 	if  event.button_index != MOUSE_BUTTON_LEFT: return
 	
@@ -51,10 +53,6 @@ func _process(_delta) -> void:
 	
 	var target_pos = get_global_mouse_position() + grab_offset
 	dragging.global_position = target_pos
-
-func connect_card(card: Card) -> void:
-	card.hovered.connect(_on_hover)
-	card.exited.connect(_on_exit)
 
 func _on_hover(card: Card) -> void:
 	if dragging: return
