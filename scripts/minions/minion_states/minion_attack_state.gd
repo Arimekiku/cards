@@ -14,6 +14,7 @@ func enter() -> void:
 	_animate_attack(potential_enemy)
 
 func _animate_attack(enemy: Minion) -> void:
+	target.has_attacked = true
 	var start_pos = target.global_position
 	var target_pos = enemy.global_position
 	
@@ -35,8 +36,8 @@ func _animate_attack(enemy: Minion) -> void:
 	tween.finished.connect(func(): target.z_index = original_z)
 
 func _on_impact(enemy: Minion):
-	target.has_attacked = true
 	target.attack(enemy)
+	transition.emit(self, MinionIdleState)
 	
 	var shake = enemy.create_tween()
 	shake.tween_property(enemy, "position:x", 10.0, 0.05).as_relative()

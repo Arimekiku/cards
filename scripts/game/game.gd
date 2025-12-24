@@ -17,7 +17,7 @@ func initialize_game(deck_metadata: DeckMetadata) -> void:
 
 func _ready() -> void:
 	deck.initialize_deck(player_meta_cards)
-	turn_manager.turn_changed.connect(on_turn_started)
+	Events.turn_changed_event.connect(on_turn_started)
 	
 	_init_start_hand()
 

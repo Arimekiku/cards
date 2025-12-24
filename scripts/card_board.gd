@@ -13,7 +13,7 @@ extends Node2D
 var minions: Array[Minion] = []
 
 func _ready() -> void:
-	turn_manager.turn_changed.connect(_on_turn_started)
+	Events.turn_changed_event.connect(_on_turn_started)
 	if board_owner == Enums.CharacterType.PLAYER: return;
 	
 	var minion := game.create_minion_from_name("frost_frog")
