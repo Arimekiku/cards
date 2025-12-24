@@ -7,6 +7,12 @@ func enter() -> void:
 	played = not target.potential_targets.is_empty()
 	if not played: return
 	
+	if ManaHandler.current_mana < target.data.cost:
+		print("Not enough mana to play")
+		transition.emit(self, CardIdleState)
+		return
+	
+	ManaHandler.current_mana -= target.data.cost
 	if target is MinionCard:
 		var context = null
 		target.play(context)

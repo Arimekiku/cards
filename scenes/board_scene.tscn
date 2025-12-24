@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://4npx47ha3xu8"]
+[gd_scene load_steps=14 format=3 uid="uid://4npx47ha3xu8"]
 
 [ext_resource type="Script" uid="uid://ceasvmta0a8fy" path="res://scripts/game/game.gd" id="1_5fb3c"]
 [ext_resource type="Script" uid="uid://c0vthsq306log" path="res://scripts/game/hand.gd" id="2_5fb3c"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/game/deck_metadata.gd" id="7_plioj"]
 [ext_resource type="Texture2D" uid="uid://b8iqdf5sjq0cu" path="res://resources/images/icon.svg" id="7_ruw3y"]
 [ext_resource type="Script" uid="uid://crw7xwg3y1jlb" path="res://scripts/game/turn_manager.gd" id="10_7ftgl"]
+[ext_resource type="Script" uid="uid://4dy52cuxvqf" path="res://scripts/mana_handler.gd" id="11_4d81t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4d81t"]
 size = Vector2(1152, 500)
@@ -178,5 +179,11 @@ offset_right = 1009.0
 offset_bottom = 113.0
 text = "Відбій
 "
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(90, 440)
+script = ExtResource("11_4d81t")
+current_max_mana = 5
+max_mana = 10
 
 [connection signal="pressed" from="turn_manager/Button" to="turn_manager" method="_on_button_pressed"]
