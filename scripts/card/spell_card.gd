@@ -30,7 +30,7 @@ func play(context) -> void:
 		push_error("Can't resolve spell. Invalid context. %s" % context_name) 
 		return
 	
-	for effect in data.effects: effect.resolve(context)
+	for effect in data.card_context.on_play_effects: effect.resolve(context)
 	played_event.emit(self)
 
 func _on_collision_detector_area_entered(area: Area2D) -> void:

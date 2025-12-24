@@ -14,6 +14,16 @@ func _ready() -> void:
 	Events.target_selector_called_event.connect(_on_target_selector_called)
 	Events.target_selector_discard_event.connect(_on_target_selector_discarded)
 
+func _input(event: InputEvent) -> void:
+	if not targeting: return
+	
+	if event.is_action_pressed("left_mouse"):
+		var target = selection_context.potential_targets[0].get_parent()
+		selection_context.potential_targets.clear()
+		Events.target_selector_resolved_event.emit(target)
+		return
+
+
 func _process(_delta: float) -> void:
 	if not targeting: return
 	

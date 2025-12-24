@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://4npx47ha3xu8"]
 
 [ext_resource type="Script" uid="uid://ceasvmta0a8fy" path="res://scripts/game/game.gd" id="1_5fb3c"]
-[ext_resource type="Script" path="res://scripts/game/hand.gd" id="2_5fb3c"]
+[ext_resource type="Script" uid="uid://c0vthsq306log" path="res://scripts/game/hand.gd" id="2_5fb3c"]
 [ext_resource type="PackedScene" uid="uid://s2nouishoia4" path="res://scenes/cards/minion_card_prefab.tscn" id="2_tpwpp"]
 [ext_resource type="PackedScene" uid="uid://dqab4dsyv7pix" path="res://scenes/cards/spell_card_prefab.tscn" id="3_7ftgl"]
 [ext_resource type="Script" uid="uid://c4gwy3gthofjs" path="res://scripts/game/deck.gd" id="3_gjmho"]
@@ -16,7 +16,7 @@ size = Vector2(1152, 500)
 
 [sub_resource type="Resource" id="Resource_qbqua"]
 script = ExtResource("7_plioj")
-cards = Array[String](["frost_frog", "fireball", "frost_frog", "fireball", "frost_frog", "fireball", "frost_frog", "fireball", "frost_frog", "fireball"])
+cards = Array[String](["manul", "greta", "manul", "greta", "manul", "greta", "manul", "greta", "manul", "greta"])
 metadata/_custom_type_script = "uid://0j6060vw6o6s"
 
 [node name="board" type="Node2D" node_paths=PackedStringArray("turn_manager")]

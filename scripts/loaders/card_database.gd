@@ -7,7 +7,9 @@ var CARD_FACTORY_TYPES = {
 
 var EFFECT_FACTORY_TYPES = {
 	"print_effect": PrintEffect,
-	"damage_effect": DamageEffect
+	"damage_effect": DamageEffect,
+	"target_damage_effect": TargetDamageEffect,
+	"erase_target_effect": EraseTargetEffect
 }
 
 @export var json_path := "res://data/cards.json"
@@ -41,7 +43,15 @@ func _create_card_data(raw: Dictionary) -> CardData:
 	card.image = load(raw.get("image", ""))
 	
 	card.card_context = _create_context(raw)
-	card.effects = _create_effects(raw.get("effects", []))
+	
+	match card.card_context.get_card_type():
+		Enums.CardType.SPELL:
+			card.card_context.on_play_effects = _create_effects(raw.get("effects", {}))
+		Enums.CardType.MINION:
+			var effects = raw.get("effects", {})
+			card.card_context.on_spawn_effects = _create_effects(effects.get("spawn_effects", {}))
+			card.card_context.on_attack_effects = _create_effects(effects.get("attack_effects", {}))
+			card.card_context.on_die_effects = _create_effects(effects.get("die_effects", {}))
 	
 	return card
 
@@ -53,6 +63,11 @@ func _create_context(raw: Dictionary) -> CardContext:
 	
 	var ctx = CARD_FACTORY_TYPES[type].new()
 	_populate(ctx, raw)
+	
+	if ctx is MinionContext:
+		var d = raw.get("portrait_offset", {})
+		ctx.portrait_offset = Vector2(d.get("x", 0.0), d.get("y", 0.0))
+		ctx.portrait_zoom = raw.get("portrait_zoom", 1)
 	
 	return ctx
 
@@ -67,9 +82,6 @@ func _create_effects(list: Dictionary) -> Array[CardEffect]:
 		var e = EFFECT_FACTORY_TYPES[id].new()
 		_populate(e, list[id])
 		result.append(e)
-		
-		if e is PrintEffect:
-			print(e.value)
 	
 	return result
 

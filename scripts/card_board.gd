@@ -16,13 +16,13 @@ func _ready() -> void:
 	turn_manager.turn_changed.connect(_on_turn_started)
 	if board_owner == Enums.CharacterType.PLAYER: return;
 	
-	var minion := game.create_minion("frost_frog")
+	var minion := game.create_minion_from_name("frost_frog")
 	minion.minion_owner = Enums.CharacterType.ENEMY
 	add_minion(minion)
-	var minion2 := game.create_minion("frost_frog")
+	var minion2 := game.create_minion_from_name("frost_frog")
 	minion2.minion_owner = Enums.CharacterType.ENEMY
 	add_minion(minion2)
-	var minion3 := game.create_minion("frost_frog")
+	var minion3 := game.create_minion_from_name("frost_frog")
 	minion3.minion_owner = Enums.CharacterType.ENEMY
 	add_minion(minion3)
 
@@ -30,7 +30,9 @@ func add_minion(minion: Minion) -> bool:
 	if minions.size() >= max_minions: return false
 	
 	minions.append(minion)
-	add_child(minion)
+	if minion.get_parent(): minion.reparent(self)
+	else: add_child(minion)
+	minion.position = Vector2.ZERO
 	minion.died_event.connect(_on_minion_died)
 	
 	var is_enemy = minion.minion_owner == Enums.CharacterType.ENEMY

@@ -7,13 +7,93 @@
 		"damage": 2,
 		"description": "Заморожує ціль при атаці",
 		"effects": {
-			"print_effect": {
-				"value": "FREEZE!"
+			"spawn_effects": {
+				"print_effect": {
+					"value": "Spawn'!"
+				}
+			},
+			"attack_effects": {
+				"print_effect": {
+					"value": "Attack'!"
+				}
+			},
+			"die_effects": {
+				"print_effect": {
+					"value": "Smert'!"
+				}
 			}
 		},
 		"keywords": ["freeze"],
 		"tribes": ["amphibian", "beast", "frog"],
-		"image": "res://resources/images/cards/jaba.png"
+		"image": "res://resources/images/cards/jaba.png",
+		"portrait_offset": {
+			"x": -0.1,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.2
+	},
+	
+	"manul": {
+		"name": "Манул",
+		"cost": 3,
+		"card_type": "creature",
+		"health": 1,
+		"damage": 1,
+		"description": "Заморожує ціль при атаці",
+		"effects": {
+			"spawn_effects": {
+				"print_effect": {
+					"value": "Spawn'!"
+				},
+				"target_damage_effect": {
+				}
+			},
+			"attack_effects": {
+				"print_effect": {
+					"value": "Attack'!"
+				}
+			},
+			"die_effects": {
+				"print_effect": {
+					"value": "Smert'!"
+				}
+			}
+		},
+		"image": "res://resources/images/manul.jpg",
+		"portrait_offset": {
+			"x": 0.5,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.5
+	},
+	
+	"greta": {
+		"name": "Грета",
+		"cost": 9,
+		"card_type": "creature",
+		"health": 3,
+		"damage": 3,
+		"description": "Заморожує ціль при атаці",
+		"effects": {
+			"spawn_effects": {
+				"print_effect": {
+					"value": "Spawn'!"
+				},
+				"erase_target_effect": {
+				}
+			},
+			"attack_effects": {
+				"print_effect": {
+					"value": "Attack'!"
+				}
+			},
+			"die_effects": {
+				"print_effect": {
+					"value": "Smert'!"
+				}
+			}
+		},
+		"image": "res://resources/images/greta.jpg",
 	},
 	
 	"fireball": {

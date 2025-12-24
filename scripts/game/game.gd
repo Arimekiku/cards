@@ -7,9 +7,7 @@ class_name Game
 
 @export var minion_card_scene: PackedScene
 @export var spell_card_scene: PackedScene
-
 @export var start_hand_size := 5
-
 @export var turn_manager: TurnManager
 
 var player_meta_cards: DeckMetadata
@@ -64,19 +62,20 @@ func create_card_from_data(value: CardData) -> Card:
 	card.setup(value)
 	return card
 
-func create_minion(value: String) -> Minion:
+func create_minion_from_name(value: String) -> Minion:
 	var data := CardDatabase.get_from_registry(value)
 	if data == null or data.card_context.get_card_type() != Enums.CardType.MINION:
 		push_error("Unable to retrieve data from key: %s" % value)
 		return null
 	
-	return create_minion_from_data(data)
+	var minion = create_minion()
+	minion.setup(data)
+	return minion
 
-static func create_minion_from_data(value: CardData) -> Minion:
+static func create_minion() -> Minion:
 	var temp_minion_scene := load("res://scenes/minion.tscn")
 	
 	var minion: Minion = temp_minion_scene.instantiate()
-	minion.setup(value)
 	return minion
 
 func on_turn_started(current_turn: Enums.Turn) -> void:

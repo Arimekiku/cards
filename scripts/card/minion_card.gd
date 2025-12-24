@@ -26,7 +26,9 @@ func setup(card_data: CardData) -> void:
 
 func play(_context) -> void:
 	var output_zone: CardBoard
-	var minion := Game.create_minion_from_data(data)
+	var minion := Game.create_minion()
+	get_tree().current_scene.add_child(minion)
+	minion.setup(data)
 
 	for in_zone: CardBoard in get_tree().get_nodes_in_group("card_zones"):
 		if not in_zone.can_accept(minion): continue

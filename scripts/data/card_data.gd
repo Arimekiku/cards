@@ -5,4 +5,3 @@ class_name CardData
 @export var cost: int
 @export var image: Texture2D
 @export var card_context: CardContext
-@export var effects: Array[CardEffect]
