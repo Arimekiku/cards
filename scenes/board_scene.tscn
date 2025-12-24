@@ -28,6 +28,8 @@ turn_manager = NodePath("turn_manager")
 metadata/_edit_lock_ = true
 
 [node name="player_drop_area" type="Area2D" parent="."]
+collision_mask = 0
+monitoring = false
 
 [node name="collider" type="CollisionShape2D" parent="player_drop_area"]
 position = Vector2(576, 250)

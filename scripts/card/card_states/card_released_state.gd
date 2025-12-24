@@ -16,4 +16,10 @@ func enter() -> void:
 
 func on_input(_event: InputEvent) -> void:
 	if played: return
+	
+	_normalize()
 	transition.emit(self, CardIdleState)
+
+func _normalize() -> void:
+	target.scale = Vector2.ONE
+	target.z_index = 1

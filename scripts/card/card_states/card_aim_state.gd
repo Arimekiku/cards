@@ -1,7 +1,7 @@
 class_name CardAimState
 extends CardBaseState
 
-const MOUSE_MINIMAL_Y_THRESHOLD := 100
+const MOUSE_MINIMAL_Y_THRESHOLD := 600
 const BASIC_CARD_Y_UPPRISING := 100
 
 func enter() -> void:
@@ -17,7 +17,7 @@ func exit() -> void:
 	Events.target_selector_discard_event.emit(target)
 
 func on_input(event: InputEvent) -> void:
-	var mouse_at_bottom := target.get_global_mouse_position().y < MOUSE_MINIMAL_Y_THRESHOLD
+	var mouse_at_bottom := target.get_global_mouse_position().y > MOUSE_MINIMAL_Y_THRESHOLD
 	if mouse_at_bottom or event.is_action_pressed("right_mouse"):
 		transition.emit(self, CardIdleState)
 		return

@@ -21,6 +21,7 @@ func on_input(event: InputEvent) -> void:
 	
 	var cancel = event.is_action_pressed("right_mouse")
 	if cancel:
+		_normalize()
 		transition.emit(self, CardIdleState)
 		return
 	
@@ -28,3 +29,7 @@ func on_input(event: InputEvent) -> void:
 	if confirm:
 		target.get_viewport().set_input_as_handled()
 		transition.emit(self, CardReleasedState)
+
+func _normalize() -> void:
+	target.scale = Vector2.ONE
+	target.z_index = 1

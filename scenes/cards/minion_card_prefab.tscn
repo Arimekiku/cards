@@ -151,6 +151,8 @@ vertical_alignment = 1
 [node name="collision_detector" type="Area2D" parent="."]
 unique_name_in_owner = true
 scale = Vector2(0.67100894, 0.8857332)
+collision_layer = 0
+monitorable = false
 
 [node name="shape" type="CollisionShape2D" parent="collision_detector"]
 position = Vector2(59.888454, 63.441837)
