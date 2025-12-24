@@ -54,9 +54,9 @@ func create_card_from_data(value: CardData) -> Card:
 	var card: Card
 	
 	match value.card_context.get_card_type():
-		CardContext.CardType.MINION:
+		Enums.CardType.MINION:
 			card = minion_card_scene.instantiate() as Card
-		CardContext.CardType.SPELL:
+		Enums.CardType.SPELL:
 			card = spell_card_scene.instantiate() as Card
 		_:
 			push_warning("Unknown card type")
@@ -67,7 +67,7 @@ func create_card_from_data(value: CardData) -> Card:
 
 func create_minion(value: String) -> Minion:
 	var data := CardDatabase.get_from_registry(value)
-	if data == null or data.card_context.get_card_type() != CardContext.CardType.MINION:
+	if data == null or data.card_context.get_card_type() != Enums.CardType.MINION:
 		push_error("Unable to retrieve data from key: %s" % value)
 		return null
 	
@@ -80,8 +80,8 @@ static func create_minion_from_data(value: CardData) -> Minion:
 	minion.setup(value)
 	return minion
 
-func on_turn_started(current_turn):
-	if current_turn == turn_manager.Turn.PLAYER:
+func on_turn_started(current_turn: Enums.Turn) -> void:
+	if current_turn == Enums.Turn.PLAYER:
 		for i in range(2):
 			draw_card(deck)
 	else:

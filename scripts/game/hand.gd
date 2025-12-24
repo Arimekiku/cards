@@ -32,22 +32,6 @@ func add_card(card: Card) -> void:
 
 func remove_card(card: Card) -> void:
 	cards.erase(card)
-	if card is SpellCard:
-		deck.add_to_discard_pile(card)
-	card.parent = null
-	update_hand_visuals()
-	_disconnect_card_signals(card)
-
-func _connect_card_signals(card: Card) -> void:
-	card.reparent_event.connect(_on_reparent_event) 
-	card.died_event.connect(remove_card)
-
-func _disconnect_card_signals(card: Card) -> void:
-	card.reparent_event.disconnect(_on_reparent_event)
-	card.died_event.disconnect(remove_card)
-
-func _on_reparent_event(card: Card) -> void:
-	card.reparent(self)
 	update_hand_visuals()
 
 func update_hand_visuals():
@@ -69,10 +53,25 @@ func update_hand_visuals():
 		)
 		var target_rotation = current_angle + PI/2 
 		
-		animate_card_to_position(card, target_pos, target_rotation)
+		_animate_card_to_position(card, target_pos, target_rotation)
 
-func animate_card_to_position(card, target_pos, target_rot):
+func _animate_card_to_position(card, target_pos, target_rot):
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(card, "global_position", target_pos, animation_speed)
 	tween.parallel().tween_property(card, "rotation", target_rot, animation_speed)
+
+func _connect_card_signals(card: Card) -> void:
+	card.reparent_event.connect(_on_reparent_event) 
+	card.played_event.connect(_on_played_event)
+
+func _on_reparent_event(card: Card) -> void:
+	card.reparent(self)
+	update_hand_visuals()
+
+func _on_played_event(card: Card) -> void:
+	remove_card(card)
+	
+	if card is SpellCard: deck.add_to_discard_pile(card)
+	
+	card.queue_free()

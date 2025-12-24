@@ -1,11 +1,11 @@
-extends Card
 class_name SpellCard
+extends Card
 
 @onready var collision_detector := %collision_detector
 
 func setup(card_data: CardData) -> void:
 	var type = card_data.card_context.get_card_type()
-	if type != CardContext.CardType.SPELL:
+	if type != Enums.CardType.SPELL:
 		push_error("Wrong type expected SPELL, got: %s" % type)
 		return
 	
@@ -24,12 +24,14 @@ func setup(card_data: CardData) -> void:
 	%cost_text.text = str(data.cost)
 	%description_text.text = data.card_context.description
 
-func cast_spell(minion: Minion) -> void:
-	for effect in data.effects:
-		effect.resolve(minion)
+func play(context) -> void:
+	if context is not Minion: 
+		var context_name: String = context.get_script().get_global_name()
+		push_error("Can't resolve spell. Invalid context. %s" % context_name) 
+		return
 	
-	died_event.emit(self)
-	queue_free()
+	for effect in data.effects: effect.resolve(context)
+	played_event.emit(self)
 
 func _on_collision_detector_area_entered(area: Area2D) -> void:
 	super(area)

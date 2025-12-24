@@ -10,8 +10,7 @@ var cards: Array[CardData] = []
 var discard_pile: Array[CardData] = []
 
 func initialize_deck(initial_cards: DeckMetadata) -> void:
-	if initial_cards == null:
-		initial_cards = start_cards
+	if initial_cards == null: initial_cards = start_cards
 	
 	for id in initial_cards.cards:
 		var data = CardDatabase.get_from_registry(id)
@@ -24,25 +23,23 @@ func initialize_deck(initial_cards: DeckMetadata) -> void:
 	_update_label()
 
 func draw_card() -> CardData:
-	if cards.is_empty():
-		return null
+	if cards.is_empty(): return null
 	
 	var card: CardData = cards.pop_back()
 	_update_label()
 	return card
 
 func _update_label() -> void:
-	if number_label:
-		number_label.text = str(cards.size())
-	if discard_label:
-		discard_label.text = str(discard_pile.size())
+	if number_label: number_label.text = str(cards.size())
+	if discard_label: discard_label.text = str(discard_pile.size())
 
 func add_to_discard_pile(context):
 	discard_pile.append(context.data)
 	_update_label()
 
 func reshuffle():
-	if cards.is_empty():
-		discard_pile.shuffle()
-		cards = discard_pile
-		discard_pile = []
+	if not cards.is_empty(): return
+	
+	discard_pile.shuffle()
+	cards = discard_pile
+	discard_pile = []

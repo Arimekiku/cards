@@ -5,7 +5,7 @@ extends Control
 @warning_ignore("unused_signal")
 signal reparent_event(card: Card)
 @warning_ignore("unused_signal")
-signal died_event(card: Card)
+signal played_event(card: Card)
 
 var parent: Control
 var tween: Tween
@@ -16,6 +16,7 @@ var card_owner := Enums.CharacterType.PLAYER
 @onready var potential_targets: Array[Node] = []
 
 @abstract func setup(card_data: CardData) -> void
+@abstract func play(context) -> void
 
 func _input(event: InputEvent) -> void:
 	if not state_machine: return

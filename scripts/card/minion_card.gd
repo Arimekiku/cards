@@ -5,7 +5,7 @@ extends Card
 
 func setup(card_data: CardData) -> void:
 	var type = card_data.card_context.get_card_type()
-	if type != CardContext.CardType.MINION:
+	if type != Enums.CardType.MINION:
 		push_error("Wrong type expected MINION, got: %s" % type)
 		return
 	
@@ -24,15 +24,18 @@ func setup(card_data: CardData) -> void:
 	%health.text = str(card_data.card_context.health)
 	%damage.text = str(card_data.card_context.damage)
 
-func place_minion() -> void:
+func play(_context) -> void:
+	var output_zone: CardBoard
+	var minion := Game.create_minion_from_data(data)
+
 	for in_zone: CardBoard in get_tree().get_nodes_in_group("card_zones"):
-		var minion := Game.create_minion_from_data(data)
 		if not in_zone.can_accept(minion): continue
 		
-		in_zone.add_minion(minion)
-		died_event.emit(self)
-		queue_free()
-		return
+		output_zone = in_zone
+		break
+	
+	output_zone.add_minion(minion)
+	played_event.emit(self)
 
 func _on_collision_detector_area_entered(area: Area2D) -> void:
 	super(area)

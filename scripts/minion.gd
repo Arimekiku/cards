@@ -16,7 +16,7 @@ var minion_owner := Enums.CharacterType.PLAYER
 
 func setup(card_data: CardData) -> void:
 	var type = card_data.card_context.get_card_type()
-	if type != CardContext.CardType.MINION:
+	if type != Enums.CardType.MINION:
 		push_error("Wrong type expected MINION, got: %s" % type)
 		return
 	
@@ -30,10 +30,11 @@ func setup(card_data: CardData) -> void:
 
 func take_damage(value: int) -> void:
 	health -= value
+	
 	if health <= 0:
 		died_event.emit(self)
-		queue_free()
 		return
+	
 	_ui_update_health(health)
 
 func _ray_minion() -> Minion:

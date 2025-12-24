@@ -34,20 +34,6 @@ func _ray_minion() -> Minion:
 	r.sort_custom(_sort_highest_z)
 	return r[0].collider.get_parent()
 
-func try_place(card) -> void:
-	for in_zone: CardBoard in get_tree().get_nodes_in_group("card_zones"):
-		if in_zone.can_accept(card) and in_zone.is_mouse_inside():
-			hand.remove_card(card)
-			in_zone.add_card(card)
-			
-			card.placed = true
-			card.scale = Vector2.ONE
-			card.z_index = 1
-			return
-	
-	# fallback: return to original zone
-	#zone.layout()
-
 func _handle_attack_click(minion: Minion) -> void:
 	if selected_attacker == null:
 		if minion.minion_owner != Enums.CharacterType.PLAYER: return
