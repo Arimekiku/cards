@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://4npx47ha3xu8"]
+[gd_scene load_steps=13 format=3 uid="uid://4npx47ha3xu8"]
 
-[ext_resource type="Script" uid="uid://6whq3hukih4c" path="res://scripts/card/card_handler.gd" id="1_4msxo"]
 [ext_resource type="Script" uid="uid://ceasvmta0a8fy" path="res://scripts/game/game.gd" id="1_5fb3c"]
-[ext_resource type="Script" uid="uid://c0vthsq306log" path="res://scripts/game/hand.gd" id="2_5fb3c"]
+[ext_resource type="Script" path="res://scripts/game/hand.gd" id="2_5fb3c"]
 [ext_resource type="PackedScene" uid="uid://s2nouishoia4" path="res://scenes/cards/minion_card_prefab.tscn" id="2_tpwpp"]
 [ext_resource type="PackedScene" uid="uid://dqab4dsyv7pix" path="res://scenes/cards/spell_card_prefab.tscn" id="3_7ftgl"]
 [ext_resource type="Script" uid="uid://c4gwy3gthofjs" path="res://scripts/game/deck.gd" id="3_gjmho"]
@@ -27,14 +26,6 @@ spell_card_scene = ExtResource("3_7ftgl")
 turn_manager = NodePath("turn_manager")
 metadata/_edit_lock_ = true
 
-[node name="player_drop_area" type="Area2D" parent="."]
-collision_mask = 0
-monitoring = false
-
-[node name="collider" type="CollisionShape2D" parent="player_drop_area"]
-position = Vector2(576, 250)
-shape = SubResource("RectangleShape2D_4d81t")
-
 [node name="arrow_target_selector" parent="." instance=ExtResource("4_4d81t")]
 
 [node name="turn_manager" type="Node2D" parent="." node_paths=PackedStringArray("player_board", "enemy_board")]
@@ -47,12 +38,6 @@ offset_left = 990.0
 offset_top = 195.0
 offset_right = 1081.0
 offset_bottom = 244.0
-
-[node name="card_handler" type="Node2D" parent="." node_paths=PackedStringArray("hand", "turn_manager")]
-unique_name_in_owner = true
-script = ExtResource("1_4msxo")
-hand = NodePath("../ui/hand")
-turn_manager = NodePath("../turn_manager")
 
 [node name="board_player" type="Node2D" parent="." node_paths=PackedStringArray("game", "graphics", "turn_manager", "deck") groups=["card_zones"]]
 position = Vector2(635, 311)
@@ -78,6 +63,14 @@ deck = NodePath("../ui/enemy_deck")
 [node name="graphics" type="Sprite2D" parent="board_enemy"]
 scale = Vector2(6, 1)
 texture = ExtResource("7_ruw3y")
+
+[node name="player_drop_area" type="Area2D" parent="."]
+collision_mask = 0
+monitoring = false
+
+[node name="collider" type="CollisionShape2D" parent="player_drop_area"]
+position = Vector2(576, 250)
+shape = SubResource("RectangleShape2D_4d81t")
 
 [node name="ui" type="CanvasLayer" parent="." groups=["battle_ui_layer"]]
 follow_viewport_enabled = true

@@ -1,11 +1,13 @@
 extends Node2D
 
 const MAX_POINTS := 12
+const MINIONS_COLLISION_LAYER := 3
+const ALLIES_COLLISION_LAYER := 4
 
 @onready var area_detector := $detector
 @onready var arrow_arc := %arrow_arc
 
-var current_card: Card
+var selection_context: Control
 var targeting: bool
 
 func _ready() -> void:
@@ -19,37 +21,40 @@ func _process(_delta: float) -> void:
 	arrow_arc.points = _calculate_points()
 
 func _on_detector_area_entered(area: Area2D) -> void:
-	if not current_card or not targeting: return
+	if not selection_context or not targeting: return
 	
-	if not current_card.potential_targets.has(area):
-		current_card.potential_targets.append(area)
+	if not selection_context.potential_targets.has(area):
+		selection_context.potential_targets.append(area)
 
 func _on_detector_area_exited(area: Area2D) -> void:
-	if not current_card or not targeting: return
+	if not selection_context or not targeting: return
 	
-	current_card.potential_targets.erase(area)
+	selection_context.potential_targets.erase(area)
 
-func _on_target_selector_called(card: Card) -> void:
-	if card is not SpellCard: return
+func _on_target_selector_called(target) -> void:
+	if target is not Minion and not SpellCard: return
+	
+	var is_spell = target is SpellCard
+	area_detector.set_collision_mask_value(ALLIES_COLLISION_LAYER, is_spell)
 	
 	targeting = true
 	area_detector.monitoring = true
 	area_detector.monitorable = true
-	current_card = card
+	selection_context = target
 
-func _on_target_selector_discarded(_card: Card) -> void:
+func _on_target_selector_discarded(_target) -> void:
 	targeting = false
 	area_detector.monitoring = false
 	area_detector.monitorable = false
 	area_detector.position = Vector2.ZERO
-	current_card = null
+	selection_context = null
 	arrow_arc.clear_points()
 
 func _calculate_points() -> Array[Vector2]:
 	var result: Array[Vector2]
 	
-	var start := current_card.global_position
-	start.x += current_card.size.x / 2
+	var start := selection_context.global_position
+	start.x += selection_context.size.x / 2
 	var target := get_local_mouse_position()
 	var distance := target - start
 	

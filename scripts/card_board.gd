@@ -32,6 +32,13 @@ func add_minion(minion: Minion) -> bool:
 	minions.append(minion)
 	add_child(minion)
 	minion.died_event.connect(_on_minion_died)
+	
+	var is_enemy = minion.minion_owner == Enums.CharacterType.ENEMY
+	minion.collision_detector.set_collision_layer_value(3, is_enemy)
+	minion.collision_detector.set_collision_layer_value(4, not is_enemy)
+	minion.collision_detector.set_collision_mask_value(3, not is_enemy)
+	minion.collision_detector.set_collision_mask_value(4, is_enemy)
+	
 	layout()
 	return true
 

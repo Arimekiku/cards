@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c22whlxirxvqy"]
 
-[ext_resource type="Script" uid="uid://du1y1qmodf36l" path="res://scripts/minion.gd" id="1_1ddg2"]
+[ext_resource type="Script" uid="uid://du1y1qmodf36l" path="res://scripts/minions/minion.gd" id="1_1ddg2"]
 [ext_resource type="Shader" uid="uid://bs15jvlh5m8do" path="res://resources/circle_cutout.gdshader" id="1_b4arb"]
 [ext_resource type="Texture2D" uid="uid://6bjp3vc5hu56" path="res://resources/images/cards/jaba.png" id="2_1ddg2"]
 [ext_resource type="Texture2D" uid="uid://80e3xy0r683c" path="res://resources/images/outline_battle.png" id="3_qqrhl"]
@@ -20,8 +20,8 @@ script = ExtResource("1_1ddg2")
 
 [node name="collider_detector" type="Area2D" parent="."]
 unique_name_in_owner = true
-collision_layer = 4
-collision_mask = 8
+collision_layer = 8
+collision_mask = 4
 
 [node name="collision" type="CollisionShape2D" parent="collider_detector"]
 position = Vector2(38, 38.5)
@@ -95,3 +95,7 @@ grow_vertical = 0
 text = "99"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

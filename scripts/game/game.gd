@@ -4,7 +4,6 @@ class_name Game
 @onready var deck := %deck
 @onready var enemy_deck := %enemy_deck
 @onready var hand := %hand
-@onready var card_handler := %card_handler
 
 @export var minion_card_scene: PackedScene
 @export var spell_card_scene: PackedScene
@@ -81,9 +80,9 @@ static func create_minion_from_data(value: CardData) -> Minion:
 	return minion
 
 func on_turn_started(current_turn: Enums.Turn) -> void:
-	if current_turn == Enums.Turn.PLAYER:
-		for i in range(2):
-			draw_card(deck)
-	else:
+	if not current_turn == Enums.Turn.PLAYER:
 		print("enemy soslo")
-		pass
+		return
+	
+	for i in range(2):
+		draw_card(deck)
