@@ -86,5 +86,5 @@ func on_turn_started(current_turn: Enums.CharacterType) -> void:
 		for i in range(2):
 			draw_card(player.deck)
 
-func get_character(owner: Enums.CharacterType) -> CharacterRuntime:
-	return player if owner == Enums.CharacterType.PLAYER else enemy
+func get_character(character_type: Enums.CharacterType) -> CharacterRuntime:
+	return player if character_type == Enums.CharacterType.PLAYER else enemy

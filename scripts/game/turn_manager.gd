@@ -17,7 +17,7 @@ func end_turn():
 	var index = turn_sequense.find(current_turn)
 	current_turn = (index + 1) % turn_sequense.size() as Enums.CharacterType
 	
-	Events.turn_changed_event.emit(current_turn)
+	turn_changed.emit(current_turn)
 
 func _on_button_pressed() -> void:
 	if current_turn == Enums.CharacterType.PLAYER:
