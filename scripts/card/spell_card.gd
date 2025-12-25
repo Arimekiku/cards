@@ -24,7 +24,8 @@ func setup(card_data: CardData) -> void:
 	%cost_text.text = str(data.cost)
 	%description_text.text = data.card_context.description
 
-func play(context) -> void:
+func play() -> void:
+	var context = potential_targets[0].get_parent()
 	if context is not Minion: 
 		var context_name: String = context.get_script().get_global_name()
 		push_error("Can't resolve spell. Invalid context. %s" % context_name) 
