@@ -42,6 +42,7 @@ offset_left = 990.0
 offset_top = 195.0
 offset_right = 1081.0
 offset_bottom = 244.0
+text = "Finish Turn"
 
 [node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("turn_manager")]
 script = ExtResource("6_4d81t")
@@ -177,20 +178,6 @@ shape = SubResource("RectangleShape2D_4d81t")
 [node name="ui" type="CanvasLayer" parent="." groups=["battle_ui_layer"]]
 follow_viewport_enabled = true
 
-[node name="button" type="Button" parent="ui"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -152.0
-offset_top = -148.0
-offset_right = -52.0
-offset_bottom = -98.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "Get Cards"
-
 [node name="hand" type="Control" parent="ui" node_paths=PackedStringArray("deck")]
 unique_name_in_owner = true
 layout_mode = 3
@@ -205,11 +192,5 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("2_5fb3c")
 deck = NodePath("../../Player/deck")
-
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2(90, 440)
-script = ExtResource("11_4d81t")
-current_max_mana = 5
-max_mana = 10
 
 [connection signal="pressed" from="turn_manager/Button" to="turn_manager" method="_on_button_pressed"]
