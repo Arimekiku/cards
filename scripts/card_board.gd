@@ -1,7 +1,7 @@
 class_name CardBoard
 extends Node2D
 
-@export var game: Game
+var game: Game
 @export var graphics : Sprite2D
 var board_owner := Enums.CharacterType.PLAYER
 @export var max_minions := 7

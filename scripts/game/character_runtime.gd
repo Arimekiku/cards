@@ -2,6 +2,7 @@ class_name CharacterRuntime
 extends Node
 
 @export var side: Enums.CharacterType
+@export var game: Game
 
 @onready var deck: Deck = $deck
 @onready var board: CardBoard = $board_player
@@ -12,6 +13,7 @@ extends Node
 func _ready():
 	deck.owned = side
 	board.board_owner = side
+	board.game = game
 	mana.owned = side
 	
 	board.init()
