@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://4npx47ha3xu8"]
+[gd_scene load_steps=9 format=3 uid="uid://4npx47ha3xu8"]
 
 [ext_resource type="Script" uid="uid://ceasvmta0a8fy" path="res://scripts/game/game.gd" id="1_5fb3c"]
-[ext_resource type="Script" uid="uid://c0vthsq306log" path="res://scripts/game/hand.gd" id="2_5fb3c"]
 [ext_resource type="PackedScene" uid="uid://s2nouishoia4" path="res://scenes/cards/minion_card_prefab.tscn" id="2_tpwpp"]
 [ext_resource type="PackedScene" uid="uid://dqab4dsyv7pix" path="res://scenes/cards/spell_card_prefab.tscn" id="3_7ftgl"]
 [ext_resource type="PackedScene" uid="uid://dpuabon5q0tlb" path="res://scenes/cards/card_target_selector/arrow_target_selector.tscn" id="4_4d81t"]
@@ -57,22 +56,5 @@ monitoring = false
 [node name="collider" type="CollisionShape2D" parent="player_drop_area"]
 position = Vector2(576, 250)
 shape = SubResource("RectangleShape2D_4d81t")
-
-[node name="ui" type="CanvasLayer" parent="." groups=["battle_ui_layer"]]
-follow_viewport_enabled = true
-
-[node name="hand" type="Control" parent="ui"]
-unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -300.0
-offset_right = 300.0
-grow_horizontal = 2
-grow_vertical = 0
-script = ExtResource("2_5fb3c")
 
 [connection signal="pressed" from="turn_manager/Button" to="turn_manager" method="_on_button_pressed"]

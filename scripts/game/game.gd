@@ -3,7 +3,7 @@ class_name Game
 
 @export var player: CharacterRuntime
 @export var enemy: CharacterRuntime
-@onready var hand := %hand
+@onready var hand := player.hand
 
 @export var minion_card_scene: PackedScene
 @export var spell_card_scene: PackedScene
