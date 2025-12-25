@@ -31,9 +31,9 @@ func switch_scene(type: SceneType, params) -> bool:
 	
 	var tree = ServiceLocator.get_tree()
 	var current_scene = tree.current_scene
-	tree.remove_child(current_scene)
+	tree.root.remove_child(current_scene)
 	current_scene.queue_free()
 	
-	tree.add_child(packed_instance)
+	tree.root.add_child(packed_instance)
 	tree.current_scene = packed_instance
 	return true
