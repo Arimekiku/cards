@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://4npx47ha3xu8"]
+[gd_scene load_steps=10 format=3 uid="uid://4npx47ha3xu8"]
 
 [ext_resource type="Script" uid="uid://ceasvmta0a8fy" path="res://scripts/game/game.gd" id="1_5fb3c"]
 [ext_resource type="Script" uid="uid://c0vthsq306log" path="res://scripts/game/hand.gd" id="2_5fb3c"]
 [ext_resource type="PackedScene" uid="uid://s2nouishoia4" path="res://scenes/cards/minion_card_prefab.tscn" id="2_tpwpp"]
 [ext_resource type="PackedScene" uid="uid://dqab4dsyv7pix" path="res://scenes/cards/spell_card_prefab.tscn" id="3_7ftgl"]
 [ext_resource type="PackedScene" uid="uid://dpuabon5q0tlb" path="res://scenes/cards/card_target_selector/arrow_target_selector.tscn" id="4_4d81t"]
+[ext_resource type="Texture2D" uid="uid://bv5fdv6rsqy1v" path="res://resources/images/board.png" id="4_qbqua"]
 [ext_resource type="PackedScene" uid="uid://dpclu562nhmhh" path="res://scenes/player_prefab.tscn" id="6_plioj"]
 [ext_resource type="Script" uid="uid://crw7xwg3y1jlb" path="res://scripts/game/turn_manager.gd" id="10_7ftgl"]
 
@@ -20,12 +21,16 @@ spell_card_scene = ExtResource("3_7ftgl")
 turn_manager = NodePath("turn_manager")
 metadata/_edit_lock_ = true
 
+[node name="Board" type="Sprite2D" parent="."]
+position = Vector2(588, 363)
+scale = Vector2(0.7645173, 0.7645173)
+texture = ExtResource("4_qbqua")
+
 [node name="arrow_target_selector" parent="." instance=ExtResource("4_4d81t")]
 
-[node name="turn_manager" type="Node2D" parent="." node_paths=PackedStringArray("player_board", "enemy_board")]
+[node name="turn_manager" type="Node2D" parent="."]
+position = Vector2(-39, 261)
 script = ExtResource("10_7ftgl")
-player_board = NodePath("")
-enemy_board = NodePath("")
 
 [node name="Button" type="Button" parent="turn_manager"]
 offset_left = 990.0
@@ -35,11 +40,12 @@ offset_bottom = 244.0
 text = "Finish Turn"
 
 [node name="Player" parent="." node_paths=PackedStringArray("game", "turn_manager") instance=ExtResource("6_plioj")]
+position = Vector2(-68, 44)
 game = NodePath("..")
 turn_manager = NodePath("../turn_manager")
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("game", "turn_manager") instance=ExtResource("6_plioj")]
-position = Vector2(0, -198)
+position = Vector2(-65, -57)
 side = 1
 game = NodePath("..")
 turn_manager = NodePath("../turn_manager")
@@ -55,7 +61,7 @@ shape = SubResource("RectangleShape2D_4d81t")
 [node name="ui" type="CanvasLayer" parent="." groups=["battle_ui_layer"]]
 follow_viewport_enabled = true
 
-[node name="hand" type="Control" parent="ui" node_paths=PackedStringArray("deck")]
+[node name="hand" type="Control" parent="ui"]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 7
@@ -68,6 +74,5 @@ offset_right = 300.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("2_5fb3c")
-deck = NodePath("")
 
 [connection signal="pressed" from="turn_manager/Button" to="turn_manager" method="_on_button_pressed"]
