@@ -11,6 +11,7 @@ class_name Game
 @export var turn_manager: TurnManager
 
 var player_meta_cards: DeckMetadata
+var card_database: CardDatabase = ServiceLocator.get_service(CardDatabase)
 
 func initialize_game(deck_metadata: DeckMetadata) -> void:
 	player_meta_cards = deck_metadata
@@ -40,7 +41,7 @@ func draw_card(_deck: Deck) -> void:
 	hand.add_card(card)
 
 func create_card(value: String) -> Card:
-	var data := CardDatabase.get_from_registry(value)
+	var data := card_database.get_from_registry(value)
 	if data == null:
 		push_error("Unable to retrieve data from key: %s" % value)
 		return null
@@ -63,7 +64,7 @@ func create_card_from_data(value: CardData) -> Card:
 	return card
 
 func create_minion_from_name(value: String) -> Minion:
-	var data := CardDatabase.get_from_registry(value)
+	var data := card_database.get_from_registry(value)
 	if data == null or data.card_context.get_card_type() != Enums.CardType.MINION:
 		push_error("Unable to retrieve data from key: %s" % value)
 		return null
@@ -81,7 +82,6 @@ static func create_minion() -> Minion:
 func on_turn_started(current_turn: Enums.CharacterType) -> void:
 	var character := get_character(current_turn)
 	print(character)
-	character.mana.start_turn()
 	if current_turn == Enums.CharacterType.PLAYER:
 		for i in range(2):
 			draw_card(player.deck)

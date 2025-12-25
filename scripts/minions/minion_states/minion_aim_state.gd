@@ -1,17 +1,19 @@
 class_name MinionAimState
 extends MinionBaseState
 
+var events: EventBus = ServiceLocator.get_service(EventBus)
+
 func enter() -> void:
 	target.scale = Vector2(1.15, 1.15)
 
 	_highlight_enemies(Color.GREEN)
-	Events.target_selector_called_event.emit(target)
+	events.target_selector_called_event.emit(target)
 
 func exit() -> void:
 	target.scale = Vector2.ONE
 	
 	_highlight_enemies(Color.WHITE)
-	Events.target_selector_discard_event.emit(target)
+	events.target_selector_discard_event.emit(target)
 
 func on_input(event: InputEvent) -> void:
 	if event.is_action_pressed("right_mouse"):

@@ -6,6 +6,8 @@ extends Button
 
 var character_name: String
 var initial_deck: DeckMetadata
+var card_database: CardDatabase = ServiceLocator.get_service(CardDatabase)
+var scenes: SceneManager = ServiceLocator.get_service(SceneManager)
 
 func setup(character: CharacterMetadata) -> void:
 	character_name = character.character_name
@@ -18,7 +20,7 @@ func setup(character: CharacterMetadata) -> void:
 	
 	var card_map: Dictionary[String, int]
 	for card_id in initial_deck.cards:
-		var data = CardDatabase.get_from_registry(card_id)
+		var data = card_database.get_from_registry(card_id)
 		if data == null:
 			push_error("Can't get requested card of type %s!" % card_id)
 			continue
@@ -37,8 +39,8 @@ func setup(character: CharacterMetadata) -> void:
 		instance.setup(card_id, quantity)
 
 func _pressed() -> void:
-	var scenetype = Scenes.SceneType.BATTLE_SCENE
-	var result = Scenes.switch_scene(scenetype, initial_deck)
+	var scenetype = scenes.SceneType.BATTLE_SCENE
+	var result = scenes.switch_scene(scenetype, initial_deck)
 	if result == true: return
 	
-	push_warning("Can't load scene of SceneType: %s" % str(Scenes.SceneType.keys()[scenetype]))
+	push_warning("Can't load scene of SceneType: %s" % str(scenes.SceneType.keys()[scenetype]))

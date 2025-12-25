@@ -1,5 +1,5 @@
 class_name SceneManager
-extends Node
+extends Service
 
 enum SceneType {
 	MAIN_SCENE,
@@ -11,7 +11,7 @@ enum SceneType {
 
 var _scene_map: Dictionary[SceneType, PackedScene]
 
-func _init() -> void:
+func init() -> void:
 	_scene_map = {
 		SceneType.MAIN_SCENE: preload("res://scenes/gameplay/main_menu.tscn"),
 		SceneType.OPTIONS_SCENE: preload("res://scenes/gameplay/options_menu.tscn"),
@@ -29,10 +29,11 @@ func switch_scene(type: SceneType, params) -> bool:
 	if packed_instance.has_method("initialize_game"):
 		packed_instance.initialize_game(params)
 	
-	var current_scene = get_tree().current_scene
-	get_tree().root.remove_child(current_scene)
+	var tree = ServiceLocator.get_tree()
+	var current_scene = tree.current_scene
+	tree.remove_child(current_scene)
 	current_scene.queue_free()
 	
-	get_tree().root.add_child(packed_instance)
-	get_tree().current_scene = packed_instance
+	tree.add_child(packed_instance)
+	tree.current_scene = packed_instance
 	return true

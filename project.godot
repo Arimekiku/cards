@@ -17,9 +17,7 @@ config/icon="res://resources/images/icon.svg"
 
 [autoload]
 
-CardDatabase="*res://scripts/loaders/card_database.gd"
-Scenes="*res://scripts/utils/scenes.gd"
-Events="*res://scripts/utils/events.gd"
+ServiceLocator="*res://scripts/utils/service_locator.gd"
 
 [editor]
 

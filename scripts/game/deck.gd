@@ -4,16 +4,17 @@ extends Control
 @export var number_label: Label
 @export var discard_label: Label
 @export var start_cards: DeckMetadata
-var owned: Enums.CharacterType
 
+var owned: Enums.CharacterType
 var cards: Array[CardData] = []
 var discard_pile: Array[CardData] = []
+var card_database: CardDatabase = ServiceLocator.get_service(CardDatabase)
 
 func initialize_deck(initial_cards: DeckMetadata) -> void:
 	if initial_cards == null: initial_cards = start_cards
 	
 	for id in initial_cards.cards:
-		var data = CardDatabase.get_from_registry(id)
+		var data = card_database.get_from_registry(id)
 		if data == null:
 			push_error("Can't get requested card of type %s!" % id)
 			continue

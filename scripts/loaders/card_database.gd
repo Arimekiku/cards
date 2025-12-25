@@ -1,4 +1,5 @@
-extends Node
+class_name CardDatabase
+extends Service
 
 var CARD_FACTORY_TYPES = {
 	"creature": MinionContext,
@@ -16,7 +17,7 @@ var EFFECT_FACTORY_TYPES = {
 
 var _cards_registry: Dictionary[String, CardData]
 
-func _ready() -> void:
+func init() -> void:
 	_load_cards()
 
 func get_from_registry(value: String) -> CardData:

@@ -4,6 +4,8 @@ extends CardBaseState
 const MOUSE_MINIMAL_Y_THRESHOLD := 600
 const BASIC_CARD_Y_UPPRISING := 100
 
+var events: EventBus = ServiceLocator.get_service(EventBus)
+
 func enter() -> void:
 	var offset := Vector2(target.parent.size.x / 2, -target.size.y / 2)
 	offset.x -= target.size.x / 2
@@ -12,11 +14,11 @@ func enter() -> void:
 	target.collision_detector.monitoring = false
 	
 	_highlight_targets(Color.GREEN)
-	Events.target_selector_called_event.emit(target)
+	events.target_selector_called_event.emit(target)
 
 func exit() -> void:
 	_highlight_targets(Color.WHITE)
-	Events.target_selector_discard_event.emit(target)
+	events.target_selector_discard_event.emit(target)
 
 func on_input(event: InputEvent) -> void:
 	var mouse_at_bottom := target.get_global_mouse_position().y > MOUSE_MINIMAL_Y_THRESHOLD

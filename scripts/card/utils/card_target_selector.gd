@@ -9,10 +9,13 @@ const ALLIES_COLLISION_LAYER := 4
 
 var selection_context: Control
 var targeting: bool
+var events: EventBus
 
 func _ready() -> void:
-	Events.target_selector_called_event.connect(_on_target_selector_called)
-	Events.target_selector_discard_event.connect(_on_target_selector_discarded)
+	events = ServiceLocator.get_service(EventBus)
+	
+	events.target_selector_called_event.connect(_on_target_selector_called)
+	events.target_selector_discard_event.connect(_on_target_selector_discarded)
 
 func _input(event: InputEvent) -> void:
 	if not targeting: return
@@ -23,7 +26,7 @@ func _input(event: InputEvent) -> void:
 		var parent = selection_context.potential_targets[0].get_parent()
 		var target = parent
 		selection_context.potential_targets.clear()
-		Events.target_selector_resolved_event.emit(target)
+		events.target_selector_resolved_event.emit(target)
 		return
 
 

@@ -4,18 +4,19 @@ class_name EraseTargetEffect
 @export var value: int
 
 var running = true
+var events: EventBus = ServiceLocator.get_service(EventBus)
 
 func resolve(caster: Minion) -> void:
 	_highlight_enemies(Color.GREEN, caster)
-	Events.target_selector_called_event.emit(caster)
+	events.target_selector_called_event.emit(caster)
 	
-	Events.target_selector_resolved_event.connect(_stop)
+	events.target_selector_resolved_event.connect(_stop)
 
 func _stop(context: Minion) -> void:
-	Events.target_selector_resolved_event.disconnect(_stop)
+	events.target_selector_resolved_event.disconnect(_stop)
 	
 	_highlight_enemies(Color.WHITE, context)
-	Events.target_selector_discard_event.emit(context)
+	events.target_selector_discard_event.emit(context)
 	
 	running = false
 	context.take_damage(context.health)
