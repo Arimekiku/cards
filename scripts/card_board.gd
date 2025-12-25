@@ -3,17 +3,15 @@ extends Node2D
 
 @export var game: Game
 @export var graphics : Sprite2D
-@export var board_owner := Enums.CharacterType.PLAYER
+var board_owner := Enums.CharacterType.PLAYER
 @export var max_minions := 7
 @export var spacing := 160.0
 @export var drop_radius := 200.0
-@export var turn_manager: TurnManager
 @export var deck: Deck
 
 var minions: Array[Minion] = []
 
-func _ready() -> void:
-	turn_manager.turn_changed.connect(_on_turn_started)
+func init() -> void:
 	if board_owner == Enums.CharacterType.PLAYER: return;
 	
 	var minion := game.create_minion("frost_frog")

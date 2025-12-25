@@ -1,15 +1,14 @@
 extends Node2D
 class_name Game
 
-@onready var deck := %deck
-@onready var enemy_deck := %enemy_deck
+@export var player: CharacterRuntime
+@export var enemy: CharacterRuntime
 @onready var hand := %hand
 
 @export var minion_card_scene: PackedScene
 @export var spell_card_scene: PackedScene
 
 @export var start_hand_size := 5
-
 @export var turn_manager: TurnManager
 
 var player_meta_cards: DeckMetadata
@@ -18,7 +17,7 @@ func initialize_game(deck_metadata: DeckMetadata) -> void:
 	player_meta_cards = deck_metadata
 
 func _ready() -> void:
-	deck.initialize_deck(player_meta_cards)
+	player.deck.initialize_deck(player_meta_cards)
 	turn_manager.turn_changed.connect(on_turn_started)
 	
 	_init_start_hand()
@@ -28,7 +27,7 @@ func _init_start_hand() -> void:
 
 func draw_start_hand() -> void:
 	for i in range(start_hand_size):
-		draw_card(deck)
+		draw_card(player.deck)
 
 func draw_card(_deck: Deck) -> void:
 	var data: CardData = _deck.draw_card()
@@ -79,10 +78,13 @@ static func create_minion_from_data(value: CardData) -> Minion:
 	minion.setup(value)
 	return minion
 
-func on_turn_started(current_turn: Enums.Turn) -> void:
-	if not current_turn == Enums.Turn.PLAYER:
-		print("enemy soslo")
-		return
-	
-	for i in range(2):
-		draw_card(deck)
+func on_turn_started(current_turn: Enums.CharacterType) -> void:
+	var character := get_character(current_turn)
+	print(character)
+	character.mana.start_turn()
+	if current_turn == Enums.CharacterType.PLAYER:
+		for i in range(2):
+			draw_card(player.deck)
+
+func get_character(owner: Enums.CharacterType) -> CharacterRuntime:
+	return player if owner == Enums.CharacterType.PLAYER else enemy

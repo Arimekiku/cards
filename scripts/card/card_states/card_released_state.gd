@@ -4,8 +4,14 @@ extends CardBaseState
 var played: bool
 
 func enter() -> void:
+	var game := target.get_tree().get_first_node_in_group("game") as Game
+	var character := game.get_character(target.card_owner)
+	
 	played = not target.potential_targets.is_empty()
 	if not played: return
+	
+	if not character.mana.spend(target.data.cost):
+		return
 	
 	if target is MinionCard:
 		var context = null
