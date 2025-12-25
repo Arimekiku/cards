@@ -11,22 +11,12 @@ func enter() -> void:
 	if not played: return
 	
 	if not character.mana.spend(target.data.cost):
+		transition.emit(self, CardIdleState)
 		return
 	
-	if target is MinionCard:
-		var context = null
-		target.play(context)
-	
-	if target is SpellCard:
-		var potential_enemy = target.potential_targets[0].get_parent()
-		target.play(potential_enemy)
+	target.play()
 
 func on_input(_event: InputEvent) -> void:
 	if played: return
 	
-	_normalize()
 	transition.emit(self, CardIdleState)
-
-func _normalize() -> void:
-	target.scale = Vector2.ONE
-	target.z_index = 1

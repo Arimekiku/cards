@@ -3,8 +3,10 @@ extends CardBaseState
 
 func enter() -> void:
 	if not target.is_node_ready(): await target.ready
+	
 	if target.tween: target.tween.kill()
 	target.reparent_event.emit(target)
+	_normalize()
 
 func on_gui_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("left_mouse"): return

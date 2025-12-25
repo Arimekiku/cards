@@ -16,7 +16,7 @@ var card_owner := Enums.CharacterType.PLAYER
 @onready var potential_targets: Array[Node] = []
 
 @abstract func setup(card_data: CardData) -> void
-@abstract func play(context) -> void
+@abstract func play() -> void
 
 func _input(event: InputEvent) -> void:
 	if not state_machine: return

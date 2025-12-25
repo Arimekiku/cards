@@ -24,7 +24,7 @@ func setup(card_data: CardData) -> void:
 	%health.text = str(card_data.card_context.health)
 	%damage.text = str(card_data.card_context.damage)
 
-func play(_context) -> void:
+func play() -> void:
 	var output_zone: CardBoard
 	var minion := Game.create_minion_from_data(data)
 
