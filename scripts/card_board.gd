@@ -65,7 +65,6 @@ func can_accept(minion: Minion) -> bool:
 
 func _on_turn_started(turn):
 	if turn != board_owner: return
-
 	for minion in minions:
 		minion.has_attacked = false
 

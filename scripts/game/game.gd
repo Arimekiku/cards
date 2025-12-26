@@ -3,7 +3,8 @@ class_name Game
 
 @export var player: CharacterRuntime
 @export var enemy: CharacterRuntime
-@onready var hand := player.hand
+@onready var player_hand := player.hand
+@onready var enemy_hand := enemy.hand
 
 @export var minion_card_scene: PackedScene
 @export var spell_card_scene: PackedScene
@@ -11,13 +12,18 @@ class_name Game
 @export var turn_manager: TurnManager
 
 var player_meta_cards: DeckMetadata
+var enemy_meta_cards: DeckMetadata
 var card_database: CardDatabase = ServiceLocator.get_service(CardDatabase)
 
 func initialize_game(deck_metadata: DeckMetadata) -> void:
 	player_meta_cards = deck_metadata
+	enemy_meta_cards = deck_metadata
 
 func _ready() -> void:
+	player.deck.owned = Enums.CharacterType.PLAYER
+	enemy.deck.owned = Enums.CharacterType.ENEMY
 	player.deck.initialize_deck(player_meta_cards)
+	enemy.deck.initialize_deck(enemy_meta_cards)
 	turn_manager.turn_changed.connect(on_turn_started)
 	
 	_init_start_hand()
@@ -28,6 +34,7 @@ func _init_start_hand() -> void:
 func draw_start_hand() -> void:
 	for i in range(start_hand_size):
 		draw_card(player.deck)
+		draw_card(enemy.deck)
 
 func draw_card(_deck: Deck) -> void:
 	var data: CardData = _deck.draw_card()
@@ -36,9 +43,13 @@ func draw_card(_deck: Deck) -> void:
 		data = _deck.draw_card()
 	elif data == null:
 		return
-	
+	print("new turn ", _deck.owned)
 	var card: Card = create_card_from_data(data)
-	hand.add_card(card)
+	if _deck.owned == Enums.CharacterType.PLAYER:
+		print("wtf")
+		player_hand.add_card(card)
+	else:
+		enemy_hand.add_card(card)
 
 func create_card(value: String) -> Card:
 	var data := card_database.get_from_registry(value)
@@ -85,6 +96,10 @@ func on_turn_started(current_turn: Enums.CharacterType) -> void:
 	if current_turn == Enums.CharacterType.PLAYER:
 		for i in range(2):
 			draw_card(player.deck)
+	else:
+		print("xdddddddd")
+		for i in range(2):
+			draw_card(enemy.deck)
 
 func get_character(character_type: Enums.CharacterType) -> CharacterRuntime:
 	return player if character_type == Enums.CharacterType.PLAYER else enemy
