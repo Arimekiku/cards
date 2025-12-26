@@ -11,13 +11,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4d81t"]
 size = Vector2(1152, 500)
 
-[node name="board" type="Node2D" node_paths=PackedStringArray("player", "enemy", "turn_manager") groups=["game"]]
+[node name="board" type="Node2D" node_paths=PackedStringArray("player", "enemy") groups=["game"]]
 script = ExtResource("1_5fb3c")
 player = NodePath("Player")
 enemy = NodePath("Enemy")
 minion_card_scene = ExtResource("2_tpwpp")
 spell_card_scene = ExtResource("3_7ftgl")
-turn_manager = NodePath("turn_manager")
 metadata/_edit_lock_ = true
 
 [node name="Board" type="Sprite2D" parent="."]
@@ -40,14 +39,19 @@ text = "Finish Turn"
 
 [node name="Player" parent="." node_paths=PackedStringArray("game", "turn_manager") instance=ExtResource("6_plioj")]
 position = Vector2(-68, 44)
+side = 0
 game = NodePath("..")
 turn_manager = NodePath("../turn_manager")
+minion_card_scene = ExtResource("2_tpwpp")
+spell_card_scene = ExtResource("3_7ftgl")
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("game", "turn_manager") instance=ExtResource("6_plioj")]
 position = Vector2(-65, -57)
 side = 1
 game = NodePath("..")
 turn_manager = NodePath("../turn_manager")
+minion_card_scene = ExtResource("2_tpwpp")
+spell_card_scene = ExtResource("3_7ftgl")
 
 [node name="player_drop_area" type="Area2D" parent="."]
 collision_mask = 0
