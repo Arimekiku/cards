@@ -42,6 +42,9 @@ func _create_card_data(raw: Dictionary) -> CardData:
 	card.name = raw.get("name", "UNKNOWN")
 	card.cost = raw.get("cost", 0)
 	card.image = load(raw.get("image", ""))
+	card.outline_zoom = raw.get("outline_zoom", 1.0)
+	var d = raw.get("outline_offset", {})
+	card.outline_offset = Vector2(d.get("x", 0.0), d.get("y", 0.0))
 	
 	card.card_context = _create_context(raw)
 	

@@ -9,10 +9,10 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4ejio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fb3c"]
-size = Vector2(112.65369, 108.23925)
+size = Vector2(240, 240)
 
 [node name="spell_card" type="Control"]
-custom_minimum_size = Vector2(80, 120)
+custom_minimum_size = Vector2(160, 240)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_d81wr")
@@ -34,10 +34,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 64
 
 [node name="portrait_image" type="TextureRect" parent="graphics/portrait_margin"]
 unique_name_in_owner = true
@@ -74,6 +74,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
 offset_right = -10.0
+offset_bottom = -22.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_howen")
@@ -91,12 +92,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="cost_panel" type="Panel" parent="graphics/text_box"]
-custom_minimum_size = Vector2(24, 24)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-offset_left = 2.0
-offset_top = 7.0
-offset_right = 26.0
-offset_bottom = 31.0
+offset_left = 11.0
+offset_top = 22.0
+offset_right = 43.0
+offset_bottom = 54.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_4ejio")
 
 [node name="cost_text" type="RichTextLabel" parent="graphics/text_box/cost_panel"]
@@ -109,7 +110,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "3"
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/bold_font_size = 22
+theme_override_font_sizes/bold_italics_font_size = 22
+theme_override_font_sizes/italics_font_size = 22
+theme_override_font_sizes/mono_font_size = 22
+text = "99"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -119,7 +125,7 @@ scale = Vector2(0.63912684, 0.9885508)
 monitorable = false
 
 [node name="shape" type="CollisionShape2D" parent="collision_detector"]
-position = Vector2(62.585358, 58.165936)
+position = Vector2(120, 120)
 scale = Vector2(0.99999976, 0.9999998)
 shape = SubResource("RectangleShape2D_5fb3c")
 

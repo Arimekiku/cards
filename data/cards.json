@@ -60,6 +60,11 @@
 			}
 		},
 		"image": "res://resources/images/manul.jpg",
+		"outline_offset": {
+			"x": -0.3,
+			"y": 0.0
+		},
+		"outline_zoom": 0.8,
 		"portrait_offset": {
 			"x": 0.5,
 			"y": -0.23

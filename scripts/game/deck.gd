@@ -3,8 +3,8 @@ extends Control
 
 @export var number_label: Label
 @export var discard_label: Label
-@export var start_cards: DeckMetadata
 
+var start_cards: DeckMetadata
 var owned: Enums.CharacterType
 var cards: Array[CardData] = []
 var discard_pile: Array[CardData] = []

@@ -1,9 +1,8 @@
 class_name CardBoard
 extends Node2D
 
-@export var game: Game
 @export var graphics : Sprite2D
-var board_owner := Enums.CharacterType.PLAYER
+@export var board_owner := Enums.CharacterType.PLAYER
 @export var max_minions := 7
 @export var spacing := 160.0
 @export var drop_radius := 200.0
@@ -14,13 +13,13 @@ var minions: Array[Minion] = []
 func init() -> void:
 	if board_owner == Enums.CharacterType.PLAYER: return;
 	
-	var minion := game.create_minion_from_name("frost_frog")
+	var minion := Game.create_minion_from_name("frost_frog")
 	minion.minion_owner = Enums.CharacterType.ENEMY
 	add_minion(minion)
-	var minion2 := game.create_minion_from_name("frost_frog")
+	var minion2 := Game.create_minion_from_name("frost_frog")
 	minion2.minion_owner = Enums.CharacterType.ENEMY
 	add_minion(minion2)
-	var minion3 := game.create_minion_from_name("frost_frog")
+	var minion3 := Game.create_minion_from_name("frost_frog")
 	minion3.minion_owner = Enums.CharacterType.ENEMY
 	add_minion(minion3)
 
@@ -65,7 +64,7 @@ func can_accept(minion: Minion) -> bool:
 
 func _on_turn_started(turn):
 	if turn != board_owner: return
-
+	
 	for minion in minions:
 		minion.has_attacked = false
 

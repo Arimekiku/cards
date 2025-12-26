@@ -1,9 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://4npx47ha3xu8"]
+[gd_scene load_steps=13 format=3 uid="uid://4npx47ha3xu8"]
 
 [ext_resource type="Script" uid="uid://ceasvmta0a8fy" path="res://scripts/game/game.gd" id="1_5fb3c"]
 [ext_resource type="Script" uid="uid://c0vthsq306log" path="res://scripts/game/hand.gd" id="2_5fb3c"]
-[ext_resource type="PackedScene" uid="uid://s2nouishoia4" path="res://scenes/cards/minion_card_prefab.tscn" id="2_tpwpp"]
-[ext_resource type="PackedScene" uid="uid://dqab4dsyv7pix" path="res://scenes/cards/spell_card_prefab.tscn" id="3_7ftgl"]
 [ext_resource type="Script" uid="uid://c4gwy3gthofjs" path="res://scripts/game/deck.gd" id="3_gjmho"]
 [ext_resource type="PackedScene" uid="uid://dpuabon5q0tlb" path="res://scenes/cards/card_target_selector/arrow_target_selector.tscn" id="4_4d81t"]
 [ext_resource type="Script" uid="uid://brnvnnnlib2bl" path="res://scripts/game/character_runtime.gd" id="6_4d81t"]
@@ -13,21 +11,18 @@
 [ext_resource type="Script" uid="uid://crw7xwg3y1jlb" path="res://scripts/game/turn_manager.gd" id="10_7ftgl"]
 [ext_resource type="Script" uid="uid://cssyc6bnowfiw" path="res://scripts/game/mana_controller.gd" id="11_rrvqk"]
 
-[sub_resource type="Resource" id="Resource_qbqua"]
+[sub_resource type="Resource" id="Resource_1mlxa"]
 script = ExtResource("7_plioj")
-cards = Array[String](["manul", "greta", "manul", "greta", "manul", "greta", "manul", "greta", "manul", "greta"])
+cards = Array[String](["fireball", "fireball", "fireball", "fireball", "fireball", "fireball", "fireball", "fireball", "fireball", "fireball", "fireball"])
 metadata/_custom_type_script = "uid://0j6060vw6o6s"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4d81t"]
 size = Vector2(1152, 500)
 
-[node name="board" type="Node2D" node_paths=PackedStringArray("player", "enemy", "turn_manager") groups=["game"]]
+[node name="board" type="Node2D" node_paths=PackedStringArray("player", "enemy") groups=["game"]]
 script = ExtResource("1_5fb3c")
 player = NodePath("Player")
 enemy = NodePath("Enemy")
-minion_card_scene = ExtResource("2_tpwpp")
-spell_card_scene = ExtResource("3_7ftgl")
-turn_manager = NodePath("turn_manager")
 metadata/_edit_lock_ = true
 
 [node name="arrow_target_selector" parent="." instance=ExtResource("4_4d81t")]
@@ -44,14 +39,15 @@ offset_right = 1081.0
 offset_bottom = 244.0
 text = "Finish Turn"
 
-[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("turn_manager")]
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("turn_manager", "hand")]
 script = ExtResource("6_4d81t")
 turn_manager = NodePath("../turn_manager")
+player_meta_cards = SubResource("Resource_1mlxa")
+hand = NodePath("../ui/hand")
 
-[node name="board_player" type="Node2D" parent="Player" node_paths=PackedStringArray("game", "graphics", "deck") groups=["card_zones"]]
+[node name="board_player" type="Node2D" parent="Player" node_paths=PackedStringArray("graphics", "deck") groups=["card_zones"]]
 position = Vector2(635, 311)
 script = ExtResource("7_7182s")
-game = NodePath("../..")
 graphics = NodePath("graphics")
 deck = NodePath("../deck")
 
@@ -69,7 +65,6 @@ offset_bottom = 208.0
 script = ExtResource("3_gjmho")
 number_label = NodePath("number")
 discard_label = NodePath("Label")
-start_cards = SubResource("Resource_qbqua")
 
 [node name="number" type="Label" parent="Player/deck"]
 layout_mode = 1
@@ -110,11 +105,11 @@ script = ExtResource("6_4d81t")
 side = 1
 turn_manager = NodePath("../turn_manager")
 
-[node name="board_player" type="Node2D" parent="Enemy" node_paths=PackedStringArray("game", "graphics", "deck") groups=["card_zones"]]
+[node name="board_player" type="Node2D" parent="Enemy" node_paths=PackedStringArray("graphics", "deck") groups=["card_zones"]]
 position = Vector2(633, 127)
 script = ExtResource("7_7182s")
-game = NodePath("../..")
 graphics = NodePath("graphics")
+board_owner = 1
 deck = NodePath("../deck")
 
 [node name="graphics" type="Sprite2D" parent="Enemy/board_player"]
@@ -131,7 +126,6 @@ offset_bottom = 45.0
 script = ExtResource("3_gjmho")
 number_label = NodePath("number")
 discard_label = NodePath("Label")
-start_cards = SubResource("Resource_qbqua")
 
 [node name="number" type="Label" parent="Enemy/deck"]
 layout_mode = 1
@@ -186,11 +180,12 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -300.0
-offset_right = 300.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("2_5fb3c")
+hand_y = 60
+hand_radius = 1400.0
+max_total_spread = 360.0
 deck = NodePath("../../Player/deck")
 
 [connection signal="pressed" from="turn_manager/Button" to="turn_manager" method="_on_button_pressed"]

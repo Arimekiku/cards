@@ -3,7 +3,6 @@ extends Control
 
 @export_group("Logic")
 @export var max_count := 8
-@export var card_width := 140
 @export var hand_y := 480
 
 @export_group("Animation")
@@ -14,12 +13,7 @@ extends Control
 
 @export var deck: Deck
 
-var hand_center: Vector2 
 var cards: Array[Card] = []
-
-func _ready():
-	var screen_size = get_viewport_rect().size
-	hand_center = Vector2(screen_size.x / 2, screen_size.y + hand_radius - 100)
 
 func add_card(card: Card) -> void:
 	if cards.size() >= max_count: return
@@ -46,10 +40,12 @@ func update_hand_visuals():
 
 	for i in range(card_count):
 		var card = cards[i]
+		var card_size = card.size
 		var current_angle = start_angle + (angle_step * i)
+		var current_offset = card_size.x * (i - card_count / 2.)
 		var target_pos = Vector2(
-			hand_center.x + hand_radius * cos(current_angle),
-			hand_center.y + hand_radius * sin(current_angle)
+			global_position.x + current_offset,
+			global_position.y + card_size.y * sin(current_angle) / 2 - hand_y
 		)
 		var target_rotation = current_angle + PI/2 
 		
