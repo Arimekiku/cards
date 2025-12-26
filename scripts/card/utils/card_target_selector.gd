@@ -48,7 +48,7 @@ func _on_detector_area_exited(area: Area2D) -> void:
 	selection_context.potential_targets.erase(area)
 
 func _on_target_selector_called(target) -> void:
-	if target is not Minion and not SpellCard: return
+	if not (target is Minion or target is SpellCard): return
 	
 	var is_spell = target is SpellCard
 	area_detector.set_collision_mask_value(ALLIES_COLLISION_LAYER, is_spell)

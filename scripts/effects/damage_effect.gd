@@ -4,8 +4,8 @@ class_name DamageEffect
 @export var value: int
 
 func resolve(context) -> void:
-	if context is not Minion:
-		printerr("Invalid spell context in DamageEffect")
+	if context == null:
 		return
-	
-	context.take_damage(value)
+
+	if context.has_method("take_damage"):
+		context.take_damage(value)

@@ -25,14 +25,18 @@ func setup(card_data: CardData) -> void:
 	%description_text.text = data.card_context.description
 
 func play() -> void:
+	if potential_targets.is_empty(): return
 	var context = potential_targets[0].get_parent()
-	if context is not Minion: 
-		var context_name: String = context.get_script().get_global_name()
-		push_error("Can't resolve spell. Invalid context. %s" % context_name) 
+
+	if not context.has_method("take_damage"):
+		push_error("Invalid spell target")
 		return
-	
-	for effect in data.card_context.on_play_effects: effect.resolve(context)
+
+	for effect in data.card_context.on_play_effects:
+		effect.resolve(context)
+
 	played_event.emit(self)
+
 
 func _on_collision_detector_area_entered(area: Area2D) -> void:
 	super(area)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpclu562nhmhh"]
+[gd_scene load_steps=10 format=3 uid="uid://dpclu562nhmhh"]
 
 [ext_resource type="Script" uid="uid://brnvnnnlib2bl" path="res://scripts/game/character_runtime.gd" id="1_104hf"]
 [ext_resource type="Script" uid="uid://cdukqjfjgmfyg" path="res://scripts/card_board.gd" id="2_nrexm"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://0j6060vw6o6s" path="res://scripts/game/deck_metadata.gd" id="5_1ss63"]
 [ext_resource type="Script" uid="uid://cssyc6bnowfiw" path="res://scripts/game/mana_controller.gd" id="6_yvuf7"]
 [ext_resource type="Script" uid="uid://c0vthsq306log" path="res://scripts/game/hand.gd" id="7_nrexm"]
+[ext_resource type="PackedScene" uid="uid://djm87ttssld7i" path="res://scenes/hero_face.tscn" id="8_fgn6i"]
 
 [sub_resource type="Resource" id="Resource_qbqua"]
 script = ExtResource("5_1ss63")
@@ -90,3 +91,6 @@ offset_right = 300.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("7_nrexm")
+
+[node name="hero_face" parent="." instance=ExtResource("8_fgn6i")]
+position = Vector2(217, 370)

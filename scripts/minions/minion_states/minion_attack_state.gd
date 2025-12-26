@@ -6,14 +6,14 @@ func enter() -> void:
 		transition.emit(self, MinionIdleState)
 		return
 	
-	var potential_enemy: Minion = target.potential_targets[0].get_parent()
-	if potential_enemy is not Minion:
+	var potential_enemy = target.potential_targets[0].get_parent()
+	if not potential_enemy.has_method("take_damage"):
 		transition.emit(self, MinionIdleState)
 		return
 	
 	_animate_attack(potential_enemy)
 
-func _animate_attack(enemy: Minion) -> void:
+func _animate_attack(enemy) -> void:
 	target.has_attacked = true
 	var start_pos = target.global_position
 	var target_pos = enemy.global_position
@@ -35,7 +35,7 @@ func _animate_attack(enemy: Minion) -> void:
 	
 	tween.finished.connect(func(): target.z_index = original_z)
 
-func _on_impact(enemy: Minion):
+func _on_impact(enemy):
 	target.attack(enemy)
 	transition.emit(self, MinionIdleState)
 	

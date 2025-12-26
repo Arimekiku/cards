@@ -60,9 +60,10 @@ func take_damage(value: int) -> void:
 	
 	_ui_update_health(health)
 
-func attack(target: Minion) -> void:
+func attack(target) -> void:
 	target.take_damage(damage)
-	take_damage(target.damage)
+	if target is Minion:
+		take_damage(target.damage)
 	
 	_resolve_effects(data.card_context.on_attack_effects, null)
 

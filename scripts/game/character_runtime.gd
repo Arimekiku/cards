@@ -8,6 +8,7 @@ extends Node
 @onready var board: CardBoard = $board_player
 @onready var mana: ManaController = $mana_controller
 @onready var hand: Hand = $ui/hand
+@onready var face: HeroFace = $hero_face
 
 @export var turn_manager: TurnManager
 
@@ -17,7 +18,9 @@ func _ready():
 	board.game = game
 	mana.owned = side
 	hand.deck = deck
+	face.owned = side
 	
+	face.init()
 	board.init()
 	mana.update_label()
 	
