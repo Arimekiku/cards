@@ -17,7 +17,7 @@ extends Node
 @export var minion_card_scene: PackedScene
 @export var spell_card_scene: PackedScene
 
-var metadata: DeckMetadata
+#var metadata: DeckMetadata
 
 func _ready():
 	deck.owned = side
@@ -30,7 +30,7 @@ func _ready():
 	face.init()
 	board.init()
 	mana.update_label()
-	deck.initialize_deck(metadata)
+	deck.initialize_deck(game.player_deck_metadata)
 	draw_start_hand()
 	
 	if side == Enums.CharacterType.ENEMY:

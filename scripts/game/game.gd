@@ -8,8 +8,12 @@ class_name Game
 @export var spell_card_scene: PackedScene
 @export var start_hand_size := 5
 
+var player_deck_metadata: DeckMetadata
 var card_database: CardDatabase = ServiceLocator.get_service(CardDatabase)
 
+func initialize_game(deck_metadata: DeckMetadata) -> void:
+	player_deck_metadata = deck_metadata
+	
 func create_card(value: String) -> Card:
 	var data := card_database.get_from_registry(value)
 	if data == null:
