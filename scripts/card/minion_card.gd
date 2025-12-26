@@ -39,6 +39,11 @@ func play() -> void:
 	output_zone.add_minion(minion)
 	played_event.emit(self)
 
+func get_minion_instance() -> Minion:
+	var minion := Game.create_minion()
+	minion.setup(data)
+	return minion
+
 func _on_collision_detector_area_entered(area: Area2D) -> void:
 	super(area)
 
