@@ -35,19 +35,18 @@ func _select_target(minion: Minion) -> Node:
 	return hero
 	
 func _select_spell_target(spell_card) -> Node:
-	# отримуємо ворожу дошку
-	var boards = spell_card.get_tree().get_nodes_in_group("card_zones")
-	var enemy_board: CardBoard = null
-	for b in boards:
-		if b.board_owner != spell_card.card_owner:
-			enemy_board = b
-			break
-	if enemy_board == null:
+	var player_board = spell_card.get_tree().get_nodes_in_group("card_zones")[0]
+	#var enemy_board: CardBoard = null
+	#for b in boards:
+		#if b.board_owner != spell_card.card_owner:
+			#enemy_board = b
+			#break
+	if player_board == null:
 		return null
 
 	# спершу ціль — міньйони ворога
-	if enemy_board.minions.size() > 0:
-		return enemy_board.minions[randi() % enemy_board.minions.size()]
+	if player_board.minions.size() > 0:
+		return player_board.minions[randi() % player_board.minions.size()]
 
 	# якщо міньйонів немає — ціль герої
 	var heroes = spell_card.get_tree().get_nodes_in_group("heroes")
@@ -62,6 +61,7 @@ func _play_cards_from_hand() -> void:
 	var mana = character.mana
 
 	for card in hand.cards.duplicate():
+		card.card_owner = Enums.CharacterType.ENEMY
 		if card.data.cost > mana.current_mana:
 			continue
 		
@@ -83,15 +83,8 @@ func _play_minion_card(card: MinionCard) -> void:
 		hand.remove_card(card)
 
 func _play_spell_card(card: SpellCard, target: Node) -> void:
-	if not character.mana.spend(card.data.cost):
-		return
-	
-	# встановлюємо ціль у potential_targets
-	card.potential_targets.clear()
-	card.potential_targets.append(target)
-	
-	# викликаємо play
-	card.play()
-	
-	# прибираємо карту з руки
-	character.hand.remove_card(card)
+	if character.mana.spend(card.data.cost):
+		card.potential_targets.clear()
+		card.potential_targets.append(target)
+		card.play()
+		character.hand.remove_card(card)

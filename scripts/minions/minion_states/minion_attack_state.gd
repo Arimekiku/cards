@@ -5,7 +5,7 @@ func enter() -> void:
 	if target.potential_targets.is_empty():
 		transition.emit(self, MinionIdleState)
 		return
-	
+		
 	var potential_enemy = target.potential_targets[0].get_parent()
 	if not potential_enemy.has_method("take_damage"):
 		transition.emit(self, MinionIdleState)

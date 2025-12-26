@@ -49,7 +49,6 @@ func draw_card(_deck: Deck) -> void:
 		data = _deck.draw_card()
 	elif data == null:
 		return
-	print("new turn ", _deck.owned)
 	var card: Card = create_card_from_data(data)
 	hand.add_card(card)
 

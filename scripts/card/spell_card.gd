@@ -26,8 +26,12 @@ func setup(card_data: CardData) -> void:
 
 func play() -> void:
 	if potential_targets.is_empty(): return
-	var context = potential_targets[0].get_parent()
-
+	var context = null
+	if card_owner == Enums.CharacterType.PLAYER:
+		context = potential_targets[0].get_parent()
+	else:
+		context = potential_targets[0]
+		
 	if not context.has_method("take_damage"):
 		push_error("Invalid spell target")
 		return
