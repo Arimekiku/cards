@@ -2,16 +2,30 @@ class_name MinionAttackState
 extends MinionBaseState
 
 func enter() -> void:
+	# 1. Очищаємо список від видалених об'єктів перед перевіркою
+	target.potential_targets = target.potential_targets.filter(
+		func(t): return is_instance_valid(t) and not t.is_queued_for_deletion()
+	)
+
 	if target.potential_targets.is_empty():
 		transition.emit(self, MinionIdleState)
 		return
 		
-	var potential_enemy = target.potential_targets[0].get_parent()
-	if not potential_enemy.has_method("take_damage"):
-		transition.emit(self, MinionIdleState)
-		return
+	# 2. Тепер ми впевнені, що перший елемент валідний
+	var target_area = target.potential_targets[0]
+	var potential_enemy = target_area.get_parent()
 	
-	_animate_attack(potential_enemy)
+	# 3. Перевіряємо, чи ворог живий (якщо є властивість health)
+	if potential_enemy.has_method("take_damage"):
+		if potential_enemy.get("health") <= 0:
+			# Якщо ворог уже "мертвий" (в анімації), видаляємо його і виходимо
+			target.potential_targets.erase(target_area)
+			transition.emit(self, MinionIdleState)
+			return
+			
+		_animate_attack(potential_enemy)
+	else:
+		transition.emit(self, MinionIdleState)
 
 func _animate_attack(enemy) -> void:
 	target.has_attacked = true
@@ -37,6 +51,12 @@ func _animate_attack(enemy) -> void:
 
 func _on_impact(enemy):
 	target.attack(enemy)
+	
+	for area in target.potential_targets:
+		if area.get_parent() == enemy:
+			target.potential_targets.erase(area)
+			break
+	
 	transition.emit(self, MinionIdleState)
 	
 	var shake = enemy.create_tween()
