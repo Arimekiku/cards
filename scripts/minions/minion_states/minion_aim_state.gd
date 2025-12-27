@@ -4,10 +4,16 @@ extends MinionBaseState
 var events: EventBus = ServiceLocator.get_service(EventBus)
 
 func enter() -> void:
+	if target.minion_owner == Enums.CharacterType.ENEMY:
+		target.current_target = target.potential_targets[0]
+		await target.get_tree().process_frame
+		transition.emit(self, MinionAttackState)
+		return
+		
 	target.scale = Vector2(1.15, 1.15)
-
 	_highlight_enemies(Color.GREEN)
 	events.target_selector_called_event.emit(target)
+
 
 func exit() -> void:
 	target.scale = Vector2.ONE

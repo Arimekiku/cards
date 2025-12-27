@@ -22,8 +22,8 @@ func _attack_with_minions() -> void:
 		if target == null:
 			continue
 
-		minion.attack(target)
-		minion.has_attacked = true
+		minion.request_attack(target)
+		await minion.attack_finished
 
 func _select_target(minion: Minion) -> Node:
 	var best_target: Node = null
@@ -92,7 +92,7 @@ func _score_attack_target(attacker: Minion, target: Minion) -> float:
 	score += target.damage * 2
 	score += target.health
 	print(score)
-	return score
+	return score*5
 
 func _select_spell_target(spell_card: SpellCard) -> Node:
 	var best_target: Node = null

@@ -36,3 +36,16 @@ func _on_transition(from: BaseState, to: Variant) -> void:
 	if current_state: current_state.exit()
 	current_state = new_state
 	current_state.enter()
+
+func request_state(state_script: Script) -> void:
+	if current_state == null:
+		return
+	
+	if current_state.get_script() == state_script:
+		return
+	
+	if not current_state.can_transition_to(state_script):
+		return
+	
+	# ЄДИНИЙ правильний шлях
+	current_state.transition.emit(current_state, state_script)

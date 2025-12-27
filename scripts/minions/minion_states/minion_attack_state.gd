@@ -2,52 +2,68 @@ class_name MinionAttackState
 extends MinionBaseState
 
 func enter() -> void:
-	# 1. Очищаємо список від видалених об'єктів перед перевіркою
-	target.potential_targets = target.potential_targets.filter(
-		func(t): return is_instance_valid(t) and not t.is_queued_for_deletion()
-	)
-
-	if target.potential_targets.is_empty():
+	if not is_instance_valid(target.current_target):
+		target.has_attacked = true
 		transition.emit(self, MinionIdleState)
 		return
-		
-	# 2. Тепер ми впевнені, що перший елемент валідний
-	var target_area = target.potential_targets[0]
-	var potential_enemy = target_area.get_parent()
-	
-	# 3. Перевіряємо, чи ворог живий (якщо є властивість health)
-	if potential_enemy.has_method("take_damage"):
-		if potential_enemy.get("health") <= 0:
-			# Якщо ворог уже "мертвий" (в анімації), видаляємо його і виходимо
-			target.potential_targets.erase(target_area)
-			transition.emit(self, MinionIdleState)
-			return
-			
-		_animate_attack(potential_enemy)
-	else:
-		transition.emit(self, MinionIdleState)
 
-func _animate_attack(enemy) -> void:
-	target.has_attacked = true
-	var start_pos = target.global_position
-	var target_pos = enemy.global_position
-	
-	var original_z = target.z_index
+	_animate_attack(target.current_target)
+
+func _animate_attack(enemy: Node) -> void:
+	# Safety
+	if not is_instance_valid(enemy):
+		target.has_attacked = true
+		target.attack_finished.emit(target)
+		transition.emit(self, MinionIdleState)
+		return
+
+	# UI layer (той самий, що використовується для drag)
+	var ui_layer := target.get_tree().get_first_node_in_group("battle_ui_layer")
+	if not ui_layer:
+		push_warning("battle_ui_layer not found")
+		target.has_attacked = true
+		target.attack_finished.emit(target)
+		transition.emit(self, MinionIdleState)
+		return
+
+	# Save original hierarchy state
+	var original_parent := target.get_parent()
+	var original_index := target.get_index()
+	var start_pos := target.global_position
+	var original_z := target.z_index
+
+	# Move out of layout
+	target.reparent(ui_layer)
+	target.global_position = start_pos
 	target.z_index = 300
-	
+
+	# Target position
+	var target_pos = enemy.global_position
 	var direction = (target_pos - start_pos).normalized()
-	var wind_up_pos = start_pos - (direction * 50)
-	
-	var tween = target.create_tween()
-	tween.tween_property(target, "global_position", wind_up_pos, 0.2)\
-		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_property(target, "global_position", target_pos, 0.15)\
-		.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	var wind_up_pos = start_pos - direction * 50
+
+	# Tween
+	var tween := target.create_tween()
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+	tween.tween_property(target, "global_position", wind_up_pos, 0.2)
+	tween.tween_property(target, "global_position", target_pos, 0.15)
 	tween.tween_callback(func(): _on_impact(enemy))
 	tween.tween_property(target, "global_position", start_pos, 0.4)\
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	
-	tween.finished.connect(func(): target.z_index = original_z)
+
+	# Cleanup
+	tween.finished.connect(func():
+		if is_instance_valid(target):
+			target.reparent(original_parent)
+			original_parent.move_child(target, original_index)
+			target.z_index = original_z
+
+		target.has_attacked = true
+		target.attack_finished.emit(target)
+		transition.emit(self, MinionIdleState)
+	)
+
 
 func _on_impact(enemy):
 	target.attack(enemy)
@@ -63,3 +79,10 @@ func _on_impact(enemy):
 	shake.tween_property(enemy, "position:x", 10.0, 0.05).as_relative()
 	shake.tween_property(enemy, "position:x", -10.0, 0.05).as_relative()
 	shake.set_loops(3)
+	_on_attack_complete()
+
+func _on_attack_complete():
+	target.attack(target.current_target)
+	target.has_attacked = true
+	target.attack_finished.emit(target)
+	transition.emit(self, MinionIdleState)

@@ -9,3 +9,9 @@ func enter() -> void:
 
 func exit() -> void:
 	pass
+
+func get_state_script() -> Script:
+	return get_script()
+
+func can_transition_to(_state: Script) -> bool:
+	return true
