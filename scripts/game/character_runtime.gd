@@ -35,6 +35,7 @@ func _ready():
 	
 	if side == Enums.CharacterType.ENEMY:
 		$ui.hide()
+		$hero_face.position = $hero_enemy_place.position
 	
 	turn_manager.turn_changed.connect(_on_turn_started)
 

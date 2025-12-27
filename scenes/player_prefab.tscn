@@ -17,7 +17,6 @@ metadata/_custom_type_script = "uid://0j6060vw6o6s"
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_104hf")
-side = null
 
 [node name="board_player" type="Node2D" parent="." node_paths=PackedStringArray("graphics", "deck") groups=["card_zones"]]
 position = Vector2(635, 311)
@@ -104,3 +103,6 @@ offset_bottom = 370.0
 script = ExtResource("2_i0rvx")
 character = NodePath("..")
 hand = NodePath("../ui/hand")
+
+[node name="hero_enemy_place" type="Node2D" parent="."]
+position = Vector2(950, 132)
