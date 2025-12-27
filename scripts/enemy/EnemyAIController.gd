@@ -91,7 +91,7 @@ func _score_attack_target(attacker: Minion, target: Minion) -> float:
 	# Цінність цілі
 	score += target.damage * 2
 	score += target.health
-	print(score)
+	#print(score)
 	return score*5
 
 func _select_spell_target(spell_card: SpellCard) -> Node:
