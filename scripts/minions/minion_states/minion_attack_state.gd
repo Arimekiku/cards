@@ -2,6 +2,9 @@ class_name MinionAttackState
 extends MinionBaseState
 
 func enter() -> void:
+	print("ENTER ATTACK STATE")
+	print("current_target:", target.current_target)
+	print("is valid:", is_instance_valid(target.current_target))
 	if not is_instance_valid(target.current_target):
 		target.has_attacked = true
 		transition.emit(self, MinionIdleState)
@@ -66,23 +69,20 @@ func _animate_attack(enemy: Node) -> void:
 
 
 func _on_impact(enemy):
+	if not is_instance_valid(enemy):
+		return
+
+	# 🔥 ЄДИНА атака
 	target.attack(enemy)
-	
+
+	# Прибрати target з potential_targets
 	for area in target.potential_targets:
 		if area.get_parent() == enemy:
 			target.potential_targets.erase(area)
 			break
-	
-	transition.emit(self, MinionIdleState)
-	
+
+	# Хіт-шейк
 	var shake = enemy.create_tween()
 	shake.tween_property(enemy, "position:x", 10.0, 0.05).as_relative()
 	shake.tween_property(enemy, "position:x", -10.0, 0.05).as_relative()
 	shake.set_loops(3)
-	_on_attack_complete()
-
-func _on_attack_complete():
-	target.attack(target.current_target)
-	target.has_attacked = true
-	target.attack_finished.emit(target)
-	transition.emit(self, MinionIdleState)

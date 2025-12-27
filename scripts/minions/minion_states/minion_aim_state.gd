@@ -27,6 +27,17 @@ func on_input(event: InputEvent) -> void:
 		return
 	
 	if event.is_action_pressed("left_mouse") or event.is_action_released("left_mouse"):
+		if target.potential_targets.is_empty():
+			return
+		
+		# ✅ ОТУТ ГОЛОВНЕ
+		var area := target.potential_targets[0]
+		var real_target := area.get_parent()
+		
+		if not is_instance_valid(real_target):
+			return
+		
+		target.current_target = real_target
 		target.get_viewport().set_input_as_handled()
 		transition.emit(self, MinionAttackState)
 
