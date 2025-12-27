@@ -6,6 +6,9 @@ extends Control
 @onready var health_text := %health
 @onready var damage_text := %damage
 @onready var collision_detector: Area2D = %collider_detector
+
+var _pending_owner_apply := false
+
 @onready var character_icon := %character_icon
 
 signal died_event(minion: Minion)
@@ -17,6 +20,10 @@ var has_attacked: bool
 var state_machine: MinionStateMachine
 var minion_owner := Enums.CharacterType.PLAYER
 
+func _ready():
+	if _pending_owner_apply:
+		_apply_owner_settings()
+		
 func setup(card_data: CardData) -> void:
 	if not self.is_node_ready(): await self.ready
 	 
@@ -88,3 +95,22 @@ func _ui_update_health(value: int) -> void:
 
 func _ui_update_damage(value: int) -> void:
 	%damage.text = str(value)
+
+func _set_owned(owned):
+	minion_owner = owned
+	if is_node_ready():
+		_apply_owner_settings()
+	else:
+		_pending_owner_apply = true
+
+func _apply_owner_settings():
+	if minion_owner == Enums.CharacterType.ENEMY:
+		add_to_group("enemy_minions")
+		remove_from_group("player_minions")
+		collision_detector.set_collision_layer_value(3, true)  # ENEMY
+		collision_detector.set_collision_layer_value(4, false)
+	else:
+		add_to_group("player_minions")
+		remove_from_group("enemy_minions")
+		collision_detector.set_collision_layer_value(4, true)  # PLAYER
+		collision_detector.set_collision_layer_value(3, false)

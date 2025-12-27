@@ -7,6 +7,9 @@ func enter() -> void:
 	
 	target.rotation = 0
 	target.reparent(ui_control)
+	
+	# Configure collision detector for targeting
+	target.collision_detector.set_collision_mask_value(3, true)  # Enemy layer
 
 func on_input(event: InputEvent) -> void:
 	if target.potential_targets.size() > 0:

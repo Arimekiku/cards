@@ -6,6 +6,8 @@ func enter() -> void:
 	
 	if target.tween: target.tween.kill()
 	target.reparent_event.emit(target)
+	target.collision_detector.monitoring = false
+	target.potential_targets.clear()
 	_normalize()
 
 func on_gui_input(event: InputEvent) -> void:

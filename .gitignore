@@ -4,3 +4,6 @@
 all_codes.txt
 addons/godot-git-plugin/win64/~libgit_plugin.windows.editor.x86_64.dll
 all_scripts_combined.gd
+combine_gd.py
+all_scripts_combined.txt
+all_scripts_combined.gd

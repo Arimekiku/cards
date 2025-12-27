@@ -151,6 +151,7 @@ func _play_cards_from_hand() -> void:
 func _play_minion_card(card: MinionCard) -> void:
 	if character.mana.spend(card.data.cost):
 		var minion = card.get_minion_instance()
+		minion._set_owned(Enums.CharacterType.ENEMY)
 		character.board.add_minion(minion)
 		card.played_event.emit(card)
 		hand.remove_card(card)
