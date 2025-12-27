@@ -55,6 +55,9 @@ func setup(card_data: CardData) -> void:
 	_ui_update_health(health)
 	_ui_update_damage(damage)
 	_resolve_effects(context.on_spawn_effects, self)
+	
+	for effect in context.passive_effects:
+		effect.apply(self)
 
 func _input(event: InputEvent) -> void:
 	if not state_machine: return
@@ -66,6 +69,8 @@ func take_damage(value: int) -> void:
 	if health <= 0:
 		died_event.emit(self)
 		_resolve_effects(data.card_context.on_die_effects, null)
+		for effect in data.card_context.passive_effects:
+			effect.remove(self)
 		return
 	
 	_ui_update_health(health)
@@ -79,7 +84,10 @@ func attack(target: Node) -> void:
 	if target is Minion and is_instance_valid(self):
 		take_damage(target.damage)
 
-	_resolve_effects(data.card_context.on_attack_effects, null)
+	_resolve_effects(
+		data.card_context.on_attack_effects,
+		target
+	)
 
 
 func _on_gui_input(event: InputEvent) -> void:

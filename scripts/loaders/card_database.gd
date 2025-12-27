@@ -10,7 +10,9 @@ var EFFECT_FACTORY_TYPES = {
 	"print_effect": PrintEffect,
 	"damage_effect": DamageEffect,
 	"target_damage_effect": TargetDamageEffect,
-	"erase_target_effect": EraseTargetEffect
+	"erase_target_effect": EraseTargetEffect,
+	"freeze_effect": FreezeEffect,
+	"taunt_effect": TauntEffect
 }
 
 @export var json_path := "res://data/cards.json"
@@ -48,11 +50,14 @@ func _create_card_data(raw: Dictionary) -> CardData:
 	match card.card_context.get_card_type():
 		Enums.CardType.SPELL:
 			card.card_context.on_play_effects = _create_effects(raw.get("effects", {}))
+
 		Enums.CardType.MINION:
 			var effects = raw.get("effects", {})
-			card.card_context.on_spawn_effects = _create_effects(effects.get("spawn_effects", {}))
-			card.card_context.on_attack_effects = _create_effects(effects.get("attack_effects", {}))
-			card.card_context.on_die_effects = _create_effects(effects.get("die_effects", {}))
+
+			card.card_context.on_spawn_effects = _create_effects(effects.get("on_play", {}))
+			card.card_context.on_attack_effects = _create_effects(effects.get("on_attack", {}))
+			card.card_context.on_die_effects = _create_effects(effects.get("on_death", {}))
+			card.card_context.passive_effects = _create_effects(effects.get("passive", {}))
 	
 	return card
 
