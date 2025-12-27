@@ -30,7 +30,6 @@ func on_input(event: InputEvent) -> void:
 		if target.potential_targets.is_empty():
 			return
 		
-		# ✅ ОТУТ ГОЛОВНЕ
 		var area := target.potential_targets[0]
 		var real_target := area.get_parent()
 		
