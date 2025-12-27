@@ -4,6 +4,8 @@ class_name EnemyAIController
 @export var character: CharacterRuntime
 @export var hand: Hand
 
+const MIN_ATTACK_SCORE := 20
+
 func play_turn() -> void:
 	print("[AI] Turn start")
 	print(hand.cards)
@@ -24,38 +26,109 @@ func _attack_with_minions() -> void:
 		minion.has_attacked = true
 
 func _select_target(minion: Minion) -> Node:
-	var board = minion.get_tree().get_nodes_in_group("card_zones")[0]
-	if board == null:
-		return null
+	var best_target: Node = null
+	var best_score := -INF
 
-	if board.minions.size() > 0:
-		return board.minions[randi() % board.minions.size()]
-
-	var hero = minion.get_tree().get_nodes_in_group("heroes")[0]
-	return hero
-	
-func _select_spell_target(spell_card) -> Node:
-	var player_board = spell_card.get_tree().get_nodes_in_group("card_zones")[0]
-	#var enemy_board: CardBoard = null
-	#for b in boards:
-		#if b.board_owner != spell_card.card_owner:
-			#enemy_board = b
-			#break
+	var player_board: CardBoard = minion.get_tree().get_nodes_in_group("card_zones")[0]
 	if player_board == null:
 		return null
 
-	# спершу ціль — міньйони ворога
-	if player_board.minions.size() > 0:
-		return player_board.minions[randi() % player_board.minions.size()]
+	# 1. Міньйони
+	for target in player_board.minions:
+		var score := _score_attack_target(minion, target)
+		if score > best_score:
+			best_score = score
+			best_target = target
 
-	# якщо міньйонів немає — ціль герої
-	var heroes = spell_card.get_tree().get_nodes_in_group("heroes")
+	# 2. Face
+	var face_score := _score_face_attack(minion)
+	var hero = minion.get_tree().get_nodes_in_group("heroes")[0]
+
+	# 3. Вибір
+	if face_score > best_score and face_score >= MIN_ATTACK_SCORE:
+		return hero
+
+	if best_score < MIN_ATTACK_SCORE:
+		return null  # НЕ АТАКУЄМО
+
+	return best_target
+
+
+func _score_face_attack(attacker: Minion) -> float:
+	var score := 0.0
+	var attacked_hero : HeroFace= null
+	var heroes = attacker.get_tree().get_nodes_in_group("heroes")
 	for hero in heroes:
-		if hero.owned != spell_card.card_owner:
-			return hero
+		if hero.owned != Enums.CharacterType.ENEMY:
+			attacked_hero = hero
+				
+	if attacked_hero.health <= attacker.damage:
+		return 999999999
+	# Бити в лице завжди корисно, якщо немає розмінів
+	score += attacker.damage * 10
 
-	return null
+	# Якщо міньйон слабкий — не шкода
+	score += max(0, 5 - attacker.health)
 
+	return score
+
+
+func _score_attack_target(attacker: Minion, target: Minion) -> float:
+	var score := 0.0
+
+	# Вбиваємо і виживаємо
+	if attacker.damage >= target.health and target.damage < attacker.health:
+		score += 100
+
+	# Обидва помруть — менш бажано
+	if attacker.damage >= target.health and target.damage >= attacker.health:
+		score += 30
+
+	# Ми помремо — погано
+	if target.damage >= attacker.health and attacker.damage < target.health:
+		score -= 50
+
+	# Цінність цілі
+	score += target.damage * 2
+	score += target.health
+	print(score)
+	return score
+
+func _select_spell_target(spell_card: SpellCard) -> Node:
+	var best_target: Node = null
+	var best_score := -INF
+
+	var player_board: CardBoard = spell_card.get_tree().get_nodes_in_group("card_zones")[0]
+
+	for minion in player_board.minions:
+		var score := _score_spell_target(spell_card, minion)
+		if score > best_score:
+			best_score = score
+			best_target = minion
+
+	# Якщо міньйонів нема — б'ємо героя
+	if best_target == null:
+		var heroes = spell_card.get_tree().get_nodes_in_group("heroes")
+		for hero in heroes:
+			if hero.owned != spell_card.card_owner:
+				return hero
+
+	return best_target
+
+func _score_spell_target(spell_card: SpellCard, target: Minion) -> float:
+	#var damage := spell_card.data.card_context.on_play_effects.value
+	var damage := 6
+	var score := 0.0
+
+	# Добиваємо міньйона
+	if damage >= target.health:
+		score += 100
+
+	# Чим сильніший міньйон — тим краще
+	score += target.damage * 3
+	score += target.health
+
+	return score
 
 func _play_cards_from_hand() -> void:
 	var mana = character.mana
