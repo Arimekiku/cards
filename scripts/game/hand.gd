@@ -14,12 +14,27 @@ extends Control
 
 @export var deck: Deck
 
+var input_enabled := true
+var is_top_hand := false
 var hand_center: Vector2 
 var cards: Array[Card] = []
 
-func _ready():
+func init():
 	var screen_size = get_viewport_rect().size
-	hand_center = Vector2(screen_size.x / 2, screen_size.y + hand_radius - 100)
+	if deck.owned == Enums.CharacterType.ENEMY: 
+		is_top_hand = true
+		input_enabled = false
+	
+	if is_top_hand:
+		hand_center = Vector2(
+			screen_size.x / 2,
+			-hand_radius + 100
+		)
+	else:
+		hand_center = Vector2(
+			screen_size.x / 2,
+			screen_size.y + hand_radius - 100
+		)
 
 func add_card(card: Card) -> void:
 	if cards.size() >= max_count: return
@@ -42,7 +57,11 @@ func update_hand_visuals():
 	var angle_step = 0
 	if card_count > 1: angle_step = deg_to_rad(current_spread) / (card_count - 1)
 	
-	var start_angle = deg_to_rad(-90) - (deg_to_rad(current_spread) / 2)
+	var base_angle = deg_to_rad(-90)
+	if is_top_hand:
+		base_angle = deg_to_rad(90)
+
+	var start_angle = base_angle - (deg_to_rad(current_spread) / 2)
 
 	for i in range(card_count):
 		var card = cards[i]
@@ -51,7 +70,7 @@ func update_hand_visuals():
 			hand_center.x + hand_radius * cos(current_angle),
 			hand_center.y + hand_radius * sin(current_angle)
 		)
-		var target_rotation = current_angle + PI/2 
+		var target_rotation = current_angle + (PI/2 if not is_top_hand else -PI/2)
 		
 		_animate_card_to_position(card, target_pos, target_rotation)
 

@@ -29,12 +29,14 @@ func _ready():
 	
 	face.init()
 	board.init()
+	hand.init()
 	mana.update_label()
 	deck.initialize_deck(game.player_deck_metadata)
 	draw_start_hand()
 	
 	if side == Enums.CharacterType.ENEMY:
-		$ui.hide()
+		hand.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		#$ui.hide()
 		$hero_face.position = $hero_enemy_place.position
 	
 	turn_manager.turn_changed.connect(_on_turn_started)
