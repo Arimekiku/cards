@@ -7,19 +7,33 @@
 		"damage": 2,
 		"description": "Заморожує ціль при атаці",
 		"effects": {
-		  "on_play": {
-			"freeze_effect": { "target": "enemy_creature" }
-		  },
-		  "on_attack": {
-			"print_effect": { "value": "Attack!" }
-		  },
-		  "on_death": {
-			"freeze_effect": { "target": "random_enemy_creature" }
-		  },
-		  "passive": {
-			"taunt_effect": {}
-		  }
-		},
+  "on_attack": {
+	"apply_status": {
+	  "status": "freeze",
+	  "target": "attack_target",
+	  "duration": 1
+	}
+  },
+  "on_death": {
+	"random": {
+	  "from": "enemy_creatures",
+	  "do": {
+		"apply_status": {
+		  "status": "freeze",
+		  "duration": 1
+		}
+	  }
+	}
+  },
+	  "passive": {
+		"apply_status": {
+		  "status": "taunt",
+		  "target": "self",
+		  "duration": -1
+		}
+	  }
+},
+
 		"keywords": ["freeze"],
 		"tribes": ["amphibian", "beast", "frog"],
 		"image": "res://resources/images/cards/jaba.png",

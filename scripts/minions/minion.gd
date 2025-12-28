@@ -23,6 +23,9 @@ var minion_owner := Enums.CharacterType.PLAYER
 var is_ai_intent: bool = false
 var current_target: Node = null
 
+var statuses: Array = []
+var can_attack: bool = true
+
 func _ready():
 	if _pending_owner_apply:
 		_apply_owner_settings()
@@ -57,7 +60,14 @@ func setup(card_data: CardData) -> void:
 	_resolve_effects(context.on_spawn_effects, self)
 	
 	for effect in context.passive_effects:
-		effect.apply(self)
+		effect.resolve(self)
+	#for effect in context.passive_effects:
+		#if effect.has("status_name"):
+			#var status_name = effect.status_name
+			#var duration = -1
+			#if effect.has("duration"):
+				#duration = effect.duration
+			#add_status(status_name, duration)
 
 func _input(event: InputEvent) -> void:
 	if not state_machine: return
@@ -69,13 +79,19 @@ func take_damage(value: int) -> void:
 	if health <= 0:
 		died_event.emit(self)
 		_resolve_effects(data.card_context.on_die_effects, null)
-		for effect in data.card_context.passive_effects:
-			effect.remove(self)
+		for s in statuses.duplicate():
+			if s.has_method("remove"):
+				s.remove()
+		
+		statuses.clear()
 		return
 	
 	_ui_update_health(health)
 
 func attack(target: Node) -> void:
+	if not can_attack:
+		return
+		
 	if not is_instance_valid(target):
 		return
 
@@ -84,11 +100,8 @@ func attack(target: Node) -> void:
 	if target is Minion and is_instance_valid(self):
 		take_damage(target.damage)
 
-	_resolve_effects(
-		data.card_context.on_attack_effects,
-		target
-	)
-
+	_resolve_effects(data.card_context.on_attack_effects, target)
+	
 
 func _on_gui_input(event: InputEvent) -> void:
 	if not state_machine: return
@@ -131,10 +144,42 @@ func _apply_owner_settings():
 		collision_detector.set_collision_layer_value(4, true)  # PLAYER
 		collision_detector.set_collision_layer_value(3, false)
 
-func request_attack(target_node: Node) -> void:
+func request_attack(target_node: Node) -> bool:
 	if has_attacked:
-		return
+		return false
+	if not can_attack:
+		return false
 
 	is_ai_intent = true
 	current_target = target_node
 	state_machine.request_state(MinionAttackState)
+	return true
+
+func add_status(status_name: String, duration: int) -> void:
+	# створюємо інстанс статусу за іменем
+	match status_name:
+		"freeze":
+			var s = FreezeStatus.new(duration)
+			s.apply(self)
+			statuses.append(s)
+		
+		"taunt":
+			var s = TauntStatus.new()
+			s.apply(self)
+			statuses.append(s)
+			
+		_:
+			# тут можна додати інші статуси/реєстр
+			push_warning("Unknown status: %s" % status_name)
+
+func remove_status(status_instance) -> void:
+	statuses.erase(status_instance)
+
+func set_can_attack(value: bool) -> void:
+	can_attack = value
+
+func on_turn_start() -> void:
+	# обробка статусів
+	for s in statuses.duplicate():
+		if s.has_method("on_turn_start"):
+			s.on_turn_start()

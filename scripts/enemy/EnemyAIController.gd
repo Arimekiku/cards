@@ -21,8 +21,12 @@ func _attack_with_minions() -> void:
 		var target = _select_target(minion)
 		if target == null:
 			continue
-
-		minion.request_attack(target)
+			
+		var started = minion.request_attack(target)
+		
+		if not started:
+			continue
+			
 		await minion.attack_finished
 
 func _select_target(minion: Minion) -> Node:
@@ -34,19 +38,27 @@ func _select_target(minion: Minion) -> Node:
 		return null
 
 	# 1. Міньйони
-	for target in player_board.minions:
+	var taunts := player_board.minions.filter(
+		func(m): return m.is_in_group("taunt_minions")
+	)
+
+	var possible_targets := taunts if taunts.size() > 0 else player_board.minions
+
+	for target in possible_targets:
 		var score := _score_attack_target(minion, target)
 		if score > best_score:
 			best_score = score
 			best_target = target
-
 	# 2. Face
 	var face_score := _score_face_attack(minion)
 	var hero = minion.get_tree().get_nodes_in_group("heroes")[0]
 
 	# 3. Вибір
-	if face_score > best_score and face_score >= MIN_ATTACK_SCORE:
-		return hero
+	if taunts.size() > 0:
+		pass
+	else:
+		if face_score > best_score and face_score >= MIN_ATTACK_SCORE:
+			return hero
 
 	if best_score < MIN_ATTACK_SCORE:
 		return null  # НЕ АТАКУЄМО
@@ -87,7 +99,9 @@ func _score_attack_target(attacker: Minion, target: Minion) -> float:
 	# Ми помремо — погано
 	if target.damage >= attacker.health and attacker.damage < target.health:
 		score -= 50
-
+		
+	if target.is_in_group("taunt_minions"):
+		score += 20
 	# Цінність цілі
 	score += target.damage * 2
 	score += target.health
@@ -99,7 +113,7 @@ func _select_spell_target(spell_card: SpellCard) -> Node:
 	var best_score := -INF
 
 	var player_board: CardBoard = spell_card.get_tree().get_nodes_in_group("card_zones")[0]
-
+	
 	for minion in player_board.minions:
 		var score := _score_spell_target(spell_card, minion)
 		if score > best_score:
@@ -127,7 +141,10 @@ func _score_spell_target(spell_card: SpellCard, target: Minion) -> float:
 	# Чим сильніший міньйон — тим краще
 	score += target.damage * 3
 	score += target.health
-
+	
+	if target.is_in_group("taunt_minions"):
+		score += 20
+		
 	return score
 
 func _play_cards_from_hand() -> void:

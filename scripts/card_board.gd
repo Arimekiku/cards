@@ -67,6 +67,7 @@ func _on_turn_started(turn):
 	if turn != board_owner: return
 	for minion in minions:
 		minion.has_attacked = false
+		minion.on_turn_start()
 
 func _normalize_minion(minion: Minion, target: Vector2) -> void:
 	var tween = create_tween()

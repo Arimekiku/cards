@@ -39,7 +39,6 @@ text = "Finish Turn"
 
 [node name="Player" parent="." node_paths=PackedStringArray("game", "turn_manager") instance=ExtResource("6_plioj")]
 position = Vector2(-68, 44)
-side = 0
 game = NodePath("..")
 turn_manager = NodePath("../turn_manager")
 minion_card_scene = ExtResource("2_tpwpp")

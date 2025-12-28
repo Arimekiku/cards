@@ -1,12 +1,9 @@
 extends CardEffect
 class_name TauntEffect
 
-func apply(owner: Minion):
-	print("taunt")
-	owner.add_to_group("taunt")
-
-func remove(owner: Minion):
-	print("untaunt")
-	owner.remove_from_group("taunt")
-
-func resolve(_context): pass
+func resolve(context) -> void:
+	print("add taunt")
+	if context == null:
+		return
+	if context is Minion:
+		context.add_status("taunt", -1)

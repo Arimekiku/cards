@@ -11,8 +11,7 @@ var EFFECT_FACTORY_TYPES = {
 	"damage_effect": DamageEffect,
 	"target_damage_effect": TargetDamageEffect,
 	"erase_target_effect": EraseTargetEffect,
-	"freeze_effect": FreezeEffect,
-	"taunt_effect": TauntEffect
+	"apply_status": ApplyStatusEffect
 }
 
 @export var json_path := "res://data/cards.json"
