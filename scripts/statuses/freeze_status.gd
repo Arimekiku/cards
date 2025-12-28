@@ -8,7 +8,6 @@ func _init(_duration: int = 1) -> void:
 	turns_left = _duration + 1
 
 func apply(target) -> void:
-	print("freeze ", target)
 	target_node = target
 	# Базова дія: забороняємо атакувати
 	if target_node.has_method("set_can_attack"):
@@ -21,7 +20,6 @@ func apply(target) -> void:
 func on_turn_start() -> void:
 	turns_left -= 1
 	if turns_left <= 0:
-		print("unfreeze")
 		remove()
 
 func remove() -> void:

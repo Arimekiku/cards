@@ -183,3 +183,5 @@ func on_turn_start() -> void:
 	for s in statuses.duplicate():
 		if s.has_method("on_turn_start"):
 			s.on_turn_start()
+			
+	_resolve_effects(data.card_context.on_turn_start_effects, self)

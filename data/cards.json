@@ -59,5 +59,25 @@
 		},
 		"image": "res://resources/images/cards/fireball.png"
 	},
-	
+	"wise_owl": {
+  "name": "Мудра сова",
+  "cost": 4,
+  "card_type": "creature",
+  "health": 3,
+  "damage": 2,
+  "effects": {
+  "on_play": {
+	"draw_cards": {
+	  "who": "owner",
+	  "amount": 2
+	}
+  }
+},
+  "on_turn_start": {
+	"draw_cards": {
+	  "who": "owner",
+	  "amount": 1
+	}
+  }
+},
 }

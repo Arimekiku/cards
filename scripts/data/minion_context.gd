@@ -10,6 +10,9 @@ class_name MinionContext
 @export var on_attack_effects: Array[CardEffect]
 @export var on_die_effects: Array[CardEffect]
 @export var passive_effects: Array[CardEffect]
+@export var on_turn_start_effects: Array[CardEffect]
+@export var on_turn_end_effects: Array[CardEffect]
+
 
 @export_group("Visual")
 @export var portrait_zoom: float
