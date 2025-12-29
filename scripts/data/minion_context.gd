@@ -20,3 +20,13 @@ class_name MinionContext
 
 func get_card_type() -> Enums.CardType:
 	return Enums.CardType.MINION
+
+func requires_target() -> bool:
+	for group in [
+		on_spawn_effects,
+		on_die_effects
+	]:
+		for effect in group:
+			if effect.requires_target():
+				return true
+	return false

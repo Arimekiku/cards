@@ -46,11 +46,13 @@ func _check_for_mana() -> bool:
 	return true
 
 func _handle_spell(event: InputEvent) -> void:
-	var motion := event is InputEventMouseMotion
-	if not motion or target.potential_targets.is_empty():
+	if not target.requires_target():
+		if event.is_action_pressed("left_mouse") or event.is_action_released("left_mouse"):
+			transition.emit(self, CardReleasedState)
 		return
-	
-	transition.emit(self, CardAimState)
+
+	if event is InputEventMouseMotion and not target.potential_targets.is_empty():
+		transition.emit(self, CardAimState)
 
 func _handle_creature(event: InputEvent) -> void:
 	var cancel = event.is_action_pressed("right_mouse")

@@ -53,8 +53,8 @@
 			"print_effect": {
 				"value": "DAMAGE!"
 			},
-			"damage_effect": {
-				"value": 6
+			"target_damage_effect": {
+			  "value": 6
 			}
 		},
 		"image": "res://resources/images/cards/fireball.png"
@@ -80,4 +80,15 @@
 	}
   }
 },
+"arcane_intellect": {
+  "card_type": "spell",
+  "cost": 3,
+  "effects": {
+	"on_play": {
+	  "draw_cards": {
+		"amount": 2
+	  }
+	}
+  }
+}
 }

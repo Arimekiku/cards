@@ -23,9 +23,14 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_mouse"):
 		if selection_context.potential_targets.is_empty():
 			return
-		var parent = selection_context.potential_targets[0].get_parent()
-		var target = parent
+
+		var area = selection_context.potential_targets[0]
+		var target = area.get_parent()
+
+		selection_context.selected_target = target
+
 		selection_context.potential_targets.clear()
+
 		events.target_selector_resolved_event.emit(target)
 		return
 

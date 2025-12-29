@@ -47,3 +47,6 @@ func _on_collision_detector_area_entered(area: Area2D) -> void:
 
 func _on_collision_detector_area_exited(area: Area2D) -> void:
 	potential_targets.erase(area)
+	
+func requires_target() -> bool:
+	return data.card_context.requires_target()

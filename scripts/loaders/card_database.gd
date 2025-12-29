@@ -8,7 +8,6 @@ var CARD_FACTORY_TYPES = {
 
 var EFFECT_FACTORY_TYPES = {
 	"print_effect": PrintEffect,
-	"damage_effect": DamageEffect,
 	"target_damage_effect": TargetDamageEffect,
 	"erase_target_effect": EraseTargetEffect,
 	"apply_status": ApplyStatusEffect,
