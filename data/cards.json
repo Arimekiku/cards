@@ -88,9 +88,14 @@
   "effects": {
 	"on_play": {
 	  "draw_cards": {
-		"amount": 2
+		"amount": 1
 	  }
-	}
+	},
+	"on_draw": {
+	  "draw_cards": {
+		"amount": 1
+	  }
+	},
   }
 }
 }

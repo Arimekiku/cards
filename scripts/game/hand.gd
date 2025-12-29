@@ -42,6 +42,7 @@ func add_card(card: Card) -> void:
 	cards.append(card)
 	add_child(card)
 	card.parent = self
+	card.resolve_on_draw()
 	update_hand_visuals()
 	_connect_card_signals(card)
 

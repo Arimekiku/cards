@@ -50,3 +50,10 @@ func _on_collision_detector_area_exited(area: Area2D) -> void:
 	
 func requires_target() -> bool:
 	return data.card_context.requires_target()
+	
+func resolve_on_draw():
+	if data.card_context.on_draw_effects.is_empty():
+		return
+
+	for effect in data.card_context.on_draw_effects:
+		effect.resolve(self)
