@@ -1,30 +1,54 @@
 {
-	"frost_frog": {
-		"name": "Морозна жаба",
-		"cost": 3,
-		"card_type": "creature",
-		"health": 8,
-		"damage": 2,
-		"description": "Заморожує ціль при атаці",
-		"effects": {
-  "on_attack": {
-	"apply_status": {
-	  "status": "freeze",
-	  "target": "attack_target",
-	  "duration": 1
-	}
-  },
-  "on_death": {
-	"random": {
-	  "from": "enemy_creatures",
-	  "do": {
+  "frost_frog": {
+	"name": "Морозна жаба",
+	"cost": 3,
+	"card_type": "creature",
+	"health": 8,
+	"damage": 2,
+	"effects": {
+	  "on_attack": {
 		"apply_status": {
 		  "status": "freeze",
+		  "target": "attack_target",
 		  "duration": 1
+		}
+	  },
+	  "on_death": {
+		"random": {
+		  "from": "enemy_creatures",
+		  "do": {
+			"apply_status": {
+			  "status": "freeze",
+			  "duration": 1
+			}
+		  }
 		}
 	  }
 	}
   },
+
+  "wise_owl": {
+	"name": "Мудра сова",
+	"cost": 4,
+	"card_type": "creature",
+	"health": 3,
+	"damage": 2,
+	"effects": {
+	  "on_play": {
+		"draw_cards": {
+		  "amount": 2
+		}
+	  }
+	}
+  },
+
+  "stone_guardian": {
+	"name": "Камʼяний захисник",
+	"cost": 2,
+	"card_type": "creature",
+	"health": 5,
+	"damage": 1,
+	"effects": {
 	  "passive": {
 		"apply_status": {
 		  "status": "taunt",
@@ -32,70 +56,105 @@
 		  "duration": -1
 		}
 	  }
-},
+	}
+  },
 
-		"keywords": ["freeze"],
-		"tribes": ["amphibian", "beast", "frog"],
-		"image": "res://resources/images/cards/jaba.png",
-		"portrait_offset": {
-			"x": -0.1,
-			"y": -0.23
-		},
-		"portrait_zoom": 1.2
-	},
-	
-	"fireball": {
-		"name": "Вогняна куля",
-		"cost": 4,
-		"card_type": "spell",
-		"description": "Завдає 6 шкоди",
-		"effects": {
-	"on_play": {
-			"print_effect": {
-				"value": "DAMAGE!"
-			},
-			"target_damage_effect": {
-			  "value": 6
-			}
-			}
-		},
-		"image": "res://resources/images/cards/fireball.png"
-	},
-	"wise_owl": {
-  "name": "Мудра сова",
-  "cost": 4,
-  "card_type": "creature",
-  "health": 3,
-  "damage": 2,
-  "effects": {
-  "on_play": {
-	"draw_cards": {
-	  "who": "owner",
-	  "amount": 2
+  "blade_apprentice": {
+	"name": "Учень клинка",
+	"cost": 1,
+	"card_type": "creature",
+	"health": 2,
+	"damage": 1,
+	"effects": {
+	  "on_play": {
+		"apply_status": {
+		  "status": "strengthen",
+		  "target": "self",
+		  "duration": 1
+		}
+	  }
+	}
+  },
+
+  "fireball": {
+	"name": "Вогняна куля",
+	"cost": 4,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"target_damage_effect": {
+		  "value": 6
+		}
+	  }
+	}
+  },
+
+  "arcane_intellect": {
+	"name": "Таємні знання",
+	"cost": 3,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"draw_cards": {
+		  "amount": 2
+		}
+	  }
+	}
+  },
+
+  "frost_breath": {
+	"name": "Крижаний подих",
+	"cost": 2,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"apply_status": {
+		  "status": "freeze",
+		  "target": "enemy_creatures",
+		  "duration": 1
+		}
+	  }
+	}
+  },
+
+  "board_purge": {
+	"name": "Очищення поля",
+	"cost": 5,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"erase_target_effect": {
+		  "target": "enemy_creatures"
+		}
+	  }
+	}
+  },
+
+  "book_of_fate": {
+	"name": "Книга долі",
+	"cost": 2,
+	"card_type": "spell",
+	"effects": {
+	  "on_draw": {
+		"draw_cards": {
+		  "amount": 1
+		}
+	  }
+	}
+  },
+
+  "power_orb": {
+	"name": "Сфера підсилення",
+	"cost": 1,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"apply_status": {
+		  "status": "buff",
+		  "target": "friendly_creature",
+		  "duration": 1
+		}
+	  }
 	}
   }
-},
-  "on_turn_start": {
-	"draw_cards": {
-	  "who": "owner",
-	  "amount": 1
-	}
-  }
-},
-"arcane_intellect": {
-  "card_type": "spell",
-  "cost": 3,
-  "effects": {
-	"on_play": {
-	  "draw_cards": {
-		"amount": 1
-	  }
-	},
-	"on_draw": {
-	  "draw_cards": {
-		"amount": 1
-	  }
-	},
-  }
-}
 }

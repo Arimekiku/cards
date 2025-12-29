@@ -5,7 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_iwspc"]
 script = ExtResource("1_iwspc")
-cards = Array[String](["frost_frog", "frost_frog", "frost_frog", "fireball", "wise_owl", "wise_owl", "frost_frog", "frost_frog", "arcane_intellect"])
+cards = Array[String](["frost_frog", "wise_owl", "stone_guardian", "blade_apprentice", "fireball", "arcane_intellect", "frost_breath", "board_purge", "book_of_fate", "power_orb"])
 metadata/_custom_type_script = "uid://0j6060vw6o6s"
 
 [resource]
