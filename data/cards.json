@@ -50,11 +50,13 @@
 		"card_type": "spell",
 		"description": "Завдає 6 шкоди",
 		"effects": {
+	"on_play": {
 			"print_effect": {
 				"value": "DAMAGE!"
 			},
 			"target_damage_effect": {
 			  "value": 6
+			}
 			}
 		},
 		"image": "res://resources/images/cards/fireball.png"

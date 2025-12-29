@@ -49,7 +49,9 @@ func _create_card_data(raw: Dictionary) -> CardData:
 	
 	match card.card_context.get_card_type():
 		Enums.CardType.SPELL:
-			card.card_context.on_play_effects = _create_effects(raw.get("effects", {}))
+			var effects = raw.get("effects", {})
+			card.card_context.on_play_effects = _create_effects(effects.get("on_play", {}))
+			card.card_context.on_draw_effects = _create_effects(effects.get("on_draw", {}))
 
 		Enums.CardType.MINION:
 			var effects = raw.get("effects", {})
