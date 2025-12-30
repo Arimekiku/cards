@@ -11,6 +11,11 @@ class_name Game
 var player_deck_metadata: DeckMetadata
 var card_database: CardDatabase = ServiceLocator.get_service(CardDatabase)
 
+signal spell_played(owner_type)
+
+func emit_spell_played(owner_type):
+	spell_played.emit(owner_type)
+	
 func initialize_game(deck_metadata: DeckMetadata) -> void:
 	player_deck_metadata = deck_metadata
 	

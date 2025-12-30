@@ -60,21 +60,22 @@
   },
 
   "blade_apprentice": {
-	"name": "Учень клинка",
-	"cost": 1,
-	"card_type": "creature",
-	"health": 2,
-	"damage": 1,
-	"effects": {
-	  "on_play": {
-		"apply_status": {
-		  "status": "strengthen",
-		  "target": "self",
-		  "duration": 1
-		}
+  "name": "Учень клинка",
+  "cost": 1,
+  "card_type": "creature",
+  "health": 2,
+  "damage": 1,
+  "effects": {
+	"on_play": {
+	  "apply_status": {
+		"status": "spell_fury",
+		"target": "self",
+		"duration": -1
 	  }
 	}
-  },
+  }
+},
+
 
   "fireball": {
 	"name": "Вогняна куля",

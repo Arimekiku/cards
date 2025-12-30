@@ -12,9 +12,6 @@ signal target_selector_discard_event(context)
 signal target_selector_resolved_event(context)
 
 # game-state events
-
-#
-
-#
-
-#
+signal card_played(card)
+signal spell_played(card)
+signal minion_spawned(minion)

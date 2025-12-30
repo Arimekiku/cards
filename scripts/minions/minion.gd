@@ -58,9 +58,13 @@ func setup(card_data: CardData) -> void:
 	_ui_update_health(health)
 	_ui_update_damage(damage)
 	_resolve_effects(context.on_spawn_effects, self)
-	
+	print(context.passive_effects)
 	for effect in context.passive_effects:
 		effect.resolve(self)
+		
+	var events: EventBus = ServiceLocator.get_service(EventBus)
+	events.minion_spawned.emit(self)
+	
 	#for effect in context.passive_effects:
 		#if effect.has("status_name"):
 			#var status_name = effect.status_name
@@ -168,6 +172,11 @@ func add_status(status_name: String, duration: int) -> void:
 			s.apply(self)
 			statuses.append(s)
 			
+		"spell_fury":
+			var s = SpellFuryStatus.new()
+			s.duration = duration
+			s.apply(self)
+			statuses.append(s)
 		_:
 			# тут можна додати інші статуси/реєстр
 			push_warning("Unknown status: %s" % status_name)

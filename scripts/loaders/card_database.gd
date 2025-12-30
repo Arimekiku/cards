@@ -11,7 +11,8 @@ var EFFECT_FACTORY_TYPES = {
 	"target_damage_effect": TargetDamageEffect,
 	"erase_target_effect": EraseTargetEffect,
 	"apply_status": ApplyStatusEffect,
-	"draw_cards": DrawCardsEffect
+	"draw_cards": DrawCardsEffect,
+	"on_spell_played_buff": SpellPlayedBuffEffect
 }
 
 

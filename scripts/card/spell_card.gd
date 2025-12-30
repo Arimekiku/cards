@@ -41,9 +41,12 @@ func play() -> void:
 
 	for effect in data.card_context.on_play_effects:
 		effect.resolve(context)
+	
+	var events: EventBus = ServiceLocator.get_service(EventBus)
+	events.spell_played.emit(self)
+	events.card_played.emit(self)
 
 	played_event.emit(self)
-
 
 func _on_collision_detector_area_entered(area: Area2D) -> void:
 	super(area)
