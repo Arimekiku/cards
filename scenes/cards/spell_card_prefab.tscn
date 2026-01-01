@@ -12,7 +12,7 @@
 size = Vector2(112.65369, 108.23925)
 
 [node name="spell_card" type="Control"]
-custom_minimum_size = Vector2(80, 120)
+custom_minimum_size = Vector2(120, 180)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_d81wr")
@@ -84,6 +84,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -11.0
+offset_right = -1.0
+offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Test"
@@ -105,6 +109,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 10.0
+offset_right = 5.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -113,9 +121,41 @@ text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="name_panel" type="Panel" parent="graphics/text_box"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_howen")
+
+[node name="name_text" type="RichTextLabel" parent="graphics/text_box/name_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -27.0
+offset_right = 18.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6583732, 0.6583732)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="collision_detector" type="Area2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(0.63912684, 0.9885508)
+scale = Vector2(0.959, 1.484)
 monitorable = false
 
 [node name="shape" type="CollisionShape2D" parent="collision_detector"]

@@ -20,7 +20,7 @@ func setup(card_data: CardData) -> void:
 	
 	data = card_data
 	%portrait_image.texture = data.image
-	#$NameLabel.text = data.name
+	$graphics/text_box/name_panel/name_text.text = data.name
 	%cost_text.text = str(data.cost)
 	%description_text.text = data.card_context.description
 

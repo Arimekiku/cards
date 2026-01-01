@@ -28,12 +28,12 @@ func init():
 	if is_top_hand:
 		hand_center = Vector2(
 			screen_size.x / 2,
-			-hand_radius + 100
+			-hand_radius
 		)
 	else:
 		hand_center = Vector2(
 			screen_size.x / 2,
-			screen_size.y + hand_radius - 100
+			screen_size.y + hand_radius - 150
 		)
 
 func add_card(card: Card) -> void:
