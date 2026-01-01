@@ -24,7 +24,16 @@
 		  }
 		}
 	  }
-	}
+	},
+	"keywords": ["freeze"],
+		"tribes": ["amphibian", "beast", "frog"],
+		"image": "res://resources/images/cards/jaba.png",
+		"portrait_offset": {
+			"x": -0.1,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.2,
+		"description": "Заморожує ціль при атаці",
   },
 
   "wise_owl": {
@@ -39,7 +48,16 @@
 		  "amount": 2
 		}
 	  }
-	}
+	},
+	"keywords": ["draw"],
+		"tribes": ["flying", "beast", "bird"],
+		"image": "res://resources/images/cards/wise_owl.png",
+		"portrait_offset": {
+			"x": -0.1,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.2,
+		"description": "При розігруванні візьміть 2 карти",
   },
 
   "stone_guardian": {
@@ -56,7 +74,16 @@
 		  "duration": -1
 		}
 	  }
-	}
+	},
+	"keywords": ["taunt"],
+		"tribes": ["golem", "taunt"],
+		"image": "res://resources/images/cards/stone_guardian.png",
+		"portrait_offset": {
+			"x": -0.1,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.2,
+		"description": "Таунт",
   },
 
   "blade_apprentice": {
@@ -73,7 +100,16 @@
 		"duration": -1
 	  }
 	}
-  }
+  },
+	"keywords": ["human"],
+		"tribes": ["spell", "buff"],
+		"image": "res://resources/images/cards/blade_apprentice.png",
+		"portrait_offset": {
+			"x": -0.1,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.2,
+		"description": "Отримує +1 до атаки коли застосовано заклинання",
 },
 
   "fireball": {
@@ -86,7 +122,16 @@
 		  "value": 6
 		}
 	  }
-	}
+	},
+	"keywords": ["damage"],
+		"tribes": ["spell", "fire"],
+		"image": "res://resources/images/cards/fireball.png",
+		"portrait_offset": {
+			"x": -0.1,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.2,
+		"description": "Нанесіть 6 шкоди у вибрану ціль",
   },
 
   "arcane_intellect": {
@@ -99,7 +144,16 @@
 		  "amount": 2
 		}
 	  }
-	}
+	},
+	"keywords": ["draw"],
+		"tribes": ["spell", "draw"],
+		"image": "res://resources/images/cards/arcane_intellect.png",
+		"portrait_offset": {
+			"x": -0.1,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.2,
+		"description": "При розігруванні візьміть 2 карти",
   },
 
   "frost_breath": {
