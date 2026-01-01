@@ -168,7 +168,16 @@
 		  "duration": 1
 		}
 	  }
-	}
+	},
+	"keywords": ["freeze"],
+		"tribes": ["spell", "freeze", "aoe"],
+		"image": "res://resources/images/cards/frost_breath.png",
+		"portrait_offset": {
+			"x": -0.1,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.2,
+		"description": "При розігруванні заморожує ворожих істот",
   },
 
   "board_purge": {
@@ -181,7 +190,16 @@
 		  "target": "enemy_creatures"
 		}
 	  }
-	}
+	},
+	"keywords": ["erase"],
+		"tribes": ["spell", "erase", "aoe"],
+		"image": "res://resources/images/cards/board_purge.png",
+		"portrait_offset": {
+			"x": -0.1,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.2,
+		"description": "При розігруванні стирає ворожих істот",
   },
 
   "book_of_fate": {
@@ -194,7 +212,16 @@
 		  "amount": 1
 		}
 	  }
-	}
+	},
+	"keywords": ["draw"],
+		"tribes": ["spell", "draw"],
+		"image": "res://resources/images/cards/book_of_fate.png",
+		"portrait_offset": {
+			"x": -0.1,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.2,
+		"description": "При взятті берете ще одну карту",
   },
 
   "power_orb": {
@@ -209,6 +236,15 @@
 		  "duration": 1
 		}
 	  }
+	},
+	"keywords": ["buff"],
+		"tribes": ["spell", "buff"],
+		"image": "res://resources/images/cards/power_orb.png",
+		"portrait_offset": {
+			"x": -0.1,
+			"y": -0.23
+		},
+		"portrait_zoom": 1.2,
+		"description": "Підсилює обрану союзну істоту",
 	}
-  }
 }
