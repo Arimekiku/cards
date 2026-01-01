@@ -25,8 +25,9 @@ shape = SubResource("RectangleShape2D_rpo41")
 layout_mode = 0
 offset_right = 128.0
 offset_bottom = 128.0
-scale = Vector2(0.12755574, 0.12755574)
+scale = Vector2(1.0198046, 1.0165915)
 texture = ExtResource("2_rpo41")
+expand_mode = 1
 
 [node name="health" type="Label" parent="."]
 layout_mode = 0

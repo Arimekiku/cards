@@ -75,7 +75,13 @@ func _normalize_minion(minion: Minion, target: Vector2) -> void:
 	.set_trans(Tween.TRANS_QUAD)\
 	.set_ease(Tween.EASE_OUT)
 
-func _on_minion_died(minion: Minion) -> void:
+func _on_minion_died(minion: Minion, cause: Enums.DeathCause) -> void:
 	remove_minion(minion)
-	deck.add_to_discard_pile(minion)
+
+	match cause:
+		Enums.DeathCause.NORMAL:
+			deck.add_to_discard_pile(minion)
+		Enums.DeathCause.ERASE:
+			pass
+
 	minion.queue_free()

@@ -15,6 +15,17 @@ var EFFECT_FACTORY_TYPES = {
 	"on_spell_played_buff": SpellPlayedBuffEffect
 }
 
+const TARGET_MAP := {
+	"target": Enums.SpellTargetType.TARGET,
+	"non_hero_target": Enums.SpellTargetType.NON_HERO_TARGET,
+	"enemy_target": Enums.SpellTargetType.ENEMY_TARGET,
+	"ally_target": Enums.SpellTargetType.ALLY_TARGET,
+	"hero": Enums.SpellTargetType.HERO,
+	"enemy_minions": Enums.SpellTargetType.ENEMY_MINIONS,
+	"ally_minions": Enums.SpellTargetType.ALLY_MINIONS,
+	"all_minions": Enums.SpellTargetType.ALL_MINIONS,
+	"all": Enums.SpellTargetType.ALL
+}
 
 @export var json_path := "res://data/cards.json"
 
@@ -96,9 +107,17 @@ func _create_effects(list: Dictionary) -> Array[CardEffect]:
 
 func _populate(obj, d: Dictionary) -> void:
 	var props = obj.get_property_list()
-	
+
 	for p in props:
 		if d.has(p.name) == false:
 			continue
-		
-		obj.set(p.name, d[p.name])
+
+		var value = d[p.name]
+
+		if p.name == "target" and typeof(value) == TYPE_STRING:
+			if TARGET_MAP.has(value):
+				obj.set(p.name, TARGET_MAP[value])
+			else:
+				push_error("Unknown target type: %s" % value)
+		else:
+			obj.set(p.name, value)

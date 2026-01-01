@@ -11,7 +11,7 @@ var _pending_owner_apply := false
 
 @onready var character_icon := %character_icon
 
-signal died_event(minion: Minion)
+signal died_event(minion: Minion, cause: Enums.DeathCause)
 signal attack_finished(minion: Minion)
 
 var health: int
@@ -81,16 +81,22 @@ func take_damage(value: int) -> void:
 	health -= value
 	
 	if health <= 0:
-		died_event.emit(self)
-		_resolve_effects(data.card_context.on_die_effects, null)
-		for s in statuses.duplicate():
-			if s.has_method("remove"):
-				s.remove()
-		
-		statuses.clear()
+		die(Enums.DeathCause.NORMAL)
 		return
 	
 	_ui_update_health(health)
+
+func die(cause: Enums.DeathCause = Enums.DeathCause.NORMAL) -> void:
+	died_event.emit(self, cause)
+
+	if cause == Enums.DeathCause.NORMAL:
+		_resolve_effects(data.card_context.on_die_effects, null)
+
+	for s in statuses.duplicate():
+		if s.has_method("remove"):
+			s.remove()
+
+	statuses.clear()
 
 func attack(target: Node) -> void:
 	if not can_attack:
