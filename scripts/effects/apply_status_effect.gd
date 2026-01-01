@@ -2,7 +2,6 @@ extends CardEffect
 class_name ApplyStatusEffect
 
 @export var status: String
-@export var target: String
 @export var duration: int = 1
 
 func resolve(context):
