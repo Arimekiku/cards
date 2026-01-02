@@ -27,29 +27,56 @@ const TARGET_MAP := {
 	"all": Enums.SpellTargetType.ALL
 }
 
-@export var json_path := "res://data/cards.json"
+@export var cards_dir := "res://data/cards/"
 
 var _cards_registry: Dictionary[String, CardData]
 
 func init() -> void:
-	_load_cards()
+	_load_cards_from_dir()
+
+func _load_cards_from_dir() -> void:
+	_cards_registry.clear()
+
+	var dir := DirAccess.open(cards_dir)
+	if dir == null:
+		push_error("Cannot open cards dir: %s" % cards_dir)
+		return
+
+	dir.list_dir_begin()
+	var file_name := dir.get_next()
+	while file_name != "":
+		if dir.current_is_dir():
+			file_name = dir.get_next()
+			continue
+
+		if file_name.ends_with(".json"):
+			_load_cards_file(cards_dir + file_name)
+
+		file_name = dir.get_next()
+
+	dir.list_dir_end()
 
 func get_from_registry(value: String) -> CardData:
 	return _cards_registry.get(value, null)
 
-func _load_cards() -> void:
-	var file := FileAccess.open(json_path, FileAccess.READ)
+func _load_cards_file(path: String) -> void:
+	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		push_error("Cannot open cards.json")
+		push_error("Cannot open cards file: %s" % path)
 		return
-	
-	var parsed: Variant = JSON.parse_string(file.get_as_text())
+
+	var parsed = JSON.parse_string(file.get_as_text())
 	if typeof(parsed) != TYPE_DICTIONARY:
-		push_error("Invalid cards.json format")
+		push_error("Invalid cards.json format in %s" % path)
 		return
-	
+
 	for id in parsed.keys():
+		if _cards_registry.has(id):
+			push_error("Duplicate card id: %s in %s" % [id, path])
+			continue
+
 		_cards_registry[id] = _create_card_data(parsed[id])
+
 
 func _create_card_data(raw: Dictionary) -> CardData:
 	var card := CardData.new()

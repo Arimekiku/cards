@@ -6,7 +6,6 @@ var _events: EventBus
 var _minion: Minion
 
 func resolve(context) -> void:
-	print("wow")
 	if context is not Minion:
 		return
 
