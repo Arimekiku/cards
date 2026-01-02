@@ -110,7 +110,7 @@
   },
   "keywords": ["taunt"],
   "tribes": ["manul", "guard"],
-  "image": "res://resources/images/cards/manual_guard.png",
+  "image": "res://resources/images/cards/manuls/manual_guard.png",
   "description": "Таунт"
 },
 

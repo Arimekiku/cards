@@ -2,7 +2,9 @@
 extends Resource
 class_name CardContext
 
-var on_draw_effects: Array[CardEffect] = []
+@export var tribes: Array[String]
+@export var keywords: Array[String]
+@export var on_draw_effects: Array[CardEffect] = []
 
 @abstract func get_card_type() -> Enums.CardType
 
