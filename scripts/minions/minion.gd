@@ -60,7 +60,7 @@ func setup(card_data: CardData) -> void:
 	_ui_update_health(health)
 	_ui_update_damage(damage)
 	_resolve_effects(context.on_spawn_effects, self)
-	print(context.passive_effects)
+	
 	for effect in context.passive_effects:
 		effect.resolve(self)
 		

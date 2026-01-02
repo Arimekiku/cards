@@ -61,6 +61,19 @@ func draw_card(_deck: Deck) -> void:
 	
 	hand.add_card(card)
 
+func draw_card_with_filter(_deck: Deck, predicate: Callable) -> void:
+	var data: CardData = _deck.draw_with_filter(predicate)
+
+	if data == null and not _deck.discard_pile.is_empty():
+		_deck.reshuffle()
+		data = _deck.draw_with_filter(predicate)
+
+	if data == null:
+		return
+
+	var card: Card = create_card_from_data(data)
+	hand.add_card(card)
+
 func _on_turn_started(current_turn):
 	board._on_turn_started(current_turn)
 	mana._on_turn_started(current_turn)

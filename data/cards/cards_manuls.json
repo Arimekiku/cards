@@ -45,10 +45,10 @@
   "health": 4,
   "damage": 2,
   "effects": {
-	"on_death": {
+	"on_play": {
 	  "draw_cards": {
 		"amount": 2,
-		"filter": "spell"
+		"filter": "manul"
 	  }
 	}
   },

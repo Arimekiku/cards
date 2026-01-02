@@ -88,6 +88,8 @@ func _create_card_data(raw: Dictionary) -> CardData:
 	var card := CardData.new()
 	card.name = raw.get("name", "UNKNOWN")
 	card.cost = raw.get("cost", 0)
+	card.tribes = raw.get("tribes", PackedStringArray())
+	card.keywords = raw.get("keywords", PackedStringArray())
 	card.image = load(raw.get("image", ""))
 	
 	card.card_context = _create_context(raw)
@@ -154,3 +156,19 @@ func _populate(obj, d: Dictionary) -> void:
 				push_error("Unknown target type: %s" % value)
 		else:
 			obj.set(p.name, value)
+
+func find_cards(predicate: Callable) -> Array[CardData]:
+	var result: Array[CardData] = []
+
+	for card in _cards_registry.values():
+		if predicate.call(card):
+			result.append(card)
+
+	return result
+
+#Приклад юзу
+#var db: CardDatabase = ServiceLocator.get_service(CardDatabase)
+#
+#var beasts = db.find_cards(func(c):
+	#return c.card_context.tribes.has("beast")
+#)

@@ -8,5 +8,11 @@ class_name CardContext
 
 @abstract func get_card_type() -> Enums.CardType
 
+func get_card_tribes() -> Array[String]:
+	return tribes
+	
+func get_card_keywords() -> Array[String]:
+	return keywords
+
 func requires_target() -> bool:
 	return false
