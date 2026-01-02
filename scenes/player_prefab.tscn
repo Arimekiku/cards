@@ -101,6 +101,7 @@ offset_top = -200.0
 offset_right = 300.0
 grow_horizontal = 2
 grow_vertical = 0
+pivot_offset = Vector2(300, 200)
 script = ExtResource("7_nrexm")
 hand_curve = SubResource("Curve_i0rvx")
 rotation_curve = SubResource("Curve_1ss63")

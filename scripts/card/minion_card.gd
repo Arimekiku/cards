@@ -44,6 +44,21 @@ func get_minion_instance() -> Minion:
 	minion.setup(data)
 	return minion
 
+func set_side(card_side: Enums.CardSide) -> void:
+	match card_side:
+		Enums.CardSide.FRONT:
+			$graphics/outline.texture = frontside_image
+			$graphics/text_box/name_panel/name_text.visible = true
+			%cost_text.visible = true
+			%health.visible = true
+			%damage.visible = true
+		Enums.CardSide.BACK:
+			$graphics/outline.texture = backside_image
+			$graphics/text_box/name_panel/name_text.visible = false
+			%cost_text.visible = false
+			%health.visible = false
+			%damage.visible = false
+
 func _on_collision_detector_area_entered(area: Area2D) -> void:
 	super(area)
 

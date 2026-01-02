@@ -28,6 +28,8 @@ func init():
 	set_anchors_preset(Control.PRESET_CENTER_BOTTOM, true)
 	if is_top_hand:
 		set_anchors_preset(Control.PRESET_CENTER_TOP, true)
+		rotation_degrees = 180
+		position.y -= 50
 
 func add_card(card: Card) -> void:
 	if cards.size() >= max_count: return

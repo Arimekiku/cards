@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://s2nouishoia4"]
+[gd_scene load_steps=10 format=3 uid="uid://s2nouishoia4"]
 
 [ext_resource type="Script" uid="uid://dk5gb0ifeigp4" path="res://scripts/card/minion_card.gd" id="1_185mk"]
+[ext_resource type="Texture2D" uid="uid://dgm44y6krxlke" path="res://resources/images/card_base_back.png" id="2_6d7je"]
 [ext_resource type="Texture2D" uid="uid://cdqy0egc8h5ai" path="res://resources/images/card_base.png" id="2_185mk"]
 [ext_resource type="Texture2D" uid="uid://6bjp3vc5hu56" path="res://resources/images/cards/jaba.png" id="3_n0rmn"]
 
@@ -21,6 +22,8 @@ layout_mode = 3
 anchors_preset = 0
 pivot_offset = Vector2(60, 180)
 script = ExtResource("1_185mk")
+backside_image = ExtResource("2_6d7je")
+frontside_image = ExtResource("2_185mk")
 
 [node name="graphics" type="Control" parent="."]
 layout_mode = 1

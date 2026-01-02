@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqab4dsyv7pix"]
+[gd_scene load_steps=8 format=3 uid="uid://dqab4dsyv7pix"]
 
 [ext_resource type="Script" uid="uid://ch6be0t1k06kp" path="res://scripts/card/spell_card.gd" id="1_d81wr"]
+[ext_resource type="Texture2D" uid="uid://dgm44y6krxlke" path="res://resources/images/card_base_back.png" id="2_4ejio"]
 [ext_resource type="Texture2D" uid="uid://cpi5bit0vlmu6" path="res://resources/images/card_base_spell.png" id="2_d81wr"]
 [ext_resource type="Texture2D" uid="uid://6bjp3vc5hu56" path="res://resources/images/cards/jaba.png" id="2_howen"]
 
@@ -17,6 +18,8 @@ layout_mode = 3
 anchors_preset = 0
 pivot_offset = Vector2(60, 180)
 script = ExtResource("1_d81wr")
+backside_image = ExtResource("2_4ejio")
+frontside_image = ExtResource("2_d81wr")
 
 [node name="graphics" type="Control" parent="."]
 layout_mode = 1

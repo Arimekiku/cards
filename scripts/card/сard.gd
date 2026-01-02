@@ -2,6 +2,9 @@
 class_name Card
 extends Control
 
+@export var backside_image: Texture2D
+@export var frontside_image: Texture2D
+
 @warning_ignore("unused_signal")
 signal reparent_event(card: Card)
 @warning_ignore("unused_signal")
@@ -16,6 +19,7 @@ var card_owner := Enums.CharacterType.PLAYER
 @onready var potential_targets: Array[Node] = []
 
 @abstract func setup(card_data: CardData) -> void
+@abstract func set_side(card_side: Enums.CardSide) -> void
 @abstract func play() -> void
 
 func _input(event: InputEvent) -> void:

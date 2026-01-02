@@ -52,7 +52,13 @@ func draw_card(_deck: Deck) -> void:
 		data = _deck.draw_card()
 	elif data == null:
 		return
+	
 	var card: Card = create_card_from_data(data)
+	card.set_side(
+		Enums.CardSide.FRONT if side == Enums.CharacterType.PLAYER\
+		else Enums.CardSide.BACK
+	)
+	
 	hand.add_card(card)
 
 func _on_turn_started(current_turn):
