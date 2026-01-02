@@ -15,7 +15,6 @@ var EFFECT_FACTORY_TYPES = {
 	"on_spell_played_buff": SpellPlayedBuffEffect
 }
 
-
 @export var json_path := "res://data/cards.json"
 
 var _cards_registry: Dictionary[String, CardData]

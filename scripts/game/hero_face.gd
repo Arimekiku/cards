@@ -21,9 +21,6 @@ func init():
 	update_ui()
 	_configure_collision()
 
-	collider.area_entered.connect(_on_collider_area_entered)
-	collider.area_exited.connect(_on_collider_area_exited)
-	
 func _configure_collision():
 	collider.collision_layer = 0
 	collider.collision_mask = 0
