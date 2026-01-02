@@ -129,7 +129,7 @@ func _select_spell_target(spell_card: SpellCard) -> Node:
 
 	return best_target
 
-func _score_spell_target(spell_card: SpellCard, target: Minion) -> float:
+func _score_spell_target(_spell_card: SpellCard, target: Minion) -> float:
 	#var damage := spell_card.data.card_context.on_play_effects.value
 	var damage := 6
 	var score := 0.0

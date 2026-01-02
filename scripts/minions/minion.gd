@@ -12,6 +12,7 @@ var _pending_owner_apply := false
 @onready var character_icon := %character_icon
 
 signal died_event(minion: Minion)
+@warning_ignore("unused_signal")
 signal attack_finished(minion: Minion)
 
 var health: int

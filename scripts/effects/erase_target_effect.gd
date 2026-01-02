@@ -6,14 +6,14 @@ class_name EraseTargetEffect
 var running = true
 var events: EventBus = ServiceLocator.get_service(EventBus)
 
-func resolve(caster: Minion) -> void:
+func resolve(_caster: Minion) -> void:
 	#_highlight_enemies(Color.GREEN, caster)
 	#events.target_selector_called_event.emit(caster)
 	#
 	#events.target_selector_resolved_event.connect(_stop)
 	pass
 
-func _stop(context: Minion) -> void:
+func _stop(_context: Minion) -> void:
 	#events.target_selector_resolved_event.disconnect(_stop)
 	#
 	#_highlight_enemies(Color.WHITE, context)
