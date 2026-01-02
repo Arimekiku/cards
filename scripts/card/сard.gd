@@ -29,6 +29,10 @@ func animate_to_position(new_position: Vector2, duration: float) -> void:
 	
 	tween.tween_property(self, "global_position", new_position, duration)
 
+func set_detection(value: bool) -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE if value == false\
+	else Control.MOUSE_FILTER_STOP
+
 func _on_gui_input(event: InputEvent) -> void:
 	if not state_machine: return
 	state_machine.on_gui_input(event)
@@ -47,10 +51,10 @@ func _on_collision_detector_area_entered(area: Area2D) -> void:
 
 func _on_collision_detector_area_exited(area: Area2D) -> void:
 	potential_targets.erase(area)
-	
+
 func requires_target() -> bool:
 	return data.card_context.requires_target()
-	
+
 func resolve_on_draw():
 	if data.card_context.on_draw_effects.is_empty():
 		return

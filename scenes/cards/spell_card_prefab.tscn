@@ -15,6 +15,7 @@ size = Vector2(112.65369, 108.23925)
 custom_minimum_size = Vector2(120, 180)
 layout_mode = 3
 anchors_preset = 0
+pivot_offset = Vector2(60, 180)
 script = ExtResource("1_d81wr")
 
 [node name="graphics" type="Control" parent="."]

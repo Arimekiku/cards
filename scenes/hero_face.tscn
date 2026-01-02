@@ -7,12 +7,11 @@
 size = Vector2(133, 134)
 
 [node name="hero_face" type="Control"]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
 script = ExtResource("1_rpo41")
 
 [node name="collider" type="Area2D" parent="."]
@@ -22,11 +21,15 @@ position = Vector2(65.5, 64)
 shape = SubResource("RectangleShape2D_rpo41")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 128.0
-offset_bottom = 128.0
-scale = Vector2(0.12755574, 0.12755574)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_rpo41")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="health" type="Label" parent="."]
 layout_mode = 0
