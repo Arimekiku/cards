@@ -24,9 +24,9 @@ func resolve(context) -> void:
 	var character := game.get_character(owner_type)
 	if character == null:
 		return
-	
+
 	for i in range(amount):
-		if not filter.is_empty():
+		if filter!="":
 			character.draw_card_with_filter(character.deck, func(c):
 				if filter == "spell":
 					return c.card_context.get_card_type() == Enums.CardType.SPELL
