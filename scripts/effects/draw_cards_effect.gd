@@ -2,6 +2,7 @@ extends CardEffect
 class_name DrawCardsEffect
 
 @export var amount: int = 1
+@export var filter = ""
 
 func resolve(context) -> void:
 	if context == null:
@@ -23,6 +24,19 @@ func resolve(context) -> void:
 	var character := game.get_character(owner_type)
 	if character == null:
 		return
-
+		
 	for i in range(amount):
-		character.draw_card(character.deck)
+		if filter!="":
+			character.draw_card_with_filter(character.deck, func(c):
+				if filter == "spell":
+					return c.card_context.get_card_type() == Enums.CardType.SPELL
+				elif filter == "minion":
+					return c.card_context.get_card_type() == Enums.CardType.MINION
+				elif filter in c.tribes:
+					return true
+				elif filter in c.keywords:
+					return true
+				return false
+			)
+		else:
+			character.draw_card(character.deck)

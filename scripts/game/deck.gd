@@ -29,6 +29,15 @@ func draw_card() -> CardData:
 	var card: CardData = cards.pop_back()
 	_update_label()
 	return card
+	
+func draw_with_filter(predicate: Callable) -> CardData:
+	for i in range(cards.size()):
+		var card := cards[i]
+		if predicate.call(card):
+			cards.remove_at(i)
+			_update_label()
+			return card
+	return null
 
 func _update_label() -> void:
 	if number_label: number_label.text = str(cards.size())

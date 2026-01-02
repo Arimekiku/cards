@@ -5,3 +5,5 @@ class_name CardData
 @export var cost: int
 @export var image: Texture2D
 @export var card_context: CardContext
+@export var tribes: PackedStringArray
+@export var keywords: PackedStringArray
