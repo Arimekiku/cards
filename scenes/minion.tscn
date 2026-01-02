@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c22whlxirxvqy"]
+[gd_scene load_steps=10 format=3 uid="uid://c22whlxirxvqy"]
 
 [ext_resource type="Script" uid="uid://du1y1qmodf36l" path="res://scripts/minions/minion.gd" id="1_1ddg2"]
 [ext_resource type="Shader" uid="uid://bs15jvlh5m8do" path="res://resources/circle_cutout.gdshader" id="1_b4arb"]
@@ -12,6 +12,23 @@ size = Vector2(76, 77)
 shader = ExtResource("1_b4arb")
 shader_parameter/offset = Vector2(-0.1, -0.23)
 shader_parameter/zoom = 1.2
+
+[sub_resource type="Curve" id="Curve_1ddg2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qqrhl"]
+curve = SubResource("Curve_1ddg2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ll15l"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 155.89
+initial_velocity_max = 205.89
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_qqrhl")
 
 [node name="minion" type="Control"]
 custom_minimum_size = Vector2(80, 100)
@@ -98,6 +115,17 @@ grow_vertical = 0
 text = "99"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="vfx" type="Node2D" parent="."]
+position = Vector2(39, 38)
+
+[node name="boom" type="GPUParticles2D" parent="vfx"]
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ll15l")
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
