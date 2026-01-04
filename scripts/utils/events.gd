@@ -18,3 +18,9 @@ signal card_played(card)
 signal spell_played(card)
 @warning_ignore("unused_signal")
 signal minion_spawned(minion)
+
+# minion events
+@warning_ignore("unused_signal")
+signal minion_info_show_request(minion)
+@warning_ignore("unused_signal")
+signal minion_info_destroy_request(minion)

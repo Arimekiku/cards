@@ -16,12 +16,16 @@ func init() -> void:
 	
 	var minion := game.create_minion_from_name("frost_frog")
 	minion.minion_owner = Enums.CharacterType.ENEMY
+	minion.add_status("taunt", 3)
 	add_minion(minion)
 	var minion2 := game.create_minion_from_name("frost_frog")
 	minion2.minion_owner = Enums.CharacterType.ENEMY
+	minion2.add_status("freeze", 3)
 	add_minion(minion2)
 	var minion3 := game.create_minion_from_name("frost_frog")
 	minion3.minion_owner = Enums.CharacterType.ENEMY
+	minion3.add_status("taunt", 3)
+	minion3.add_status("freeze", 3)
 	add_minion(minion3)
 
 func add_minion(minion: Minion) -> bool:

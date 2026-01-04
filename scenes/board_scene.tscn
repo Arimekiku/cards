@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://4npx47ha3xu8"]
+[gd_scene load_steps=10 format=3 uid="uid://4npx47ha3xu8"]
 
 [ext_resource type="Script" uid="uid://ceasvmta0a8fy" path="res://scripts/game/game.gd" id="1_5fb3c"]
 [ext_resource type="PackedScene" uid="uid://s2nouishoia4" path="res://scenes/cards/minion_card_prefab.tscn" id="2_tpwpp"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dpuabon5q0tlb" path="res://scenes/cards/card_target_selector/arrow_target_selector.tscn" id="4_4d81t"]
 [ext_resource type="Texture2D" uid="uid://bv5fdv6rsqy1v" path="res://resources/images/board.png" id="4_qbqua"]
 [ext_resource type="PackedScene" uid="uid://dpclu562nhmhh" path="res://scenes/player_prefab.tscn" id="6_plioj"]
+[ext_resource type="PackedScene" uid="uid://ic6wow7v4k4a" path="res://scenes/cards/info_cards/info_manager.tscn" id="8_qbqua"]
 [ext_resource type="Script" uid="uid://crw7xwg3y1jlb" path="res://scripts/game/turn_manager.gd" id="10_7ftgl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4d81t"]
@@ -49,6 +50,8 @@ game = NodePath("..")
 turn_manager = NodePath("../turn_manager")
 minion_card_scene = ExtResource("2_tpwpp")
 spell_card_scene = ExtResource("3_7ftgl")
+
+[node name="info_manager" parent="." instance=ExtResource("8_qbqua")]
 
 [node name="player_drop_area" type="Area2D" parent="."]
 collision_mask = 0

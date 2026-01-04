@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bp5q0ul063yp5"]
+[gd_scene load_steps=12 format=3 uid="uid://bp5q0ul063yp5"]
 
-[ext_resource type="Script" uid="uid://dk5gb0ifeigp4" path="res://scripts/card/minion_card.gd" id="1_qelh8"]
+[ext_resource type="Script" uid="uid://doflr3chl5c51" path="res://scripts/card/info_card.gd" id="1_c8trp"]
+[ext_resource type="Texture2D" uid="uid://cpi5bit0vlmu6" path="res://resources/images/card_base_spell.png" id="3_0gfe2"]
 [ext_resource type="Texture2D" uid="uid://cdqy0egc8h5ai" path="res://resources/images/card_base.png" id="3_c8trp"]
 [ext_resource type="Texture2D" uid="uid://6bjp3vc5hu56" path="res://resources/images/cards/jaba.png" id="4_0gfe2"]
-[ext_resource type="PackedScene" uid="uid://blf0d4lap6to8" path="res://scenes/cards/card_status.tscn" id="5_c8trp"]
+[ext_resource type="PackedScene" uid="uid://blf0d4lap6to8" path="res://scenes/cards/info_cards/card_status.tscn" id="5_c8trp"]
 [ext_resource type="Script" uid="uid://df5k3c863mwho" path="res://scripts/card/description_text.gd" id="5_yrohq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ruyt4"]
@@ -21,7 +22,9 @@ custom_minimum_size = Vector2(120, 180)
 layout_mode = 3
 anchors_preset = 0
 pivot_offset = Vector2(60, 180)
-script = ExtResource("1_qelh8")
+script = ExtResource("1_c8trp")
+minion_front = ExtResource("3_c8trp")
+spell_front = ExtResource("3_0gfe2")
 
 [node name="graphics" type="Control" parent="."]
 layout_mode = 1
@@ -246,6 +249,8 @@ grow_horizontal = 0
 
 [node name="status" parent="graphics/status_container" instance=ExtResource("5_c8trp")]
 layout_mode = 2
+
+[node name="disappear_timer" type="Timer" parent="."]
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

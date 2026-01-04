@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://blf0d4lap6to8"]
 
-[ext_resource type="Script" uid="uid://b75v5hs0qwk8v" path="res://scripts/data/card_status.gd" id="1_isexq"]
+[ext_resource type="Script" uid="uid://b75v5hs0qwk8v" path="res://scripts/data/card_status.gd" id="1_atvv2"]
 
 [node name="status" type="PanelContainer"]
-script = ExtResource("1_isexq")
+script = ExtResource("1_atvv2")
 
 [node name="status_margin" type="MarginContainer" parent="."]
 layout_mode = 2

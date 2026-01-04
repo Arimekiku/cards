@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ic6wow7v4k4a"]
+
+[ext_resource type="Script" uid="uid://dv67fdnejv2wg" path="res://scripts/ui/info_manager.gd" id="1_g7guq"]
+[ext_resource type="PackedScene" uid="uid://bp5q0ul063yp5" path="res://scenes/cards/info_cards/info_card_prefab.tscn" id="1_xfyps"]
+
+[node name="info_manager" type="CanvasLayer"]
+layer = 90
+script = ExtResource("1_g7guq")
+
+[node name="info_card" parent="." instance=ExtResource("1_xfyps")]

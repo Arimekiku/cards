@@ -4,31 +4,44 @@ extends Control
 @export var minion_front: Texture2D
 @export var spell_front: Texture2D
 
-var close_timer: Timer
+@onready var status_container := $graphics/status_container
+@onready var close_timer := $disappear_timer
+
+var status_prefab := preload("res://scenes/cards/info_cards/card_status.tscn")
 
 func _ready() -> void:
 	close_timer.one_shot = true
 	close_timer.timeout.connect(_on_timer_timeout)
 
 func setup(minion: Minion) -> void:
+	for child in status_container.get_children():
+		child.queue_free()
+	
 	var type = minion.data.card_context.get_card_type()
 	match type:
-		Enums.CardType.MINION: _configure_for_minion(minion.data)
+		Enums.CardType.MINION: _configure_for_minion(minion)
 		Enums.CardType.SPELL: _configure_for_spell(minion.data)
 	
 	%cost_text.text = str(minion.data.cost)
 	%name_text.text = minion.data.name
 	%portrait_image.texture = minion.data.image
 
-func _configure_for_minion(card_data: CardData) -> void:
+func _configure_for_minion(minion: Minion) -> void:
 	$graphics/outline.texture = minion_front
 	%description_text.visible = false
 	
 	%health.visible = true
-	%health.text = str(card_data.card_context.health)
+	%health.text = str(minion.data.card_context.health)
 	
 	%damage.visible = true
-	%damage.text = str(card_data.card_context.damage)
+	%damage.text = str(minion.data.card_context.damage)
+	
+	for status in minion.statuses:
+		var instance: CardStatus = status_prefab.instantiate()
+		status_container.add_child(instance)
+		
+		instance.text_title.text = status.get_script().get_global_name()
+		instance.text_description.text = "Description"
 
 func _configure_for_spell(card_data: CardData) -> void:
 	$graphics/outline.texture = spell_front
@@ -39,10 +52,22 @@ func _configure_for_spell(card_data: CardData) -> void:
 	%description_text.text = card_data.card_context.description
 
 func _on_mouse_entered() -> void:
-	close_timer.stop()
+	if not is_node_ready(): await ready
+	
+	set_disappear(false)
 
 func _on_mouse_exited() -> void:
-	close_timer.start()
+	if not is_node_ready(): await ready
+	
+	set_disappear(true)
 
 func _on_timer_timeout() -> void:
-	scale = Vector2.ZERO
+	hide()
+
+func set_disappear(value: bool) -> void:
+	if value == false:
+		show()
+		close_timer.stop()
+		return
+	
+	close_timer.start()
