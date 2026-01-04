@@ -12,7 +12,8 @@ var EFFECT_FACTORY_TYPES = {
 	"erase_target_effect": EraseTargetEffect,
 	"apply_status": ApplyStatusEffect,
 	"draw_cards": DrawCardsEffect,
-	"on_spell_played_buff": SpellPlayedBuffEffect
+	"on_spell_played_buff": SpellPlayedBuffEffect,
+	"summon_minion": SummonMinionEffect
 }
 
 const TARGET_MAP := {
