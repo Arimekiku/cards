@@ -41,7 +41,7 @@ func resolve(context) -> void:
 		_summon_minion(character, data)
 
 func _summon_minion(character: CharacterRuntime, data: CardData) -> void:
-	var card := character.game.create_card_from_data(data)
-	card.card_owner = character.side
-
-	character.board.spawn_minion_from_card(card)
+	character.board.spawn_minion_from_data(
+		data,
+		character.side
+	)

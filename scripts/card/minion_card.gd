@@ -30,14 +30,23 @@ func play() -> void:
 	get_tree().current_scene.add_child(minion)
 	minion.setup(data)
 
+	minion.minion_owner = card_owner
+
 	for in_zone: CardBoard in get_tree().get_nodes_in_group("card_zones"):
-		if not in_zone.can_accept(minion): continue
+		if not in_zone.can_accept(minion):
+			continue
 		
 		output_zone = in_zone
 		break
-	
+
+	if output_zone == null:
+		push_error("No valid CardBoard found to play minion")
+		minion.queue_free()
+		return
+
 	output_zone.add_minion(minion)
 	played_event.emit(self)
+
 
 func get_minion_instance() -> Minion:
 	var minion := Game.create_minion()

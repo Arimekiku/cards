@@ -31,8 +31,8 @@ var event_bus: EventBus = ServiceLocator.get_service(EventBus)
 func _ready():
 	if _pending_owner_apply:
 		_apply_owner_settings()
-
-func setup(card_data: CardData) -> void:
+		
+func setup(card_data: CardData, is_summoned := false) -> void:
 	if not self.is_node_ready(): await self.ready
 	 
 	var context := card_data.card_context as MinionContext
@@ -59,7 +59,9 @@ func setup(card_data: CardData) -> void:
 	
 	_ui_update_health(health)
 	_ui_update_damage(damage)
-	_resolve_effects(context.on_spawn_effects, self)
+	
+	if not is_summoned:
+		_resolve_effects(context.on_spawn_effects, self)
 	
 	for effect in context.passive_effects:
 		effect.resolve(self)
