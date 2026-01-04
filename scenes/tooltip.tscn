@@ -21,7 +21,6 @@ layout_mode = 2
 
 [node name="title" type="RichTextLabel" parent="tooltip_panel/tooltip_margin/vertical_box"]
 layout_mode = 2
-mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 24
 theme_override_font_sizes/bold_font_size = 24
 theme_override_font_sizes/bold_italics_font_size = 24
@@ -33,7 +32,6 @@ fit_content = true
 
 [node name="text" type="RichTextLabel" parent="tooltip_panel/tooltip_margin/vertical_box"]
 layout_mode = 2
-mouse_filter = 1
 bbcode_enabled = true
 text = "The quick brown fox jumps over the lazy dog"
 fit_content = true
