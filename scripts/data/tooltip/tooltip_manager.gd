@@ -22,16 +22,18 @@ func _on_meta_hover_ended(_meta_data):
 
 func spawn_tooltip(key_id):
 	var text_data = "sss"
-	var mouse_position = ServiceLocator.get_viewport().get_mouse_position() + Vector2(20, 20)
 	var tooltip: TooltipContainer = tooltip_scene.instantiate()
 	
 	ServiceLocator.get_tree().current_scene.add_child(tooltip)
 	tooltip.set_text(text_data)
-	tooltip.set_position(mouse_position)
 	tooltip.layer = active_tooltips.size() + 1
 	tooltip.tooltip_mouse_entered.connect(_on_tooltip_entered)
 	tooltip.tooltip_mouse_exited.connect(_on_tooltip_exited)
 	active_tooltips.append(tooltip)
+	
+	await ServiceLocator.get_tree().process_frame
+	
+	_smart_position_tooltip(tooltip)
 
 func _on_tooltip_entered():
 	close_timer.stop()
@@ -44,3 +46,20 @@ func _close_last_tooltip():
 	
 	var tooltip = active_tooltips.pop_back()
 	tooltip.queue_free()
+
+func _smart_position_tooltip(tooltip: TooltipContainer):
+	var viewport_rect = ServiceLocator.get_viewport().get_visible_rect()
+	var mouse_pos = ServiceLocator.get_viewport().get_mouse_position()
+	
+	var offset = Vector2(15, 15)
+	var tip_size = tooltip.get_size()
+	var final_pos = mouse_pos + offset
+
+	if final_pos.x + tip_size.x > viewport_rect.size.x:
+		final_pos.x = mouse_pos.x - tip_size.x - offset.x
+	if final_pos.y + tip_size.y > viewport_rect.size.y:
+		final_pos.y = mouse_pos.y - tip_size.y - offset.y
+
+	final_pos.x = max(final_pos.x, 0)
+	final_pos.y = max(final_pos.y, 0)
+	tooltip.set_position(final_pos)

@@ -21,3 +21,6 @@ func set_text(text_content: String) -> void:
 
 func set_position(pos: Vector2) -> void:
 	container.global_position = pos
+
+func get_size() -> Vector2:
+	return container.size
