@@ -30,7 +30,7 @@ var can_attack: bool = true
 func _ready():
 	if _pending_owner_apply:
 		_apply_owner_settings()
-		
+
 func setup(card_data: CardData) -> void:
 	if not self.is_node_ready(): await self.ready
 	 
@@ -96,17 +96,16 @@ func take_damage(value: int) -> void:
 func attack(target: Node) -> void:
 	if not can_attack:
 		return
-		
+	
 	if not is_instance_valid(target):
 		return
-
+	
 	target.take_damage(damage)
-
+	
 	if target is Minion and is_instance_valid(self):
 		take_damage(target.damage)
-
-	_resolve_effects(data.card_context.on_attack_effects, target)
 	
+	_resolve_effects(data.card_context.on_attack_effects, target)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if not state_machine: return
@@ -154,7 +153,7 @@ func request_attack(target_node: Node) -> bool:
 		return false
 	if not can_attack:
 		return false
-
+	
 	is_ai_intent = true
 	current_target = target_node
 	state_machine.request_state(MinionAttackState)
@@ -167,12 +166,10 @@ func add_status(status_name: String, duration: int) -> void:
 			var s = FreezeStatus.new(duration)
 			s.apply(self)
 			statuses.append(s)
-		
 		"taunt":
 			var s = TauntStatus.new()
 			s.apply(self)
 			statuses.append(s)
-			
 		"spell_fury":
 			var s = SpellFuryStatus.new()
 			s.duration = duration
