@@ -6,10 +6,13 @@ var tooltip_scene = preload("res://scenes/tooltip.tscn")
 var active_tooltips: Array = []
 var close_timer: Timer
 
+var card_database: CardDatabase
+
 func init():
+	card_database = ServiceLocator.get_service(CardDatabase)
+	
 	close_timer = Timer.new()
 	close_timer.wait_time = 0.3
-	close_timer.one_shot = true
 	close_timer.timeout.connect(_close_last_tooltip)
 	ServiceLocator.add_child(close_timer)
 
@@ -21,7 +24,7 @@ func _on_meta_hover_ended(_meta_data):
 	close_timer.start()
 
 func spawn_tooltip(key_id):
-	var text_data = "sss"
+	var text_data = card_database.KEYWORDS[key_id]
 	var tooltip: TooltipContainer = tooltip_scene.instantiate()
 	
 	ServiceLocator.get_tree().current_scene.add_child(tooltip)

@@ -1,6 +1,12 @@
 class_name CardDatabase
 extends Service
 
+var KEYWORDS = {
+	"damage": "first test: [url]another[/url] tooltip",
+	"another": "second tooltip: [url]more[/url] tips",
+	"more": "recursive into [url]another[/url] tooltip"
+}
+
 var CARD_FACTORY_TYPES = {
 	"creature": MinionContext,
 	"spell": SpellContext
