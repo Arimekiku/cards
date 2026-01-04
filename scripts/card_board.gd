@@ -89,24 +89,17 @@ func _on_minion_died(minion: Minion, cause: Enums.DeathCause) -> void:
 func _is_full():
 	return minions.size() >= max_minions
 
-func spawn_minion_from_card(card: Card) -> bool:
+func spawn_minion_from_data(
+	data: CardData,
+	owned: Enums.CharacterType
+) -> bool:
 	if minions.size() >= max_minions:
 		return false
 
-	if card == null or card.data == null:
-		return false
-
-	var game := get_tree().get_first_node_in_group("game") as Game
-	if game == null:
-		return false
-
 	var minion := Game.create_minion()
-	minion.setup(card.data)
-	minion.minion_owner = board_owner
+	minion.setup(data, true)
+	minion.minion_owner = owned
 
 	add_minion(minion)
-
-	for effect in card.data.card_context.on_spawn_effects:
-		effect.resolve(minion)
 
 	return true
