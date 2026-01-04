@@ -97,7 +97,7 @@
 		"name": "Вогняна куля",
 		"cost": 4,
 		"card_type": "spell",
-		"description": "Завдає 6 шкоди",
+		"description": "[url]Завдає 6 шкоди[/url]",
 		"effects": {
 			"print_effect": {
 				"value": "DAMAGE!"

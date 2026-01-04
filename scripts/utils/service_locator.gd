@@ -6,7 +6,8 @@ func _init() -> void:
 	services = {
 		CardDatabase : CardDatabase.new(),
 		SceneManager: SceneManager.new(),
-		EventBus: EventBus.new()
+		EventBus: EventBus.new(),
+		TooltipManager: TooltipManager.new()
 	}
 
 func _ready() -> void:

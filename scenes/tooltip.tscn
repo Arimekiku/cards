@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj83dnft1uch4"]
+
+[ext_resource type="Script" uid="uid://cte6jcdrb4dyr" path="res://scripts/data/tooltip/tooltip.gd" id="1_7dicn"]
+
+[node name="tooltip" type="CanvasLayer"]
+script = ExtResource("1_7dicn")
+
+[node name="tooltip_panel" type="PanelContainer" parent="."]
+offset_right = 240.0
+offset_bottom = 100.0
+
+[node name="tooltip_margin" type="MarginContainer" parent="tooltip_panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="vertical_box" type="VBoxContainer" parent="tooltip_panel/tooltip_margin"]
+layout_mode = 2
+
+[node name="title" type="RichTextLabel" parent="tooltip_panel/tooltip_margin/vertical_box"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+bbcode_enabled = true
+text = "Big Title"
+fit_content = true
+
+[node name="text" type="RichTextLabel" parent="tooltip_panel/tooltip_margin/vertical_box"]
+layout_mode = 2
+bbcode_enabled = true
+text = "The quick brown fox jumps over the lazy dog"
+fit_content = true
