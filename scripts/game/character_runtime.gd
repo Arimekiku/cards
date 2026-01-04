@@ -104,3 +104,6 @@ func create_card_from_data(value: CardData) -> Card:
 
 func _on_check_deck_button_pressed() -> void:
 	deck_presenter.show_deck(deck.cards)
+
+func _on_check_discard_button_pressed() -> void:
+	deck_presenter.show_deck(deck.discard_pile)

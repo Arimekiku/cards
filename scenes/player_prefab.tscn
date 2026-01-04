@@ -88,6 +88,22 @@ offset_bottom = 145.0
 text = "Відбій
 "
 
+[node name="check_discard_button" type="Button" parent="deck/discard"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -26.0
+offset_right = 60.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Check"
+
 [node name="mana_controller" type="Node2D" parent="." node_paths=PackedStringArray("label")]
 script = ExtResource("6_yvuf7")
 label = NodePath("Label")
@@ -140,3 +156,4 @@ position = Vector2(950, 132)
 visible = false
 
 [connection signal="pressed" from="deck/number/check_deck_button" to="." method="_on_check_deck_button_pressed"]
+[connection signal="pressed" from="deck/discard/check_discard_button" to="." method="_on_check_discard_button_pressed"]
