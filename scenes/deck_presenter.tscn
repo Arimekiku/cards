@@ -1,0 +1,143 @@
+[gd_scene load_steps=5 format=3 uid="uid://dq6dxo14vjgch"]
+
+[ext_resource type="Script" uid="uid://dg0ldbgoq6i36" path="res://scripts/ui/deck_presenter.gd" id="1_dofp3"]
+[ext_resource type="Script" uid="uid://dupbwxrou7wrf" path="res://scripts/ui/close_window_button.gd" id="2_dofp3"]
+[ext_resource type="PackedScene" uid="uid://s2nouishoia4" path="res://scenes/cards/minion_card_prefab.tscn" id="2_k4sbl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dofp3"]
+
+[node name="deck_presenter" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_dofp3")
+
+[node name="blocker" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="global_margin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
+
+[node name="vertical_container" type="VBoxContainer" parent="global_margin"]
+layout_mode = 2
+
+[node name="scroller" type="ScrollContainer" parent="global_margin/vertical_container"]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="card_container" type="GridContainer" parent="global_margin/vertical_container/scroller"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 6
+
+[node name="minion_card" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card2" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card3" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card4" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card5" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card6" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card7" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card8" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card9" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card10" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card11" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card12" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card13" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card14" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card15" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card16" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card17" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card18" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card19" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card20" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card21" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card22" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card23" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card24" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card25" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card26" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card27" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="minion_card28" parent="global_margin/vertical_container/scroller/card_container" instance=ExtResource("2_k4sbl")]
+layout_mode = 2
+
+[node name="separator" type="HSeparator" parent="global_margin/vertical_container"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_dofp3")
+
+[node name="close_window_button" type="Button" parent="global_margin/vertical_container" node_paths=PackedStringArray("container_to_close")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Close Window"
+script = ExtResource("2_dofp3")
+container_to_close = NodePath("../../..")

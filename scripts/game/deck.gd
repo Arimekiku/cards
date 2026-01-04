@@ -5,6 +5,8 @@ extends Control
 @export var discard_label: Label
 @export var start_cards: DeckMetadata
 
+@onready var deck_button_check := $number/check_deck_button
+
 var owned: Enums.CharacterType
 var cards: Array[CardData] = []
 var discard_pile: Array[CardData] = []
@@ -53,3 +55,6 @@ func reshuffle():
 	discard_pile.shuffle()
 	cards = discard_pile
 	discard_pile = []
+
+func on_check_deck_button_pressed() -> void:
+	pass

@@ -13,35 +13,40 @@ func _ready() -> void:
 	close_timer.one_shot = true
 	close_timer.timeout.connect(_on_timer_timeout)
 
-func setup(minion: Minion) -> void:
+func setup(context) -> void:
 	for child in status_container.get_children():
 		child.queue_free()
 	
-	var type = minion.data.card_context.get_card_type()
+	var data = context if context is not Minion else context.data
+	var type = data.card_context.get_card_type()
 	match type:
-		Enums.CardType.MINION: _configure_for_minion(minion)
-		Enums.CardType.SPELL: _configure_for_spell(minion.data)
+		Enums.CardType.MINION: _configure_for_minion(context)
+		Enums.CardType.SPELL: _configure_for_spell(context)
 	
-	%cost_text.text = str(minion.data.cost)
-	%name_text.text = minion.data.name
-	%portrait_image.texture = minion.data.image
+	%cost_text.text = str(data.cost)
+	%name_text.text = data.name
+	%portrait_image.texture = data.image
 
-func _configure_for_minion(minion: Minion) -> void:
+func _configure_for_minion(context) -> void:
+	var data = context
+	
+	if context is Minion:
+		for status in context.statuses:
+			var instance: CardStatus = status_prefab.instantiate()
+			status_container.add_child(instance)
+			
+			instance.text_title.text = status.get_script().get_global_name()
+			instance.text_description.text = "Description"
+		data = context.data
+	
 	$graphics/outline.texture = minion_front
 	%description_text.visible = false
 	
 	%health.visible = true
-	%health.text = str(minion.data.card_context.health)
+	%health.text = str(data.card_context.health)
 	
 	%damage.visible = true
-	%damage.text = str(minion.data.card_context.damage)
-	
-	for status in minion.statuses:
-		var instance: CardStatus = status_prefab.instantiate()
-		status_container.add_child(instance)
-		
-		instance.text_title.text = status.get_script().get_global_name()
-		instance.text_description.text = "Description"
+	%damage.text = str(data.card_context.damage)
 
 func _configure_for_spell(card_data: CardData) -> void:
 	$graphics/outline.texture = spell_front

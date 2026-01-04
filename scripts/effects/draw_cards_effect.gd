@@ -7,26 +7,26 @@ class_name DrawCardsEffect
 func resolve(context) -> void:
 	if context == null:
 		return
-
+	
 	var game := context.get_tree().get_first_node_in_group("game") as Game
 	if not game:
 		return
-
+	
 	var owner_type: Enums.CharacterType
-
+	
 	if context is Minion:
 		owner_type = context.minion_owner
 	elif context is Card:
 		owner_type = context.card_owner
 	else:
 		return
-
+	
 	var character := game.get_character(owner_type)
 	if character == null:
 		return
-		
+	
 	for i in range(amount):
-		if filter!="":
+		if not filter.is_empty():
 			character.draw_card_with_filter(character.deck, func(c):
 				if filter == "spell":
 					return c.card_context.get_card_type() == Enums.CardType.SPELL

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dpclu562nhmhh"]
+[gd_scene load_steps=14 format=3 uid="uid://dpclu562nhmhh"]
 
 [ext_resource type="Script" uid="uid://brnvnnnlib2bl" path="res://scripts/game/character_runtime.gd" id="1_104hf"]
 [ext_resource type="Script" uid="uid://bqwsoxyf5d00q" path="res://scripts/enemy/EnemyAIController.gd" id="2_i0rvx"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cssyc6bnowfiw" path="res://scripts/game/mana_controller.gd" id="6_yvuf7"]
 [ext_resource type="Script" uid="uid://c0vthsq306log" path="res://scripts/game/hand.gd" id="7_nrexm"]
 [ext_resource type="PackedScene" uid="uid://djm87ttssld7i" path="res://scenes/hero_face.tscn" id="8_fgn6i"]
+[ext_resource type="PackedScene" uid="uid://dq6dxo14vjgch" path="res://scenes/deck_presenter.tscn" id="10_1ss63"]
 
 [sub_resource type="Resource" id="Resource_qbqua"]
 script = ExtResource("5_1ss63")
@@ -47,7 +48,7 @@ offset_right = 73.0
 offset_bottom = 208.0
 script = ExtResource("4_i0rvx")
 number_label = NodePath("number")
-discard_label = NodePath("Label")
+discard_label = NodePath("discard")
 start_cards = SubResource("Resource_qbqua")
 
 [node name="number" type="Label" parent="deck"]
@@ -65,7 +66,20 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Колода"
 
-[node name="Label" type="Label" parent="deck"]
+[node name="check_deck_button" type="Button" parent="deck/number"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 23.0
+offset_right = 60.0
+offset_bottom = 63.0
+grow_horizontal = 2
+text = "Check"
+
+[node name="discard" type="Label" parent="deck"]
 layout_mode = 0
 offset_left = 1001.0
 offset_top = 96.0
@@ -121,3 +135,8 @@ hand = NodePath("../ui/hand")
 
 [node name="hero_enemy_place" type="Node2D" parent="."]
 position = Vector2(950, 132)
+
+[node name="deck_presenter" parent="." instance=ExtResource("10_1ss63")]
+visible = false
+
+[connection signal="pressed" from="deck/number/check_deck_button" to="." method="_on_check_deck_button_pressed"]

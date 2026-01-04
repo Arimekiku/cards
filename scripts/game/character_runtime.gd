@@ -11,6 +11,7 @@ extends Node
 @onready var hand: Hand = $ui/hand
 @onready var face: HeroFace = $hero_face
 @onready var ai: EnemyAIController = $ai_controller
+@onready var deck_presenter := $deck_presenter
 
 @export var turn_manager: TurnManager
 
@@ -63,14 +64,14 @@ func draw_card(_deck: Deck) -> void:
 
 func draw_card_with_filter(_deck: Deck, predicate: Callable) -> void:
 	var data: CardData = _deck.draw_with_filter(predicate)
-
+	
 	if data == null and not _deck.discard_pile.is_empty():
 		_deck.reshuffle()
 		data = _deck.draw_with_filter(predicate)
-
+	
 	if data == null:
 		return
-
+	
 	var card: Card = create_card_from_data(data)
 	hand.add_card(card)
 
@@ -85,7 +86,7 @@ func _on_turn_started(current_turn):
 	if side == Enums.CharacterType.ENEMY and current_turn == side:
 		ai.play_turn()
 		turn_manager.end_turn()
-		
+
 func create_card_from_data(value: CardData) -> Card:
 	var card: Card
 	
@@ -100,3 +101,6 @@ func create_card_from_data(value: CardData) -> Card:
 	
 	card.setup(value)
 	return card
+
+func _on_check_deck_button_pressed() -> void:
+	deck_presenter.show_deck(deck.cards)
