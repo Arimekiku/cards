@@ -233,7 +233,11 @@
 	  "on_play": {
 		"apply_status": {
 		  "status": "buff",
-		  "target": "friendly_creature",
+		  "target": "target",
+		  "params": {
+			"attack": 2,
+			"health": 2
+		},
 		  "duration": 1
 		}
 	  }

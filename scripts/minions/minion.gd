@@ -172,7 +172,7 @@ func request_attack(target_node: Node) -> bool:
 	state_machine.request_state(MinionAttackState)
 	return true
 
-func add_status(status_name: String, duration: int) -> void:
+func add_status(status_name: String, duration: int, params := {}) -> void:
 	# створюємо інстанс статусу за іменем
 	match status_name:
 		"freeze":
@@ -185,6 +185,17 @@ func add_status(status_name: String, duration: int) -> void:
 			statuses.append(s)
 		"spell_fury":
 			var s = SpellFuryStatus.new()
+			s.duration = duration
+			s.apply(self)
+			statuses.append(s)
+			
+		"buff":
+			print("buff")
+			var s = BuffStatus.new(
+				params.get("attack", 0),
+				params.get("health", 0),
+				duration
+			)
 			s.duration = duration
 			s.apply(self)
 			statuses.append(s)
