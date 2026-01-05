@@ -48,7 +48,7 @@
 	"on_play": {
 	  "draw_cards": {
 		"amount": 2,
-		"filter": "manul"
+		"filter": "spell"
 	  }
 	}
   },
