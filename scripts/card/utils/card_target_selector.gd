@@ -34,7 +34,6 @@ func _input(event: InputEvent) -> void:
 		events.target_selector_resolved_event.emit(target)
 		return
 
-
 func _process(_delta: float) -> void:
 	if not targeting: return
 	

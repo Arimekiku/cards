@@ -21,5 +21,6 @@ enum SpellTargetType {
 	ALLY_MINIONS,
 	ALL_MINIONS,
 	ALL,
-	NO_TARGET
+	NO_TARGET,
+	SELF
 }

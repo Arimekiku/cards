@@ -25,6 +25,9 @@ static func resolve(target_type: Enums.SpellTargetType, context) -> Array:
 
 		Enums.SpellTargetType.ALL:
 			return _get_all_entities()
+			
+		Enums.SpellTargetType.SELF:
+			return [context]
 
 		_:
 			push_warning("Unknown target_type: %s" % target_type)

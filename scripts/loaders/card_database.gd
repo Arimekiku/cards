@@ -32,7 +32,8 @@ const TARGET_MAP := {
 	"enemy_minions": Enums.SpellTargetType.ENEMY_MINIONS,
 	"ally_minions": Enums.SpellTargetType.ALLY_MINIONS,
 	"all_minions": Enums.SpellTargetType.ALL_MINIONS,
-	"all": Enums.SpellTargetType.ALL
+	"all": Enums.SpellTargetType.ALL,
+	"self": Enums.SpellTargetType.SELF
 }
 
 @export var cards_dir := "res://data/cards/"
