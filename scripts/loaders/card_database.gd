@@ -21,7 +21,9 @@ var EFFECT_FACTORY_TYPES = {
 	"on_spell_played_buff": SpellPlayedBuffEffect,
 	"summon_minion": SummonMinionEffect,
 	"discover_and_summon": DiscoverAndSummonEffect,
-	"freeze_and_draw": FreezeAndDrawEffect
+	"freeze_and_draw": FreezeAndDrawEffect,
+	"discard_scaled_aoe": DiscardScaledAOEEffect,
+	"discard_scaled_buff": DiscardScaledBuffEffect
 }
 
 const TARGET_MAP := {

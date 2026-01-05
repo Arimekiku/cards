@@ -122,7 +122,8 @@
 	"effects": {
 	  "on_play": {
 		"discard_scaled_aoe": {
-		  "damage_per_cards": 5
+		  "damage_per_cards": 1,
+		  "target": "enemy_minions"
 		}
 	  }
 	},
@@ -141,7 +142,8 @@
 	"effects": {
 	  "on_play": {
 		"discard_scaled_buff": {
-		  "cards_per_stack": 3
+		  "cards_per_stack": 1,
+		  "duration": -1
 		}
 	  }
 	},
