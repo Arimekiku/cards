@@ -203,6 +203,11 @@ func add_status(status_name: String, duration: int, params := {}) -> void:
 			# тут можна додати інші статуси/реєстр
 			push_warning("Unknown status: %s" % status_name)
 
+func add_status_variant(status: Variant, duration: int) -> void:
+	var s = status.new()
+	s.duration = duration
+	statuses.append(s)
+
 func remove_status(status_instance) -> void:
 	statuses.erase(status_instance)
 
@@ -214,5 +219,5 @@ func on_turn_start() -> void:
 	for s in statuses.duplicate():
 		if s.has_method("on_turn_start"):
 			s.on_turn_start()
-			
+	
 	_resolve_effects(data.card_context.on_turn_start_effects, self)

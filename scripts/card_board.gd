@@ -81,13 +81,13 @@ func _normalize_minion(minion: Minion, target: Vector2) -> void:
 
 func _on_minion_died(minion: Minion, cause: Enums.DeathCause) -> void:
 	remove_minion(minion)
-
+	
 	match cause:
 		Enums.DeathCause.NORMAL:
 			deck.add_to_discard_pile(minion)
 		Enums.DeathCause.ERASE:
 			pass
-
+	
 	minion.queue_free()
 
 func _is_full():
@@ -99,11 +99,11 @@ func spawn_minion_from_data(
 ) -> bool:
 	if minions.size() >= max_minions:
 		return false
-
+	
 	var minion := Game.create_minion()
 	minion.setup(data, true)
 	minion.minion_owner = owned
-
+	
 	add_minion(minion)
-
+	
 	return true

@@ -1,0 +1,92 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2omc08bjrfco"]
+
+[ext_resource type="Script" uid="uid://8dchcmy0y44i" path="res://scripts/game/hub.gd" id="1_l4ika"]
+[ext_resource type="Texture2D" uid="uid://bv5fdv6rsqy1v" path="res://resources/images/board.png" id="2_101mb"]
+[ext_resource type="Script" uid="uid://bxsuhq766wkyl" path="res://scripts/ui/character_box.gd" id="3_vlbol"]
+[ext_resource type="Script" uid="uid://bq0ks65j4xtjk" path="res://scripts/ui/buttons/button_start_battle.gd" id="4_7dcer"]
+
+[node name="hub" type="Control" node_paths=PackedStringArray("character_box")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l4ika")
+character_box = NodePath("horizontal_box/margin_2/character_container")
+metadata/_edit_lock_ = true
+
+[node name="sprite" type="Sprite2D" parent="."]
+position = Vector2(588, 363)
+scale = Vector2(0.7645173, 0.7645173)
+texture = ExtResource("2_101mb")
+
+[node name="background_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="horizontal_box" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="margin_2" type="MarginContainer" parent="horizontal_box"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="character_container" type="VBoxContainer" parent="horizontal_box/margin_2" node_paths=PackedStringArray("character_label", "card_container")]
+layout_mode = 2
+script = ExtResource("3_vlbol")
+character_label = NodePath("character_name")
+card_container = NodePath("cards/card_container")
+
+[node name="character_name" type="Label" parent="horizontal_box/margin_2/character_container"]
+layout_mode = 2
+text = "Character Name"
+horizontal_alignment = 1
+
+[node name="cards" type="Panel" parent="horizontal_box/margin_2/character_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="card_container" type="VBoxContainer" parent="horizontal_box/margin_2/character_container/cards"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="play_button" type="Button" parent="horizontal_box/margin_2/character_container" node_paths=PackedStringArray("character_box")]
+layout_mode = 2
+text = "Start Battle"
+script = ExtResource("4_7dcer")
+character_box = NodePath("..")
+
+[node name="separator" type="VSeparator" parent="horizontal_box"]
+layout_mode = 2
+
+[node name="margin_1" type="MarginContainer" parent="horizontal_box"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="panel_1" type="Panel" parent="horizontal_box/margin_1"]
+layout_mode = 2
+size_flags_horizontal = 3

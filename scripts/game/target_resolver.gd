@@ -7,28 +7,20 @@ static func resolve(target_type: Enums.SpellTargetType, context) -> Array:
 	match target_type:
 		Enums.SpellTargetType.TARGET:
 			return [context]
-
 		Enums.SpellTargetType.ENEMY_MINIONS:
 			return _get_side_minions(context, false)
-
 		Enums.SpellTargetType.ALLY_MINIONS:
 			return _get_side_minions(context, true)
-
 		Enums.SpellTargetType.HERO:
 			return [_get_enemy_hero(context)]
-
 		Enums.SpellTargetType.NON_HERO_TARGET:
 			return _get_all_minions()
-			
 		Enums.SpellTargetType.ALL_MINIONS:
 			return _get_all_minions()
-
 		Enums.SpellTargetType.ALL:
-			return _get_all_entities()
-			
+			return _get_all_entities()		
 		Enums.SpellTargetType.SELF:
 			return [context]
-
 		_:
 			push_warning("Unknown target_type: %s" % target_type)
 			return []
@@ -71,10 +63,10 @@ static func _get_enemy_hero(context):
 static func _get_all_entities() -> Array:
 	var result := []
 	result.append_array(_get_all_minions())
-
+	
 	var heroes = Engine.get_main_loop().get_nodes_in_group("heroes")
 	result.append_array(heroes)
-
+	
 	return result
 
 static func resolve_attack_targets(attacker: Minion) -> Array[Minion]:
