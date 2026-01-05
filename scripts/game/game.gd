@@ -7,6 +7,7 @@ class_name Game
 @export var start_hand_size := 5
 
 var player_deck_metadata: DeckMetadata
+var boss_deck_metadata: DeckMetadata
 var card_database: CardDatabase = ServiceLocator.get_service(CardDatabase)
 
 signal spell_played(owner_type)
@@ -14,8 +15,11 @@ signal spell_played(owner_type)
 func emit_spell_played(owner_type):
 	spell_played.emit(owner_type)
 
-func load_with_cards(character_metadata: CharacterMetadata) -> void:
-	player_deck_metadata = character_metadata.deck
+func load_with_cards(
+	character_metas: Array[CharacterMetadata],
+) -> void:
+	player_deck_metadata = character_metas[0].deck
+	boss_deck_metadata = character_metas[1].deck
 
 func create_card(value: String) -> Card:
 	var data := card_database.get_from_registry(value)
