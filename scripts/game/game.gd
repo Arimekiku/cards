@@ -14,8 +14,8 @@ signal spell_played(owner_type)
 func emit_spell_played(owner_type):
 	spell_played.emit(owner_type)
 
-func initialize_game(deck_metadata: DeckMetadata) -> void:
-	player_deck_metadata = deck_metadata
+func load_with_cards(character_metadata: CharacterMetadata) -> void:
+	player_deck_metadata = character_metadata.deck
 
 func create_card(value: String) -> Card:
 	var data := card_database.get_from_registry(value)
@@ -57,6 +57,6 @@ static func create_minion() -> Minion:
 	
 	var minion: Minion = temp_minion_scene.instantiate()
 	return minion
-	
+
 func get_character(character_type: Enums.CharacterType) -> CharacterRuntime:
 	return player if character_type == Enums.CharacterType.PLAYER else enemy

@@ -16,7 +16,8 @@ func init() -> void:
 		SceneType.MAIN_SCENE: preload("res://scenes/gameplay/main_menu.tscn"),
 		SceneType.OPTIONS_SCENE: preload("res://scenes/gameplay/options_menu.tscn"),
 		SceneType.CHAR_SELECTOR_SCENE: preload("res://scenes/gameplay/character_select_menu.tscn"),
-		SceneType.BATTLE_SCENE: preload("res://scenes/board_scene.tscn")
+		SceneType.BATTLE_SCENE: preload("res://scenes/board_scene.tscn"),
+		SceneType.REWARD_DUNGEON_SCENE: preload("res://scenes/gameplay/hub_menu.tscn")
 	}
 
 func get_scene(type: SceneType) -> PackedScene:
@@ -26,8 +27,8 @@ func switch_scene(type: SceneType, params) -> bool:
 	if _scene_map.has(type) == false: return false
 	
 	var packed_instance = _scene_map[type].instantiate()
-	if packed_instance.has_method("initialize_game"):
-		packed_instance.initialize_game(params)
+	if packed_instance.has_method("load_with_cards"):
+		packed_instance.load_with_cards(params)
 	
 	var tree = ServiceLocator.get_tree()
 	var current_scene = tree.current_scene

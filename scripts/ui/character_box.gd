@@ -1,25 +1,22 @@
 class_name CharacterBox
-extends Button
+extends Control
 
-@onready var character_label := %character_name
-@onready var card_container := %cards_container
+@export var character_label: Label
+@export var card_container: Control
 
-var character_name: String
-var initial_deck: DeckMetadata
+var character_metadata: CharacterMetadata
 var card_database: CardDatabase = ServiceLocator.get_service(CardDatabase)
-var scenes: SceneManager = ServiceLocator.get_service(SceneManager)
 
 func setup(character: CharacterMetadata) -> void:
-	character_name = character.character_name
-	initial_deck = character.deck
-	character_label.text = character_name
+	character_metadata = character
+	character_label.text = character.character_name
 	
 	var previews = card_container.get_children()
 	for preview in previews:
 		preview.queue_free()
 	
 	var card_map: Dictionary[String, int]
-	for card_id in initial_deck.cards:
+	for card_id in character_metadata.deck.cards:
 		var data = card_database.get_from_registry(card_id)
 		if data == null:
 			push_error("Can't get requested card of type %s!" % card_id)
@@ -37,10 +34,3 @@ func setup(character: CharacterMetadata) -> void:
 		
 		instance.name = card_id
 		instance.setup(card_id, quantity)
-
-func _pressed() -> void:
-	var scenetype = scenes.SceneType.BATTLE_SCENE
-	var result = scenes.switch_scene(scenetype, initial_deck)
-	if result == true: return
-	
-	push_warning("Can't load scene of SceneType: %s" % str(scenes.SceneType.keys()[scenetype]))
