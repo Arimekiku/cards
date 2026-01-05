@@ -9,7 +9,6 @@ func resolve(context):
 		return
 
 	var targets = TargetResolver.resolve(target, context)
-	print(targets, target, context)
 	for t in targets:
 		if t.has_method("add_status"):
 			t.add_status(status, duration)

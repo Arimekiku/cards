@@ -45,7 +45,7 @@
   "health": 4,
   "damage": 2,
   "effects": {
-	"on_play": {
+	"on_death": {
 	  "draw_cards": {
 		"amount": 2,
 		"filter": "spell"

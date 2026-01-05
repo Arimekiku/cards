@@ -91,10 +91,10 @@ func take_damage(value: int) -> void:
 	_ui_update_health(health)
 
 func die(cause: Enums.DeathCause = Enums.DeathCause.NORMAL) -> void:
-	died_event.emit(self, cause)
-
 	if cause == Enums.DeathCause.NORMAL:
-		_resolve_effects(data.card_context.on_die_effects, null)
+		_resolve_effects(data.card_context.on_die_effects, self)
+		
+	died_event.emit(self, cause)
 
 	for s in statuses.duplicate():
 		if s.has_method("remove"):

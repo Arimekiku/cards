@@ -20,7 +20,8 @@ var EFFECT_FACTORY_TYPES = {
 	"draw_cards": DrawCardsEffect,
 	"on_spell_played_buff": SpellPlayedBuffEffect,
 	"summon_minion": SummonMinionEffect,
-	"discover_and_summon": DiscoverAndSummonEffect
+	"discover_and_summon": DiscoverAndSummonEffect,
+	"freeze_and_draw": FreezeAndDrawEffect
 }
 
 const TARGET_MAP := {
