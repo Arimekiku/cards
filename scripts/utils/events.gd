@@ -24,3 +24,9 @@ signal minion_spawned(minion)
 signal minion_info_show_request(minion)
 @warning_ignore("unused_signal")
 signal minion_info_destroy_request(minion)
+
+# card selection (discover) events
+@warning_ignore("unused_signal")
+signal discover_requested(context, cards: Array[CardData])
+@warning_ignore("unused_signal")
+signal discover_finished(context, selected: CardData)

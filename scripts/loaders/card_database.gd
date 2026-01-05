@@ -19,7 +19,8 @@ var EFFECT_FACTORY_TYPES = {
 	"apply_status": ApplyStatusEffect,
 	"draw_cards": DrawCardsEffect,
 	"on_spell_played_buff": SpellPlayedBuffEffect,
-	"summon_minion": SummonMinionEffect
+	"summon_minion": SummonMinionEffect,
+	"discover_and_summon": DiscoverAndSummonEffect
 }
 
 const TARGET_MAP := {
