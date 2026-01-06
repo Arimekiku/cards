@@ -7,7 +7,8 @@ func _init() -> void:
 		CardDatabase : CardDatabase.new(),
 		SceneManager: SceneManager.new(),
 		EventBus: EventBus.new(),
-		TooltipManager: TooltipManager.new()
+		TooltipManager: TooltipManager.new(),
+		EncounterContext: EncounterContext.new()
 	}
 
 func _ready() -> void:

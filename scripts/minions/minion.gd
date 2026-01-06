@@ -69,6 +69,7 @@ func setup(card_data: CardData, is_summoned := false) -> void:
 	var events: EventBus = ServiceLocator.get_service(EventBus)
 	events.minion_spawned.emit(self)
 	
+	apply_encounter_bonuses(data)
 	#for effect in context.passive_effects:
 		#if effect.has("status_name"):
 			#var status_name = effect.status_name
@@ -76,6 +77,18 @@ func setup(card_data: CardData, is_summoned := false) -> void:
 			#if effect.has("duration"):
 				#duration = effect.duration
 			#add_status(status_name, duration)
+
+func apply_encounter_bonuses(card_data: CardData) -> void:
+	var encounter: EncounterContext = ServiceLocator.get_service(EncounterContext)
+	var bonus := encounter.get_bonus_for(card_data.name)
+	
+	if bonus.has("attack"):
+		damage += bonus.attack
+	
+	if bonus.has("health"):
+		health += bonus.health
+	_ui_update_health(health)
+	_ui_update_damage(damage)
 
 func _input(event: InputEvent) -> void:
 	if not state_machine: return

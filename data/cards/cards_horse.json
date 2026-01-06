@@ -37,7 +37,7 @@
 	},
 	"keywords": ["taunt"],
 	"tribes": ["knight", "boss"],
-	"image": "res://resources/images/cards/boss_banner_knight.png",
+	"image": "res://resources/images/cards/horse/boss_banner_knight.png",
 	"portrait_offset": { "x": -0.1, "y": -0.23 },
 	"portrait_zoom": 1.2,
 	"description": "Смерть: викликає Коня"
@@ -58,7 +58,7 @@
 	},
 	"keywords": ["death_synergy"],
 	"tribes": ["knight", "boss"],
-	"image": "res://resources/images/cards/boss_oath_knight.png",
+	"image": "res://resources/images/cards/horse/boss_oath_knight.png",
 	"portrait_offset": { "x": -0.1, "y": -0.23 },
 	"portrait_zoom": 1.2,
 	"description": "Викликає ефект смерті союзної істоти"
@@ -70,15 +70,17 @@
 	"card_type": "spell",
 	"effects": {
 	  "on_play": {
-		"summon_copy_of_ally_target": {}
+		"summon_copy_of_ally_target": {
+			"on_turn": "die"
+		}
 	  }
 	},
 	"keywords": ["summon"],
 	"tribes": ["spell", "copy"],
-	"image": "res://resources/images/cards/dark_reflection.png",
+	"image": "res://resources/images/cards/horse/dark_reflection.png",
 	"portrait_offset": { "x": -0.1, "y": -0.23 },
 	"portrait_zoom": 1.2,
-	"description": "Викликає копію обраної союзної істоти"
+	"description": "Викликає копію обраної союзної істоти, вбиває її на початку наступного ходу"
   },
 
   "call_the_steed": {
@@ -112,7 +114,7 @@
 	},
 	"keywords": ["sacrifice"],
 	"tribes": ["spell", "death"],
-	"image": "res://resources/images/cards/black_rite.png",
+	"image": "res://resources/images/cards/horse/black_rite.png",
 	"portrait_offset": { "x": -0.1, "y": -0.23 },
 	"portrait_zoom": 1.2,
 	"description": "Знищує союзну істоту. Її ефект смерті спрацьовує двічі"
