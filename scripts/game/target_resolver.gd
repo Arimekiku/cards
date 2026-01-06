@@ -18,7 +18,7 @@ static func resolve(target_type: Enums.SpellTargetType, context) -> Array:
 		Enums.SpellTargetType.ALL_MINIONS:
 			return _get_all_minions()
 		Enums.SpellTargetType.ALL:
-			return _get_all_entities()		
+			return _get_all_entities()
 		Enums.SpellTargetType.SELF:
 			return [context]
 		_:
