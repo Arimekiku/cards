@@ -14,10 +14,10 @@ const ENEMY_LAYER  := 3
 signal died(owned)
 
 var health := 30
+var potential_targets := []
 
 func init():
 	health = max_health
-	#apply_layout()
 	update_ui()
 	_configure_collision()
 
@@ -32,23 +32,6 @@ func _configure_collision():
 		collider.set_collision_layer_value(ENEMY_LAYER, true)
 		collider.set_collision_mask_value(PLAYER_LAYER, true)
 
-
-#func apply_layout():
-	#if owned == Enums.CharacterType.ENEMY:
-#
-		#anchor_left = 1
-		#anchor_right = 1
-		#offset_left = -200
-		#offset_right = 0
-	#else:
-		#anchor_left = 0
-		#anchor_right = 0
-		#offset_left = 0
-		#offset_right = 200
-#
-	#fix_children_mirroring()
-
-
 func fix_children_mirroring():
 	for c in get_children():
 		if c is Control:
@@ -57,14 +40,12 @@ func fix_children_mirroring():
 func take_damage(value: int):
 	health -= value
 	update_ui()
-
+	
 	if health <= 0:
 		died.emit(owner)
 
 func update_ui():
 	health_label.text = str(health)
-
-var potential_targets := []
 
 func _on_collider_area_entered(area):
 	if not potential_targets.has(area):
