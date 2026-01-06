@@ -42,7 +42,7 @@ func take_damage(value: int):
 	update_ui()
 	
 	if health <= 0:
-		died.emit(owner)
+		died.emit(owned)
 
 func update_ui():
 	health_label.text = str(health)

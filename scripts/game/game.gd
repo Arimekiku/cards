@@ -78,3 +78,6 @@ static func create_minion() -> Minion:
 
 func get_character(character_type: Enums.CharacterType) -> CharacterRuntime:
 	return player if character_type == Enums.CharacterType.PLAYER else enemy
+
+func _on_brute_force_win_button_pressed() -> void:
+	enemy.face.died.emit(enemy.face.owned)

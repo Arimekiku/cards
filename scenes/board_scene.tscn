@@ -16,10 +16,11 @@ size = Vector2(1152, 500)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qbqua"]
 
-[node name="board" type="Node2D" node_paths=PackedStringArray("player", "enemy") groups=["game"]]
+[node name="board" type="Node2D" node_paths=PackedStringArray("player", "enemy", "end_menu") groups=["game"]]
 script = ExtResource("1_5fb3c")
 player = NodePath("Player")
 enemy = NodePath("Enemy")
+end_menu = NodePath("battle_finished_menu")
 metadata/_edit_lock_ = true
 
 [node name="Board" type="Sprite2D" parent="."]
@@ -118,4 +119,12 @@ text = "Exit Battle"
 script = ExtResource("10_1mlxa")
 character_save = NodePath("../../../../../Player")
 
+[node name="brute_force_win_button" type="Button" parent="."]
+offset_left = 1008.0
+offset_top = 671.0
+offset_right = 1265.0
+offset_bottom = 702.0
+text = "BRUTE FOCE WIN (DEBUG ONLY)"
+
 [connection signal="pressed" from="turn_manager/Button" to="turn_manager" method="_on_button_pressed"]
+[connection signal="pressed" from="brute_force_win_button" to="." method="_on_brute_force_win_button_pressed"]
