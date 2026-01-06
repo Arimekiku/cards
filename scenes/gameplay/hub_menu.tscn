@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2omc08bjrfco"]
+[gd_scene load_steps=9 format=3 uid="uid://b2omc08bjrfco"]
 
 [ext_resource type="Script" uid="uid://8dchcmy0y44i" path="res://scripts/game/hub.gd" id="1_l4ika"]
 [ext_resource type="Texture2D" uid="uid://bv5fdv6rsqy1v" path="res://resources/images/board.png" id="2_101mb"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://bq0ks65j4xtjk" path="res://scripts/ui/buttons/button_start_battle.gd" id="4_7dcer"]
 [ext_resource type="Texture2D" uid="uid://dldtuabrsjn80" path="res://resources/images/imcrying.png" id="5_48n03"]
 [ext_resource type="Script" uid="uid://g3yqiod40rqh" path="res://scripts/random_boss_selector.gd" id="5_tajdr"]
+[ext_resource type="Script" uid="uid://dihcdofi067w6" path="res://scripts/ui/pack_selector.gd" id="7_3ae18"]
+[ext_resource type="PackedScene" uid="uid://uslk66b277qo" path="res://scenes/ui/pack_select.tscn" id="7_6djr3"]
 
 [node name="hub" type="Control" node_paths=PackedStringArray("character_box")]
 layout_mode = 3
@@ -91,11 +93,15 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 script = ExtResource("5_tajdr")
 
-[node name="panel_1" type="Panel" parent="horizontal_box/margin_1"]
+[node name="vertical_panel" type="VBoxContainer" parent="horizontal_box/margin_1"]
+layout_mode = 2
+
+[node name="panel_1" type="Panel" parent="horizontal_box/margin_1/vertical_panel"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="boss_portrait" type="TextureRect" parent="horizontal_box/margin_1/panel_1"]
+[node name="boss_portrait" type="TextureRect" parent="horizontal_box/margin_1/vertical_panel/panel_1"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -111,7 +117,8 @@ grow_vertical = 2
 texture = ExtResource("5_48n03")
 expand_mode = 1
 
-[node name="boss_label" type="Label" parent="horizontal_box/margin_1/panel_1/boss_portrait"]
+[node name="boss_label" type="Label" parent="horizontal_box/margin_1/vertical_panel/panel_1/boss_portrait"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -125,7 +132,8 @@ theme_override_font_sizes/font_size = 32
 text = "Boss Naming"
 horizontal_alignment = 1
 
-[node name="boss_catch_phrase" type="Label" parent="horizontal_box/margin_1/panel_1/boss_portrait"]
+[node name="boss_catch_phrase" type="Label" parent="horizontal_box/margin_1/vertical_panel/panel_1/boss_portrait"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -141,3 +149,32 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "Cathing phrase"
 horizontal_alignment = 1
+
+[node name="separator" type="HSeparator" parent="horizontal_box/margin_1/vertical_panel"]
+layout_mode = 2
+
+[node name="panel_2" type="Panel" parent="horizontal_box/margin_1/vertical_panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="pack_selector" type="HBoxContainer" parent="horizontal_box/margin_1/vertical_panel/panel_2" node_paths=PackedStringArray("pack_selects", "character_box")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_3ae18")
+pack_selects = [NodePath("pack_select"), NodePath("pack_select2"), NodePath("pack_select3")]
+character_box = NodePath("../../../../margin_2/character_container")
+
+[node name="pack_select" parent="horizontal_box/margin_1/vertical_panel/panel_2/pack_selector" instance=ExtResource("7_6djr3")]
+layout_mode = 2
+
+[node name="pack_select2" parent="horizontal_box/margin_1/vertical_panel/panel_2/pack_selector" instance=ExtResource("7_6djr3")]
+layout_mode = 2
+
+[node name="pack_select3" parent="horizontal_box/margin_1/vertical_panel/panel_2/pack_selector" instance=ExtResource("7_6djr3")]
+layout_mode = 2

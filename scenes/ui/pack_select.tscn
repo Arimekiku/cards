@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://uslk66b277qo"]
+
+[ext_resource type="Script" uid="uid://bs4yp83okwi4y" path="res://scripts/ui/pack_select.gd" id="1_3rp2c"]
+[ext_resource type="Script" uid="uid://bxsuhq766wkyl" path="res://scripts/ui/character_box.gd" id="2_nkjmj"]
+
+[node name="pack_margin" type="MarginContainer" node_paths=PackedStringArray("character_box")]
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_3rp2c")
+character_box = NodePath("pack_panel")
+
+[node name="pack_panel" type="Panel" parent="." node_paths=PackedStringArray("character_label", "card_container")]
+layout_mode = 2
+script = ExtResource("2_nkjmj")
+character_label = NodePath("vertical_container/pack_label")
+card_container = NodePath("vertical_container/cards_container_margin/cards_container")
+
+[node name="vertical_container" type="VBoxContainer" parent="pack_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="pack_label" type="Label" parent="pack_panel/vertical_container"]
+layout_mode = 2
+text = "Pack Label"
+horizontal_alignment = 1
+
+[node name="separator" type="HSeparator" parent="pack_panel/vertical_container"]
+layout_mode = 2
+
+[node name="cards_container_margin" type="MarginContainer" parent="pack_panel/vertical_container"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="cards_container" type="VBoxContainer" parent="pack_panel/vertical_container/cards_container_margin"]
+layout_mode = 2
+
+[node name="pick_button" type="Button" parent="pack_panel/vertical_container"]
+layout_mode = 2
+text = "Pick"
