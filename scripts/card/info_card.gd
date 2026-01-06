@@ -9,10 +9,13 @@ signal on_card_clicked(card: InfoCard)
 @onready var status_container := $graphics/status_container
 @onready var close_timer := $disappear_timer
 
+var should_disappear: bool = true
 var status_prefab := preload("res://scenes/cards/info_cards/card_status.tscn")
 var info_data: CardData
 
 func _ready() -> void:
+	if not should_disappear: return
+	
 	close_timer.one_shot = true
 	close_timer.timeout.connect(_on_timer_timeout)
 
@@ -66,11 +69,13 @@ func _on_gui_input(event: InputEvent) -> void:
 	on_card_clicked.emit(self)
 
 func _on_mouse_entered() -> void:
+	if not should_disappear: return
 	if not is_node_ready(): await ready
 	
 	set_disappear(false)
 
 func _on_mouse_exited() -> void:
+	if not should_disappear: return
 	if not is_node_ready(): await ready
 	
 	set_disappear(true)
