@@ -55,6 +55,17 @@ func _handle_spell(event: InputEvent) -> void:
 		transition.emit(self, CardAimState)
 
 func _handle_creature(event: InputEvent) -> void:
+	var output_zone: CardBoard
+	for in_zone: CardBoard in target.get_tree().get_nodes_in_group("card_zones"):
+		if target.card_owner != in_zone.board_owner: continue
+		
+		output_zone = in_zone
+		break
+
+	var mouse_position = target.get_global_mouse_position()
+	var index = output_zone.get_insertion_index(mouse_position.x)
+	output_zone.make_place_for_index(index)
+	
 	var cancel = event.is_action_pressed("right_mouse")
 	if cancel:
 		transition.emit(self, CardIdleState)

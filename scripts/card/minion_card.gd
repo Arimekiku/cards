@@ -31,7 +31,6 @@ func play() -> void:
 	minion.setup(data)
 
 	minion.minion_owner = card_owner
-
 	for in_zone: CardBoard in get_tree().get_nodes_in_group("card_zones"):
 		if not in_zone.can_accept(minion):
 			continue
@@ -43,8 +42,10 @@ func play() -> void:
 		push_error("No valid CardBoard found to play minion")
 		minion.queue_free()
 		return
-
-	output_zone.add_minion(minion)
+	
+	var mouse_position = get_global_mouse_position()
+	var index = output_zone.get_insertion_index(mouse_position.x)
+	output_zone.add_minion(minion, index)
 	played_event.emit(self)
 
 

@@ -5,7 +5,7 @@ var game: Game
 @export var graphics : Sprite2D
 var board_owner := Enums.CharacterType.PLAYER
 @export var max_minions := 7
-@export var spacing := 160.0
+@export var spacing := 100.0
 @export var drop_radius := 200.0
 @export var deck: Deck
 
@@ -28,10 +28,10 @@ func init() -> void:
 	minion3.add_status("freeze", 3)
 	add_minion(minion3)
 
-func add_minion(minion: Minion) -> bool:
+func add_minion(minion: Minion, index: int = 0) -> bool:
 	if minions.size() >= max_minions: return false
 	
-	minions.append(minion)
+	minions.insert(index, minion)
 	if minion.get_parent(): minion.reparent(self)
 	else: add_child(minion)
 	minion.position = Vector2.ZERO
@@ -46,22 +46,39 @@ func add_minion(minion: Minion) -> bool:
 	layout()
 	return true
 
+func make_place_for_index(index: int = 0) -> void:
+	layout(index)
+
+func get_insertion_index(cursor_pos_x: float) -> int:
+	if minions.size() == 0: return 0
+	
+	for i in minions.size():
+		var minion_x := minions[i].global_position.x
+		if cursor_pos_x < minion_x: return i
+	
+	return minions.size()
+
 func remove_minion(minion: Minion) -> void:
 	minions.erase(minion)
 	layout()
 
-func layout() -> void:
+func layout(phantom: int = -666) -> void:
 	var count := minions.size()
-	if count == 0:
-		return
+	if count == 0: return
 	
 	var total_width = spacing * (count - 1)
+	if phantom >= 0: total_width += spacing
 	var start_x = -total_width / 2.0
 	
-	for i in count:
-		var offset := minions[i].size / 2
-		var target := Vector2(global_position.x + start_x + i * spacing, global_position.y)
-		_normalize_minion(minions[i], target - offset)
+	var j = 0
+	for minion in minions:
+		if j == phantom: j += 1
+		
+		var offset := minion.size / 2
+		var target := Vector2(global_position.x + start_x + j * spacing, global_position.y)
+		_normalize_minion(minion, target - offset)
+		
+		j += 1
 
 func can_accept(minion: Minion) -> bool:
 	if minion.minion_owner != board_owner: return false
