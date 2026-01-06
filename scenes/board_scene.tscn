@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://4npx47ha3xu8"]
+[gd_scene load_steps=13 format=3 uid="uid://4npx47ha3xu8"]
 
 [ext_resource type="Script" uid="uid://ceasvmta0a8fy" path="res://scripts/game/game.gd" id="1_5fb3c"]
 [ext_resource type="PackedScene" uid="uid://s2nouishoia4" path="res://scenes/cards/minion_card_prefab.tscn" id="2_tpwpp"]
@@ -7,10 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://bv5fdv6rsqy1v" path="res://resources/images/board.png" id="4_qbqua"]
 [ext_resource type="PackedScene" uid="uid://dpclu562nhmhh" path="res://scenes/player_prefab.tscn" id="6_plioj"]
 [ext_resource type="PackedScene" uid="uid://ic6wow7v4k4a" path="res://scenes/cards/info_cards/info_manager.tscn" id="8_qbqua"]
+[ext_resource type="Script" uid="uid://dunq7cf1jyrev" path="res://scripts/ui/battle_finished_menu.gd" id="9_lkfl4"]
+[ext_resource type="Script" uid="uid://dt4hen2gwa85y" path="res://scripts/ui/buttons/button_battle_end.gd" id="10_1mlxa"]
 [ext_resource type="Script" uid="uid://crw7xwg3y1jlb" path="res://scripts/game/turn_manager.gd" id="10_7ftgl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4d81t"]
 size = Vector2(1152, 500)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qbqua"]
 
 [node name="board" type="Node2D" node_paths=PackedStringArray("player", "enemy") groups=["game"]]
 script = ExtResource("1_5fb3c")
@@ -60,5 +64,58 @@ monitoring = false
 [node name="collider" type="CollisionShape2D" parent="player_drop_area"]
 position = Vector2(576, 250)
 shape = SubResource("RectangleShape2D_4d81t")
+
+[node name="battle_finished_menu" type="CanvasLayer" parent="."]
+layer = 999
+visible = false
+script = ExtResource("9_lkfl4")
+
+[node name="blocker" type="Panel" parent="battle_finished_menu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background_panel" type="Panel" parent="battle_finished_menu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="panel_margin" type="MarginContainer" parent="battle_finished_menu/background_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="vertical_container" type="VBoxContainer" parent="battle_finished_menu/background_panel/panel_margin"]
+layout_mode = 2
+
+[node name="separator" type="HSeparator" parent="battle_finished_menu/background_panel/panel_margin/vertical_container"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_qbqua")
+
+[node name="end_button" type="Button" parent="battle_finished_menu/background_panel/panel_margin/vertical_container" node_paths=PackedStringArray("character_save")]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Exit Battle"
+script = ExtResource("10_1mlxa")
+character_save = NodePath("../../../../../Player")
 
 [connection signal="pressed" from="turn_manager/Button" to="turn_manager" method="_on_button_pressed"]
