@@ -1,17 +1,22 @@
-class_name RandomBossSelector
+class_name PackSelect
 extends Control
 
-@onready var boss_label := %boss_label
-@onready var boss_phrase := %boss_catch_phrase
+signal on_pack_selected(pack_meta: DeckMetadata)
 
-var selected_boss: CharacterMetadata
+@export var character_box: CharacterBox
+
+@onready var pick_button: Button = $pack_panel/vertical_container/pick_button
+
+var pack_metadata: DeckMetadata
 
 func _ready() -> void:
-	var character_resources = load_all_resources("res://resources/bosses/")
-	selected_boss = character_resources.pick_random()
+	var resources = load_all_resources("res://resources/card_packs/")
+	var result = resources.pick_random()
 	
-	boss_label.text = selected_boss.character_name
-	boss_phrase.text = selected_boss.character_phrase
+	pack_metadata = result.deck
+	character_box.setup(result)
+	
+	pick_button.pressed.connect(_on_pack_button_pressed)
 
 func load_all_resources(folder_path: String) -> Array[CharacterMetadata]:
 	var resources: Array[CharacterMetadata] = []
@@ -36,3 +41,6 @@ func load_all_resources(folder_path: String) -> Array[CharacterMetadata]:
 		print("An error occurred when trying to access the path.")
 	
 	return resources
+
+func _on_pack_button_pressed() -> void:
+	on_pack_selected.emit(pack_metadata)
