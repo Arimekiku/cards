@@ -135,6 +135,7 @@ size_flags_vertical = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_dofp3")
 
 [node name="close_window_button" type="Button" parent="global_margin/vertical_container" node_paths=PackedStringArray("container_to_close")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8

@@ -1,6 +1,7 @@
 extends Resource
 class_name CardData
 
+@export var card_id: String
 @export var name: String
 @export var cost: int
 @export var image: Texture2D

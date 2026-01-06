@@ -1,6 +1,8 @@
 class_name InfoCard
 extends Control
 
+signal on_card_clicked(card: InfoCard)
+
 @export var minion_front: Texture2D
 @export var spell_front: Texture2D
 
@@ -8,6 +10,7 @@ extends Control
 @onready var close_timer := $disappear_timer
 
 var status_prefab := preload("res://scenes/cards/info_cards/card_status.tscn")
+var info_data: CardData
 
 func _ready() -> void:
 	close_timer.one_shot = true
@@ -17,15 +20,15 @@ func setup(context) -> void:
 	for child in status_container.get_children():
 		child.queue_free()
 	
-	var data = context if context is not Minion else context.data
-	var type = data.card_context.get_card_type()
+	info_data = context if context is not Minion else context.data
+	var type = info_data.card_context.get_card_type()
 	match type:
 		Enums.CardType.MINION: _configure_for_minion(context)
 		Enums.CardType.SPELL: _configure_for_spell(context)
 	
-	%cost_text.text = str(data.cost)
-	%name_text.text = data.name
-	%portrait_image.texture = data.image
+	%cost_text.text = str(info_data.cost)
+	%name_text.text = info_data.name
+	%portrait_image.texture = info_data.image
 
 func _configure_for_minion(context) -> void:
 	var data = context
@@ -55,6 +58,12 @@ func _configure_for_spell(card_data: CardData) -> void:
 	
 	%description_text.visible = true
 	%description_text.text = card_data.card_context.description
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is not InputEventMouseButton: return
+	if not event.is_action_pressed("left_mouse"): return
+	
+	on_card_clicked.emit(self)
 
 func _on_mouse_entered() -> void:
 	if not is_node_ready(): await ready

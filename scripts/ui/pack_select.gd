@@ -1,13 +1,16 @@
 class_name PackSelect
 extends Control
 
-signal on_pack_selected(pack_meta: DeckMetadata)
+signal on_pack_selected(pack_meta: PackSelect)
 
 @export var character_box: CharacterBox
 
-@onready var pick_button: Button = $pack_panel/vertical_container/pick_button
+@onready var pick_button: Button = %pick_button
+@onready var remove_container: PanelContainer = %remove_container
+@onready var remove_label: Label = %remove_label
 
 var pack_metadata: DeckMetadata
+var remove_count: int
 
 func _ready() -> void:
 	var resources = load_all_resources("res://resources/card_packs/")
@@ -15,6 +18,10 @@ func _ready() -> void:
 	
 	pack_metadata = result.deck
 	character_box.setup(result)
+	
+	remove_count = randi() % 3
+	remove_label.text = str(remove_count)
+	if remove_count == 0: remove_container.hide()
 	
 	pick_button.pressed.connect(_on_pack_button_pressed)
 
@@ -43,4 +50,4 @@ func load_all_resources(folder_path: String) -> Array[CharacterMetadata]:
 	return resources
 
 func _on_pack_button_pressed() -> void:
-	on_pack_selected.emit(pack_metadata)
+	on_pack_selected.emit(self)

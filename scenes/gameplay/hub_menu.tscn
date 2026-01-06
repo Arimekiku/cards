@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2omc08bjrfco"]
+[gd_scene load_steps=11 format=3 uid="uid://b2omc08bjrfco"]
 
 [ext_resource type="Script" uid="uid://8dchcmy0y44i" path="res://scripts/game/hub.gd" id="1_l4ika"]
 [ext_resource type="Texture2D" uid="uid://bv5fdv6rsqy1v" path="res://resources/images/board.png" id="2_101mb"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://g3yqiod40rqh" path="res://scripts/random_boss_selector.gd" id="5_tajdr"]
 [ext_resource type="Script" uid="uid://dihcdofi067w6" path="res://scripts/ui/pack_selector.gd" id="7_3ae18"]
 [ext_resource type="PackedScene" uid="uid://uslk66b277qo" path="res://scenes/ui/pack_select.tscn" id="7_6djr3"]
+[ext_resource type="PackedScene" uid="uid://dq6dxo14vjgch" path="res://scenes/deck_presenter.tscn" id="9_3ae18"]
+[ext_resource type="Script" uid="uid://csorsev04q7wj" path="res://scripts/card_remover_through_deck.gd" id="10_lquch"]
 
 [node name="hub" type="Control" node_paths=PackedStringArray("character_box")]
 layout_mode = 3
@@ -159,7 +161,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="pack_selector" type="HBoxContainer" parent="horizontal_box/margin_1/vertical_panel/panel_2" node_paths=PackedStringArray("pack_selects", "character_box")]
+[node name="pack_selector" type="HBoxContainer" parent="horizontal_box/margin_1/vertical_panel/panel_2" node_paths=PackedStringArray("pack_selects", "character_box", "card_remover")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -169,6 +171,7 @@ grow_vertical = 2
 script = ExtResource("7_3ae18")
 pack_selects = [NodePath("pack_select"), NodePath("pack_select2"), NodePath("pack_select3")]
 character_box = NodePath("../../../../margin_2/character_container")
+card_remover = NodePath("../../../../../card_remover")
 
 [node name="pack_select" parent="horizontal_box/margin_1/vertical_panel/panel_2/pack_selector" instance=ExtResource("7_6djr3")]
 layout_mode = 2
@@ -178,3 +181,12 @@ layout_mode = 2
 
 [node name="pack_select3" parent="horizontal_box/margin_1/vertical_panel/panel_2/pack_selector" instance=ExtResource("7_6djr3")]
 layout_mode = 2
+
+[node name="card_remover" type="Node" parent="." node_paths=PackedStringArray("deck_presenter", "character_box")]
+script = ExtResource("10_lquch")
+deck_presenter = NodePath("deck_presenter")
+character_box = NodePath("../horizontal_box/margin_2/character_container")
+
+[node name="deck_presenter" parent="card_remover" instance=ExtResource("9_3ae18")]
+visible = false
+can_close_voluntarily = false

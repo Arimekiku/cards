@@ -61,3 +61,17 @@ func add_deck(deck: DeckMetadata) -> void:
 			minimal_ui_map[card_id] = instance
 		
 		instance.setup(card_id, quantity)
+
+func try_remove_card(card_id: String) -> void:
+	if not card_map.has(card_id): return
+	
+	card_map[card_id] -= 1
+	minimal_ui_map[card_id].setup(card_id, card_map[card_id])
+	character_metadata.deck.cards.erase(card_id)
+	if card_map[card_id] != 0: return
+	
+	var instance = minimal_ui_map[card_id]
+	instance.queue_free()
+	
+	card_map.erase(card_id)
+	minimal_ui_map.erase(card_id)

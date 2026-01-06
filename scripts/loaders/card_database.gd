@@ -48,24 +48,24 @@ func init() -> void:
 
 func _load_cards_from_dir() -> void:
 	_cards_registry.clear()
-
+	
 	var dir := DirAccess.open(cards_dir)
 	if dir == null:
 		push_error("Cannot open cards dir: %s" % cards_dir)
 		return
-
+	
 	dir.list_dir_begin()
 	var file_name := dir.get_next()
 	while file_name != "":
 		if dir.current_is_dir():
 			file_name = dir.get_next()
 			continue
-
+	
 		if file_name.ends_with(".json"):
 			_load_cards_file(cards_dir + file_name)
-
+	
 		file_name = dir.get_next()
-
+	
 	dir.list_dir_end()
 
 func get_from_registry(value: String) -> CardData:
@@ -76,22 +76,23 @@ func _load_cards_file(path: String) -> void:
 	if file == null:
 		push_error("Cannot open cards file: %s" % path)
 		return
-
+	
 	var parsed = JSON.parse_string(file.get_as_text())
 	if typeof(parsed) != TYPE_DICTIONARY:
 		push_error("Invalid cards.json format in %s" % path)
 		return
-
+	
 	for id in parsed.keys():
 		if _cards_registry.has(id):
 			push_error("Duplicate card id: %s in %s" % [id, path])
 			continue
+	
+		_cards_registry[id] = _create_card_data(parsed[id], id)
 
-		_cards_registry[id] = _create_card_data(parsed[id])
 
-
-func _create_card_data(raw: Dictionary) -> CardData:
+func _create_card_data(raw: Dictionary, id: String) -> CardData:
 	var card := CardData.new()
+	card.card_id = id
 	card.name = raw.get("name", "UNKNOWN")
 	card.cost = raw.get("cost", 0)
 	card.tribes = raw.get("tribes", PackedStringArray())
@@ -152,9 +153,9 @@ func _populate(obj, d: Dictionary) -> void:
 	for p in props:
 		if d.has(p.name) == false:
 			continue
-
+		
 		var value = d[p.name]
-
+		
 		if p.name == "target" and typeof(value) == TYPE_STRING:
 			if TARGET_MAP.has(value):
 				obj.set(p.name, TARGET_MAP[value])
@@ -165,11 +166,11 @@ func _populate(obj, d: Dictionary) -> void:
 
 func find_cards(predicate: Callable) -> Array[CardData]:
 	var result: Array[CardData] = []
-
+	
 	for card in _cards_registry.values():
 		if predicate.call(card):
 			result.append(card)
-
+	
 	return result
 
 #Приклад юзу

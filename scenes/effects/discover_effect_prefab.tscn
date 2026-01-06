@@ -7,7 +7,6 @@
 [node name="discover_effect" type="CanvasLayer"]
 layer = 100
 script = ExtResource("1_epm2v")
-card_metas = Array[String](["arcane_intellect", "frost_breath", "board_purge"])
 
 [node name="blocker" type="Panel" parent="."]
 anchors_preset = 15

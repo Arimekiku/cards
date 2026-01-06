@@ -31,6 +31,7 @@ func _spawn_cards(card_datas: Array[CardData]) -> void:
 	for data in card_datas:
 		var instance := Game.create_card_from_data(data)
 		instance.state_machine.active = false
+		
 		card_container.add_child(instance)
 		cards.append(instance)
 
