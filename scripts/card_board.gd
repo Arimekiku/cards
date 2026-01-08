@@ -16,17 +16,17 @@ func init() -> void:
 	
 	var minion := game.create_minion_from_name("frost_frog")
 	minion.minion_owner = Enums.CharacterType.ENEMY
-	minion.add_status("taunt", 3)
 	add_minion(minion)
+	minion.add_status("taunt", 3)
 	var minion2 := game.create_minion_from_name("frost_frog")
 	minion2.minion_owner = Enums.CharacterType.ENEMY
-	minion2.add_status("freeze", 3)
 	add_minion(minion2)
+	minion2.add_status("freeze", 3)
 	var minion3 := game.create_minion_from_name("frost_frog")
 	minion3.minion_owner = Enums.CharacterType.ENEMY
-	minion3.add_status("taunt", 3)
-	minion3.add_status("freeze", 3)
 	add_minion(minion3)
+	minion3.add_status("freeze", 3)
+	minion3.add_status("taunt", 3)
 
 func add_minion(minion: Minion, index: int = 0) -> bool:
 	if minions.size() >= max_minions: return false
@@ -34,7 +34,6 @@ func add_minion(minion: Minion, index: int = 0) -> bool:
 	minions.insert(index, minion)
 	if minion.get_parent(): minion.reparent(self)
 	else: add_child(minion)
-	minion.position = Vector2.ZERO
 	minion.died_event.connect(_on_minion_died)
 	
 	var is_enemy = minion.minion_owner == Enums.CharacterType.ENEMY
@@ -92,9 +91,15 @@ func _on_turn_started(turn):
 
 func _normalize_minion(minion: Minion, target: Vector2) -> void:
 	var tween = create_tween()
-	tween.tween_property(minion, "global_position", target, 0.25)\
+	tween.set_parallel()
+	
+	tween.tween_property(minion, "global_position", target, 0.15)\
 	.set_trans(Tween.TRANS_QUAD)\
 	.set_ease(Tween.EASE_OUT)
+	
+	tween.tween_property(minion, "scale", Vector2.ONE, 0.15)\
+	.set_trans(Tween.TRANS_LINEAR)\
+	.set_ease(Tween.EASE_IN)
 
 func _on_minion_died(minion: Minion, cause: Enums.DeathCause) -> void:
 	remove_minion(minion)

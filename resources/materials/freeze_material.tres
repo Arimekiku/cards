@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://ctss8cgrddw1q"]
+
+[ext_resource type="Shader" uid="uid://cwitrel4c68wm" path="res://resources/freeze_shader.gdshader" id="1_wv5lj"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ruyt4"]
+frequency = 0.015
+fractal_type = 2
+fractal_octaves = 4
+fractal_gain = 0.8
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0u53v"]
+noise = SubResource("FastNoiseLite_ruyt4")
+seamless = true
+
+[resource]
+shader = ExtResource("1_wv5lj")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_0u53v")
+shader_parameter/ice_color = Color(0.2, 0.6, 1, 0.627451)
+shader_parameter/frost_color = Color(1, 1, 1, 0.3137255)
+shader_parameter/freeze_progress = 0.0

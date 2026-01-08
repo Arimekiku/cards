@@ -2,6 +2,11 @@ class_name MinionCard
 extends Card
 
 @onready var collision_detector := %collision_detector
+@onready var canvas: CanvasGroup = $graphics
+
+func _ready() -> void:
+	var mat = canvas.material
+	canvas.material = mat.duplicate()
 
 func setup(card_data: CardData) -> void:
 	var type = card_data.card_context.get_card_type()
@@ -25,11 +30,15 @@ func setup(card_data: CardData) -> void:
 	%damage.text = str(card_data.card_context.damage)
 
 func play() -> void:
+	state_machine.active = false
+	
 	var output_zone: CardBoard
 	var minion := Game.create_minion()
 	get_tree().current_scene.add_child(minion)
 	minion.setup(data)
-
+	minion.global_position = global_position
+	minion.scale = Vector2.ONE * 1.4
+	
 	minion.minion_owner = card_owner
 	for in_zone: CardBoard in get_tree().get_nodes_in_group("card_zones"):
 		if not in_zone.can_accept(minion):
@@ -37,7 +46,7 @@ func play() -> void:
 		
 		output_zone = in_zone
 		break
-
+	
 	if output_zone == null:
 		push_error("No valid CardBoard found to play minion")
 		minion.queue_free()
@@ -45,9 +54,11 @@ func play() -> void:
 	
 	var mouse_position = get_global_mouse_position()
 	var index = output_zone.get_insertion_index(mouse_position.x)
+	
+	await _animate_dissolve().finished
+	
 	output_zone.add_minion(minion, index)
 	played_event.emit(self)
-
 
 func get_minion_instance() -> Minion:
 	var minion := Game.create_minion()
@@ -83,3 +94,13 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	super()
+
+func _animate_dissolve() -> Tween:
+	var mat = canvas.material
+	
+	var animation = self.create_tween()
+	animation.tween_property(mat, "shader_parameter/dissolve_progress", 1.0, 0.5)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_OUT)
+	
+	return animation

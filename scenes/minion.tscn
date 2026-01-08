@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c22whlxirxvqy"]
+[gd_scene load_steps=11 format=3 uid="uid://c22whlxirxvqy"]
 
 [ext_resource type="Script" uid="uid://du1y1qmodf36l" path="res://scripts/minions/minion.gd" id="1_1ddg2"]
 [ext_resource type="Shader" path="res://resources/circle_cutout.gdshader" id="1_b4arb"]
 [ext_resource type="Texture2D" uid="uid://ovopul5l8hrj" path="res://resources/images/greta.jpg" id="3_1ddg2"]
 [ext_resource type="Texture2D" uid="uid://80e3xy0r683c" path="res://resources/images/outline_battle.png" id="3_qqrhl"]
+[ext_resource type="Material" uid="uid://ctss8cgrddw1q" path="res://resources/materials/freeze_material.tres" id="4_qqrhl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b4arb"]
 size = Vector2(76, 77)
@@ -45,44 +46,33 @@ collision_mask = 0
 position = Vector2(38, 38.5)
 shape = SubResource("RectangleShape2D_b4arb")
 
-[node name="mask" type="Control" parent="."]
-clip_contents = true
-layout_mode = 1
+[node name="minion_canvas" type="CanvasGroup" parent="."]
+material = ExtResource("4_qqrhl")
+
+[node name="character_icon" type="TextureRect" parent="minion_canvas"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ll15l")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -30.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="character_icon" type="TextureRect" parent="mask"]
-unique_name_in_owner = true
-material = SubResource("ShaderMaterial_ll15l")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+offset_right = 70.0
+offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_1ddg2")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="battle_outline" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="battle_outline" type="TextureRect" parent="minion_canvas"]
+offset_right = 80.0
+offset_bottom = 100.0
 texture = ExtResource("3_qqrhl")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="damage" type="Label" parent="battle_outline"]
+[node name="damage" type="Label" parent="minion_canvas/battle_outline"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 1
@@ -98,7 +88,7 @@ text = "99"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="health" type="Label" parent="battle_outline"]
+[node name="health" type="Label" parent="minion_canvas/battle_outline"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 1
