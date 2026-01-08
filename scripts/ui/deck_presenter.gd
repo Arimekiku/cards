@@ -40,6 +40,7 @@ func show_deck(deck: Array[CardData]) -> void:
 	
 	for data in deck:
 		var instance: InfoCard = info_card_prefab.instantiate()
+		instance.should_disappear = false
 		card_container.add_child(instance)
 		
 		instance.setup(data)

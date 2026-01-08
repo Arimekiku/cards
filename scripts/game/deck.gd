@@ -55,6 +55,3 @@ func reshuffle():
 	discard_pile.shuffle()
 	cards = discard_pile
 	discard_pile = []
-
-func on_check_deck_button_pressed() -> void:
-	pass
