@@ -12,6 +12,7 @@ extends Control
 var _pending_owner_apply := false
 
 @onready var character_icon := %character_icon
+@onready var outline_icon := %battle_outline
 
 signal died_event(minion: Minion, cause: Enums.DeathCause)
 signal attack_finished(minion: Minion)
@@ -86,9 +87,9 @@ func apply_encounter_bonuses(card_data: CardData) -> void:
 	
 	if bonus.has("attack"):
 		damage += bonus.attack
-	
 	if bonus.has("health"):
 		health += bonus.health
+	
 	_ui_update_health(health)
 	_ui_update_damage(damage)
 
@@ -195,12 +196,13 @@ func add_status(status_name: String, duration: int, params := {}) -> void:
 			var s = TauntStatus.new()
 			s.apply(self)
 			statuses.append(s)
+			# TODO: kostil'
+			outline_icon.texture = preload("res://resources/images/battle_outline_taunt.png")
 		"spell_fury":
 			var s = SpellFuryStatus.new()
 			s.duration = duration
 			s.apply(self)
 			statuses.append(s)
-			
 		"buff":
 			print("buff")
 			var s = BuffStatus.new(
