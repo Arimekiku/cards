@@ -6,6 +6,7 @@ extends Control
 @onready var health_text := %health
 @onready var damage_text := %damage
 @onready var collision_detector: Area2D = %collider_detector
+@onready var vfx: VFXHost = $vfx
 
 var _pending_owner_apply := false
 

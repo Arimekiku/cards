@@ -1,9 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://c22whlxirxvqy"]
+[gd_scene load_steps=30 format=3 uid="uid://c22whlxirxvqy"]
 
 [ext_resource type="Script" uid="uid://du1y1qmodf36l" path="res://scripts/minions/minion.gd" id="1_1ddg2"]
-[ext_resource type="Shader" path="res://resources/circle_cutout.gdshader" id="1_b4arb"]
+[ext_resource type="Shader" uid="uid://bs15jvlh5m8do" path="res://resources/circle_cutout.gdshader" id="1_b4arb"]
 [ext_resource type="Texture2D" uid="uid://ovopul5l8hrj" path="res://resources/images/greta.jpg" id="3_1ddg2"]
 [ext_resource type="Texture2D" uid="uid://80e3xy0r683c" path="res://resources/images/outline_battle.png" id="3_qqrhl"]
+[ext_resource type="Texture2D" uid="uid://2h2rltd1bvpq" path="res://resources/images/vfx/flash.png" id="5_ll15l"]
+[ext_resource type="Script" uid="uid://de8ohja1w2mst" path="res://scripts/vfx/vfx_host.gd" id="5_m3j7i"]
+[ext_resource type="Texture2D" uid="uid://ddgw2ry0g3deq" path="res://resources/images/vfx/flare.png" id="6_cnthb"]
+[ext_resource type="Script" uid="uid://blbnk3etmgj6i" path="res://scripts/vfx/vfx_container.gd" id="6_s41o6"]
+[ext_resource type="Texture2D" uid="uid://mbvp4m8axk2c" path="res://resources/images/vfx/shockwave.png" id="7_cnthb"]
+[ext_resource type="Texture2D" uid="uid://bqnj8vjt7lj1l" path="res://resources/images/vfx/cross.png" id="8_iw2tu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b4arb"]
 size = Vector2(76, 77)
@@ -12,6 +18,77 @@ size = Vector2(76, 77)
 shader = ExtResource("1_b4arb")
 shader_parameter/offset = Vector2(-0.1, -0.23)
 shader_parameter/zoom = 1.2
+
+[sub_resource type="Curve" id="Curve_iw2tu"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_m3j7i"]
+curve = SubResource("Curve_iw2tu")
+
+[sub_resource type="Curve" id="Curve_s41o6"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_o6cm8"]
+curve = SubResource("Curve_s41o6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jmqb8"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.29999998
+scale_max = 0.29999998
+scale_curve = SubResource("CurveTexture_o6cm8")
+color = Color(4.2659407, 1.4463054, 6.2140025e-06, 1)
+alpha_curve = SubResource("CurveTexture_m3j7i")
+
+[sub_resource type="Curve" id="Curve_sifpr"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8f5at"]
+curve = SubResource("Curve_sifpr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wou5g"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.19999999
+scale_max = 0.19999999
+scale_curve = SubResource("CurveTexture_o6cm8")
+color = Color(2.8887296, 1.1261932, 0, 1)
+alpha_curve = SubResource("CurveTexture_8f5at")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iw2tu"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.19999999
+scale_max = 0.19999999
+scale_curve = SubResource("CurveTexture_o6cm8")
+color = Color(4.266133, 1.439186, 0, 0.89411765)
+alpha_curve = SubResource("CurveTexture_8f5at")
+
+[sub_resource type="Curve" id="Curve_m3j7i"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -8.263243, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_s41o6"]
+curve = SubResource("Curve_m3j7i")
+
+[sub_resource type="Curve" id="Curve_o6cm8"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.9469697, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jmqb8"]
+curve = SubResource("Curve_o6cm8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sifpr"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.25
+scale_curve = SubResource("CurveTexture_jmqb8")
+color = Color(0.6431373, 0.011764706, 0.023529412, 1)
+alpha_curve = SubResource("CurveTexture_s41o6")
 
 [sub_resource type="Curve" id="Curve_1ddg2"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -118,8 +195,54 @@ vertical_alignment = 1
 
 [node name="vfx" type="Node2D" parent="."]
 position = Vector2(39, 38)
+script = ExtResource("5_m3j7i")
 
-[node name="boom" type="GPUParticles2D" parent="vfx"]
+[node name="impact" type="Node2D" parent="vfx"]
+script = ExtResource("6_s41o6")
+
+[node name="flash" type="GPUParticles2D" parent="vfx/impact"]
+emitting = false
+amount = 1
+texture = ExtResource("5_ll15l")
+lifetime = 0.15000000000000002
+one_shot = true
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_jmqb8")
+
+[node name="flare" type="GPUParticles2D" parent="vfx/impact"]
+emitting = false
+amount = 1
+texture = ExtResource("6_cnthb")
+lifetime = 0.2
+one_shot = true
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_wou5g")
+
+[node name="shockwave" type="GPUParticles2D" parent="vfx/impact"]
+emitting = false
+amount = 1
+texture = ExtResource("7_cnthb")
+lifetime = 0.3
+one_shot = true
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_iw2tu")
+
+[node name="erase" type="Node2D" parent="vfx"]
+script = ExtResource("6_s41o6")
+
+[node name="cross" type="GPUParticles2D" parent="vfx/erase"]
+emitting = false
+amount = 1
+texture = ExtResource("8_iw2tu")
+lifetime = 0.7
+one_shot = true
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_sifpr")
+
+[node name="death" type="Node2D" parent="vfx"]
+script = ExtResource("6_s41o6")
+
+[node name="boom" type="GPUParticles2D" parent="vfx/death"]
 emitting = false
 amount = 100
 lifetime = 0.5

@@ -8,7 +8,8 @@ func _init() -> void:
 		SceneManager: SceneManager.new(),
 		EventBus: EventBus.new(),
 		TooltipManager: TooltipManager.new(),
-		EncounterContext: EncounterContext.new()
+		EncounterContext: EncounterContext.new(),
+		VFXService: VFXService.new()
 	}
 
 func _ready() -> void:
