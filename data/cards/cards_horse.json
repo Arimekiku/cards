@@ -1,0 +1,142 @@
+{
+  "boss_black_steed": {
+	"name": "Кінь Чорного Лицаря",
+	"cost": 1,
+	"card_type": "creature",
+	"health": 1,
+	"damage": 1,
+	"effects": {
+	  "on_death": {
+		"increase_future_copies": {
+		  "attack": 1,
+		  "health": 1
+		}
+	  }
+	},
+	"keywords": ["scaling"],
+	"tribes": ["horse", "boss"],
+	"image": "res://resources/images/cards/horse/boss_black_steed.png",
+	"portrait_offset": { "x": -0.1, "y": -0.23 },
+	"portrait_zoom": 1.2,
+	"description": "Смерть: всі майбутні копії цього Коня отримують +1/+1"
+  },
+
+  "boss_banner_knight": {
+	"name": "Вершник Чорного Штандарта",
+	"cost": 4,
+	"card_type": "creature",
+	"health": 4,
+	"damage": 3,
+	"effects": {
+	  "on_death": {
+		"summon_minion": {
+		  "minion_id": "boss_black_steed",
+		  "amount": 1
+		}
+	  }
+	},
+	"keywords": ["taunt"],
+	"tribes": ["knight", "boss"],
+	"image": "res://resources/images/cards/horse/boss_banner_knight.png",
+	"portrait_offset": { "x": -0.1, "y": -0.23 },
+	"portrait_zoom": 1.2,
+	"description": "Смерть: викликає Коня"
+  },
+
+  "boss_oath_knight": {
+	"name": "Лицар Чорної Клятви",
+	"cost": 5,
+	"card_type": "creature",
+	"health": 5,
+	"damage": 5,
+	"effects": {
+	  "on_play": {
+		"deathrattle": {
+		  "target": "ally_target"
+		}
+	  }
+	},
+	"keywords": ["death_synergy"],
+	"tribes": ["knight", "boss"],
+	"image": "res://resources/images/cards/horse/boss_oath_knight.png",
+	"portrait_offset": { "x": -0.1, "y": -0.23 },
+	"portrait_zoom": 1.2,
+	"description": "Викликає ефект смерті союзної істоти"
+  },
+
+  "dark_reflection": {
+	"name": "Чорне Віддзеркалення",
+	"cost": 3,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"summon_copy_of_ally_target": {
+			"on_turn": "die"
+		}
+	  }
+	},
+	"keywords": ["summon"],
+	"tribes": ["spell", "copy"],
+	"image": "res://resources/images/cards/horse/dark_reflection.png",
+	"portrait_offset": { "x": -0.1, "y": -0.23 },
+	"portrait_zoom": 1.2,
+	"description": "Викликає копію обраної союзної істоти, вбиває її на початку наступного ходу"
+  },
+
+  "call_the_steed": {
+	"name": "Клич Конюшні",
+	"cost": 3,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"discover_and_summon": {
+		  "card_type": "minion",
+		  "choices": 3
+		}
+	  }
+	},
+	"keywords": ["discover", "summon"],
+	"tribes": ["spell", "archive"],
+	"image": "res://resources/images/cards/call_the_steed.png",
+	"portrait_offset": { "x": -0.1, "y": -0.23 },
+	"portrait_zoom": 1.2,
+	"description": "Знайдіть у колоді міньйона та викличте його"
+  },
+
+  "black_rite": {
+	"name": "Чорний Ритуал",
+	"cost": 2,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"kill_friendly_and_double_death": {}
+	  }
+	},
+	"keywords": ["sacrifice"],
+	"tribes": ["spell", "death"],
+	"image": "res://resources/images/cards/horse/black_rite.png",
+	"portrait_offset": { "x": -0.1, "y": -0.23 },
+	"portrait_zoom": 1.2,
+	"description": "Знищує союзну істоту. Її ефект смерті спрацьовує двічі"
+  },
+
+  "bloody_sacrifice": {
+	"name": "Кривава жертва",
+	"cost": 4,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"kill_friendly_and_damage": {
+		  "damage_from_attack": true,
+		  "target": "enemy_minions"
+		}
+	  }
+	},
+	"keywords": ["aoe"],
+	"tribes": ["spell", "sacrifice"],
+	"image": "res://resources/images/cards/sacrifice_the_steed.png",
+	"portrait_offset": { "x": -0.1, "y": -0.23 },
+	"portrait_zoom": 1.2,
+	"description": "Знищує союзну істоту та завдає шкоди всім ворогам, рівну її атаці"
+  }
+}

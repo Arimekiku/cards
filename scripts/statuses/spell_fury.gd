@@ -31,6 +31,10 @@ func _on_spell_played(card) -> void:
 	if card is not SpellCard:
 		return
 
+	var vfx: VFXService = ServiceLocator.get_service(VFXService)
+	if vfx:
+		vfx.play("impact", target_node)
+		
 	# баф атаки
 	target_node.damage += 1
 	target_node._ui_update_damage(target_node.damage)

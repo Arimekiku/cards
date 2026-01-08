@@ -23,7 +23,8 @@ var EFFECT_FACTORY_TYPES = {
 	"discover_and_summon": DiscoverAndSummonEffect,
 	"freeze_and_draw": FreezeAndDrawEffect,
 	"discard_scaled_aoe": DiscardScaledAOEEffect,
-	"discard_scaled_buff": DiscardScaledBuffEffect
+	"discard_scaled_buff": DiscardScaledBuffEffect,
+	"increase_future_copies": IncreaseFutureCopiesEffect
 }
 
 const TARGET_MAP := {

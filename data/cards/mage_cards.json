@@ -1,0 +1,157 @@
+{
+  "chaos_spark": {
+	"name": "Chaos Spark",
+	"cost": 1,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"damage": {
+		  "target": "random_enemy",
+		  "params": {
+			"damage": 1,
+			"hits": 3
+		  }
+		}
+	  }
+	},
+	"keywords": ["multihit"],
+	"tribes": ["spell", "chaos"],
+	"image": "res://resources/images/cards/chaos/chaos_spark.png",
+	"portrait_offset": { "x": 0, "y": 0 },
+	"portrait_zoom": 1.0,
+	"description": "Завдає 1 шкоди 3 рази випадковим ворогам"
+  },
+
+  "arcane_shrapnel": {
+	"name": "Arcane Shrapnel",
+	"cost": 2,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"damage_per_played_card": {
+		  "target": "random_enemy",
+		  "params": {
+			"damage": 2
+		  }
+		}
+	  }
+	},
+	"keywords": ["scaling", "multihit"],
+	"tribes": ["spell", "arcane"],
+	"image": "res://resources/images/cards/arcane/arcane_shrapnel.png",
+	"portrait_offset": { "x": 0, "y": 0 },
+	"portrait_zoom": 1.0,
+	"description": "Завдає 2 шкоди випадковому ворогу за кожну зіграну карту цього ходу"
+  },
+
+  "volatile_imp": {
+	"name": "Volatile Imp",
+	"cost": 1,
+	"card_type": "creature",
+	"health": 2,
+	"damage": 1,
+	"effects": {
+	  "on_play": {
+		"attack": {
+		  "target": "random_enemy",
+		  "params": {
+			"hits": 1
+		  }
+		}
+	  },
+	  "on_death": {
+		"attack": {
+		  "target": "random_enemy",
+		  "params": {
+			"hits": 1
+		  }
+		}
+	  }
+	},
+	"keywords": ["volatile"],
+	"tribes": ["demon"],
+	"image": "res://resources/images/cards/demon/volatile_imp.png",
+	"portrait_offset": { "x": 0, "y": 0 },
+	"portrait_zoom": 1.0,
+	"description": "On Play і Death: атакує випадкового ворога"
+  },
+
+  "arcane_excavator": {
+	"name": "Arcane Excavator",
+	"cost": 2,
+	"card_type": "creature",
+	"health": 2,
+	"damage": 2,
+	"effects": {
+	  "on_play": {
+		"discover": {
+		  "target": "self",
+		  "params": {
+			"from": "card_database",
+			"card_type": "spell",
+			"add_to_hand": true
+		  }
+		}
+	  }
+	},
+	"keywords": ["discover", "draw"],
+	"tribes": ["mage"],
+	"image": "res://resources/images/cards/mage/arcane_excavator.png",
+	"portrait_offset": { "x": 0, "y": 0 },
+	"portrait_zoom": 1.0,
+	"description": "On Play: розкопує випадкове заклинання з бази та додає в руку"
+  },
+
+  "volatile_research": {
+	"name": "Volatile Research",
+	"cost": 2,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"draw": {
+		  "target": "self",
+		  "params": {
+			"count": 2
+		  }
+		},
+		"damage": {
+		  "target": "random_enemy",
+		  "params": {
+			"damage": 1,
+			"hits": 1
+		  }
+		}
+	  }
+	},
+	"keywords": ["draw"],
+	"tribes": ["spell", "chaos"],
+	"image": "res://resources/images/cards/chaos/volatile_research.png",
+	"portrait_offset": { "x": 0, "y": 0 },
+	"portrait_zoom": 1.0,
+	"description": "Доберіть 2 карти. Завдає 1 шкоди випадковому ворогу"
+  },
+
+  "cataclysm_barrage": {
+	"name": "Cataclysm Barrage",
+	"cost": 5,
+	"card_type": "spell",
+	"effects": {
+	  "on_play": {
+		"damage": {
+		  "target": "random_enemy",
+		  "params": {
+			"damage": 1,
+			"hits": 10,
+			"echo_on_kill": true
+		  }
+		}
+	  }
+	},
+	"keywords": ["finisher", "multihit"],
+	"tribes": ["spell", "chaos"],
+	"image": "res://resources/images/cards/chaos/cataclysm_barrage.png",
+	"portrait_offset": { "x": 0, "y": 0 },
+	"portrait_zoom": 1.0,
+	"description": "Завдає 1 шкоди 10 разів випадковим ворогам. Вбивство дає ще один хіт"
+  }
+}
