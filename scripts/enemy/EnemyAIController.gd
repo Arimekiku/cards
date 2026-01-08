@@ -8,16 +8,13 @@ const MIN_ATTACK_SCORE := 20
 
 func play_turn() -> void:
 	print("[AI] Turn start")
-	#print(hand.cards)
-	_play_cards_from_hand() 
-	_attack_with_minions()  
-
+	await _play_cards_from_hand()
+	_attack_with_minions()
 
 func _attack_with_minions() -> void:
 	for minion in character.board.minions:
 		if minion.has_attacked:
 			continue
-
 		var target = _select_target(minion)
 		if target == null:
 			continue
@@ -26,8 +23,9 @@ func _attack_with_minions() -> void:
 		
 		if not started:
 			continue
-			
+		
 		await minion.attack_finished
+	character.board.layout()
 
 func _select_target(minion: Minion) -> Node:
 	var best_target: Node = null
@@ -52,19 +50,18 @@ func _select_target(minion: Minion) -> Node:
 	# 2. Face
 	var face_score := _score_face_attack(minion)
 	var hero = minion.get_tree().get_nodes_in_group("heroes")[0]
-
+	
 	# 3. Вибір
 	if taunts.size() > 0:
 		pass
 	else:
 		if face_score > best_score and face_score >= MIN_ATTACK_SCORE:
 			return hero
-
+	
 	if best_score < MIN_ATTACK_SCORE:
 		return null  # НЕ АТАКУЄМО
-
+	
 	return best_target
-
 
 func _score_face_attack(attacker: Minion) -> float:
 	var score := 0.0
@@ -78,10 +75,8 @@ func _score_face_attack(attacker: Minion) -> float:
 		return 999999999
 	# Бити в лице завжди корисно, якщо немає розмінів
 	score += attacker.damage * 10
-
 	# Якщо міньйон слабкий — не шкода
 	score += max(0, 5 - attacker.health)
-
 	return score
 
 
@@ -149,33 +144,36 @@ func _score_spell_target(_spell_card: SpellCard, target: Minion) -> float:
 
 func _play_cards_from_hand() -> void:
 	var mana = character.mana
-
+	
 	for card in hand.cards.duplicate():
 		card.card_owner = Enums.CharacterType.ENEMY
 		if card.data.cost > mana.current_mana:
 			continue
 		
 		if card is MinionCard:
-			#if not character.board.can_accept(card.get_minion_instance()):
-				#continue
 			_play_minion_card(card)
-		elif card is SpellCard:
+		
+		if card is SpellCard:
 			var valid_target = _select_spell_target(card)
 			if valid_target == null:
 				continue
 			_play_spell_card(card, valid_target)
+		
+		await get_tree().create_timer(0.75).timeout
 
 func _play_minion_card(card: MinionCard) -> void:
-	if character.mana.spend(card.data.cost):
-		var minion = card.get_minion_instance()
-		minion._set_owned(Enums.CharacterType.ENEMY)
-		character.board.add_minion(minion)
-		card.played_event.emit(card)
-		hand.remove_card(card)
+	if not character.mana.spend(card.data.cost): return
+	
+	var minion = card.get_minion_instance()
+	minion._set_owned(Enums.CharacterType.ENEMY)
+	character.board.add_minion(minion)
+	card.played_event.emit(card)
+	hand.remove_card(card)
 
 func _play_spell_card(card: SpellCard, target: Node) -> void:
-	if character.mana.spend(card.data.cost):
-		card.potential_targets.clear()
-		card.potential_targets.append(target)
-		card.play()
-		character.hand.remove_card(card)
+	if not character.mana.spend(card.data.cost): return
+	
+	card.potential_targets.clear()
+	card.potential_targets.append(target)
+	card.play()
+	character.hand.remove_card(card)

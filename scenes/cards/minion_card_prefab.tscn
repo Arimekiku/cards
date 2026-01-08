@@ -12,6 +12,7 @@
 noise = SubResource("FastNoiseLite_ruyt4")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0u53v"]
+resource_local_to_scene = true
 shader = ExtResource("4_ruyt4")
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_0u53v")
 shader_parameter/dissolve_progress = 0.0

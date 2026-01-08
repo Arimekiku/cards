@@ -4,12 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://s2nouishoia4" path="res://scenes/cards/minion_card_prefab.tscn" id="2_tpwpp"]
 [ext_resource type="PackedScene" uid="uid://dqab4dsyv7pix" path="res://scenes/cards/spell_card_prefab.tscn" id="3_7ftgl"]
 [ext_resource type="PackedScene" uid="uid://dpuabon5q0tlb" path="res://scenes/cards/card_target_selector/arrow_target_selector.tscn" id="4_4d81t"]
-[ext_resource type="Texture2D" uid="uid://bv5fdv6rsqy1v" path="res://resources/images/board.png" id="4_qbqua"]
 [ext_resource type="PackedScene" uid="uid://dpclu562nhmhh" path="res://scenes/player_prefab.tscn" id="6_plioj"]
 [ext_resource type="PackedScene" uid="uid://ic6wow7v4k4a" path="res://scenes/cards/info_cards/info_manager.tscn" id="8_qbqua"]
 [ext_resource type="Script" uid="uid://dunq7cf1jyrev" path="res://scripts/ui/battle_finished_menu.gd" id="9_lkfl4"]
 [ext_resource type="Script" uid="uid://dt4hen2gwa85y" path="res://scripts/ui/buttons/button_battle_end.gd" id="10_1mlxa"]
 [ext_resource type="Script" uid="uid://crw7xwg3y1jlb" path="res://scripts/game/turn_manager.gd" id="10_7ftgl"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lkfl4"]
+load_path = "res://.godot/imported/board.png-f2a4fc4fe0f9d07e40fe709f9cbe470d.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4d81t"]
 size = Vector2(1152, 500)
@@ -30,7 +32,7 @@ metadata/_edit_lock_ = true
 [node name="Board" type="Sprite2D" parent="."]
 position = Vector2(588, 363)
 scale = Vector2(0.7645173, 0.7645173)
-texture = ExtResource("4_qbqua")
+texture = SubResource("CompressedTexture2D_lkfl4")
 
 [node name="arrow_target_selector" parent="." instance=ExtResource("4_4d81t")]
 

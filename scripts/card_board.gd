@@ -90,14 +90,15 @@ func _on_turn_started(turn):
 		minion.on_turn_start()
 
 func _normalize_minion(minion: Minion, target: Vector2) -> void:
-	var tween = create_tween()
-	tween.set_parallel()
+	if minion.tween: minion.tween.kill()
+	minion.tween = create_tween()
+	minion.tween.set_parallel()
 	
-	tween.tween_property(minion, "global_position", target, 0.15)\
+	minion.tween.tween_property(minion, "global_position", target, 0.15)\
 	.set_trans(Tween.TRANS_QUAD)\
 	.set_ease(Tween.EASE_OUT)
 	
-	tween.tween_property(minion, "scale", Vector2.ONE, 0.15)\
+	minion.tween.tween_property(minion, "scale", Vector2.ONE, 0.15)\
 	.set_trans(Tween.TRANS_LINEAR)\
 	.set_ease(Tween.EASE_IN)
 

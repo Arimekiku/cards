@@ -25,6 +25,7 @@ var state_machine: MinionStateMachine
 var minion_owner := Enums.CharacterType.PLAYER
 var is_ai_intent: bool = false
 var current_target: Node = null
+var tween: Tween
 
 var statuses: Array = []
 var can_attack: bool = true
@@ -34,7 +35,7 @@ var event_bus: EventBus = ServiceLocator.get_service(EventBus)
 func _ready():
 	if _pending_owner_apply:
 		_apply_owner_settings()
-		
+
 func setup(card_data: CardData, is_summoned := false) -> void:
 	if not self.is_node_ready(): await self.ready
 	 
@@ -109,13 +110,13 @@ func take_damage(value: int) -> void:
 func die(cause: Enums.DeathCause = Enums.DeathCause.NORMAL) -> void:
 	if cause == Enums.DeathCause.NORMAL:
 		_resolve_effects(data.card_context.on_die_effects, self)
-		
+	
 	died_event.emit(self, cause)
-
+	
 	for s in statuses.duplicate():
 		if s.has_method("remove"):
 			s.remove()
-
+	
 	statuses.clear()
 
 func attack(target: Node) -> void:

@@ -4,10 +4,6 @@ extends Card
 @onready var collision_detector := %collision_detector
 @onready var canvas: CanvasGroup = $graphics
 
-func _ready() -> void:
-	var mat = canvas.material
-	canvas.material = mat.duplicate()
-
 func setup(card_data: CardData) -> void:
 	var type = card_data.card_context.get_card_type()
 	if type != Enums.CardType.MINION:
