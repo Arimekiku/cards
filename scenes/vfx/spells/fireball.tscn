@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6pd0jlubom0x"]
+
+[ext_resource type="Script" uid="uid://dr3t6pnpykf7t" path="res://scripts/vfx/fireball_vfx.gd" id="1_2135i"]
+[ext_resource type="Script" uid="uid://blbnk3etmgj6i" path="res://scripts/vfx/vfx_container.gd" id="1_jdrlo"]
+[ext_resource type="Texture2D" uid="uid://ddgw2ry0g3deq" path="res://resources/images/vfx/flare.png" id="2_2135i"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3v8ci"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 21.54
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.01
+
+[node name="Fireball" type="Node2D"]
+script = ExtResource("1_2135i")
+
+[node name="Visual" type="Node2D" parent="."]
+script = ExtResource("1_jdrlo")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Visual"]
+amount = 200
+texture = ExtResource("2_2135i")
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_3v8ci")

@@ -3,6 +3,7 @@ class_name VFXContainer
 
 func play_and_wait() -> void:
 	var waits := []
+
 	for child in get_children():
 		if child is GPUParticles2D:
 			child.restart()

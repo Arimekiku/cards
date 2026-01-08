@@ -1,16 +1,16 @@
 [gd_scene load_steps=31 format=3 uid="uid://c22whlxirxvqy"]
 
 [ext_resource type="Script" uid="uid://du1y1qmodf36l" path="res://scripts/minions/minion.gd" id="1_1ddg2"]
-[ext_resource type="Shader" path="res://resources/circle_cutout.gdshader" id="1_b4arb"]
+[ext_resource type="Shader" uid="uid://bs15jvlh5m8do" path="res://resources/circle_cutout.gdshader" id="1_b4arb"]
 [ext_resource type="Texture2D" uid="uid://ovopul5l8hrj" path="res://resources/images/greta.jpg" id="3_1ddg2"]
 [ext_resource type="Texture2D" uid="uid://80e3xy0r683c" path="res://resources/images/outline_battle.png" id="3_qqrhl"]
+[ext_resource type="Material" uid="uid://ctss8cgrddw1q" path="res://resources/materials/freeze_material.tres" id="4_qqrhl"]
 [ext_resource type="Texture2D" uid="uid://2h2rltd1bvpq" path="res://resources/images/vfx/flash.png" id="5_ll15l"]
 [ext_resource type="Script" uid="uid://de8ohja1w2mst" path="res://scripts/vfx/vfx_host.gd" id="5_m3j7i"]
 [ext_resource type="Texture2D" uid="uid://ddgw2ry0g3deq" path="res://resources/images/vfx/flare.png" id="6_cnthb"]
 [ext_resource type="Script" uid="uid://blbnk3etmgj6i" path="res://scripts/vfx/vfx_container.gd" id="6_s41o6"]
 [ext_resource type="Texture2D" uid="uid://mbvp4m8axk2c" path="res://resources/images/vfx/shockwave.png" id="7_cnthb"]
 [ext_resource type="Texture2D" uid="uid://bqnj8vjt7lj1l" path="res://resources/images/vfx/cross.png" id="8_iw2tu"]
-[ext_resource type="Material" uid="uid://ctss8cgrddw1q" path="res://resources/materials/freeze_material.tres" id="4_qqrhl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b4arb"]
 size = Vector2(76, 77)
