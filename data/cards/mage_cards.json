@@ -4,7 +4,7 @@
 	"cost": 1,
 	"card_type": "spell",
 	"effects": {
-	  "on_play": {
+	  "on_play_effects": {
 		"damage": {
 		  "target": "random_enemy",
 		  "params": {
@@ -27,7 +27,7 @@
 	"cost": 2,
 	"card_type": "spell",
 	"effects": {
-	  "on_play": {
+	  "on_play_effects": {
 		"damage_per_played_card": {
 		  "target": "random_enemy",
 		  "params": {
@@ -51,7 +51,7 @@
 	"health": 2,
 	"damage": 1,
 	"effects": {
-	  "on_play": {
+	  "on_play_effects": {
 		"attack": {
 		  "target": "random_enemy",
 		  "params": {
@@ -83,7 +83,7 @@
 	"health": 2,
 	"damage": 2,
 	"effects": {
-	  "on_play": {
+	  "on_play_effects": {
 		"discover": {
 		  "target": "self",
 		  "params": {
@@ -107,7 +107,7 @@
 	"cost": 2,
 	"card_type": "spell",
 	"effects": {
-	  "on_play": {
+	  "on_play_effects": {
 		"draw": {
 		  "target": "self",
 		  "params": {
@@ -136,7 +136,7 @@
 	"cost": 5,
 	"card_type": "spell",
 	"effects": {
-	  "on_play": {
+	  "on_play_effects": {
 		"damage": {
 		  "target": "random_enemy",
 		  "params": {
