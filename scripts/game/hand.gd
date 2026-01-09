@@ -76,10 +76,16 @@ func update_hand_visuals():
 		_animate_card_to_position(card, Vector2(final_x, final_y), final_rot)
 
 func _animate_card_to_position(card: Card, target_pos: Vector2, target_rot: float):
-	var tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(card, "position", target_pos, animation_speed)
-	tween.parallel().tween_property(card, "rotation_degrees", target_rot, animation_speed)
+	if card.tween: card.tween.kill()
+	card.state_machine.active = false
+	
+	card.tween = create_tween()
+	card.tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	
+	card.tween.parallel().tween_property(card, "position", target_pos, animation_speed)
+	card.tween.parallel().tween_property(card, "rotation_degrees", target_rot, animation_speed)
+	card.tween.parallel().tween_property(card, "scale", Vector2.ONE, animation_speed)
+	card.tween.finished.connect(func(): card.state_machine.active = true)
 
 func _connect_card_signals(card: Card) -> void:
 	card.reparent_event.connect(_on_reparent_event) 
