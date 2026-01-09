@@ -26,6 +26,10 @@ func resolve(context) -> void:
 	var picked := _pick_cards(character.deck.cards)
 	if picked.is_empty():
 		return
+	
+	if owner == Enums.CharacterType.ENEMY:
+		_auto_pick_for_ai(context, picked, character)
+		return
 
 	var callback := Callable(self, "_on_discover_finished").bind(
 		context,
@@ -35,26 +39,19 @@ func resolve(context) -> void:
 	events.discover_finished.connect(callback)
 	events.discover_requested.emit(context, picked)
 
-func _summon_selected(character: CharacterRuntime, data: CardData) -> void:
-	if character.board._is_full():
-		return
+func _auto_pick_for_ai(
+	context,
+	cards: Array[CardData],
+	character: CharacterRuntime
+) -> void:
+	var events: EventBus = ServiceLocator.get_service(EventBus)
+	
+	var selected = cards.pick_random()
 
-	character.board.spawn_minion_from_data(
-		data,
-		character.side
+	var timer = context.get_tree().create_timer(0.5)
+	timer.timeout.connect(func():
+		events.discover_finished.emit(context, selected)
 	)
-
-func _pick_cards(deck: Array[CardData]) -> Array[CardData]:
-	var result: Array[CardData] = []
-
-	for data in deck:
-		if data.card_context.get_card_type() != Enums.CardType.MINION:
-			continue
-		if tribe.is_empty() or tribe in data.tribes:
-			result.append(data)
-
-	result.shuffle()
-	return result.slice(0, choices)
 
 func _on_discover_finished(
 	ctx,
@@ -71,3 +68,26 @@ func _on_discover_finished(
 	)
 
 	_summon_selected(character, selected)
+
+
+func _summon_selected(character: CharacterRuntime, data: CardData) -> void:
+	if character.board._is_full():
+		return
+
+	character.board.spawn_minion_from_data(
+		data,
+		character.side
+	)
+
+
+func _pick_cards(deck: Array[CardData]) -> Array[CardData]:
+	var result: Array[CardData] = []
+
+	for data in deck:
+		if data.card_context.get_card_type() != Enums.CardType.MINION:
+			continue
+		if tribe.is_empty() or tribe in data.tribes:
+			result.append(data)
+
+	result.shuffle()
+	return result.slice(0, choices)

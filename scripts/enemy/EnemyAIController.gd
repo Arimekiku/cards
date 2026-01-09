@@ -24,7 +24,7 @@ func _attack_with_minions() -> void:
 		if not started:
 			continue
 		
-		await minion.attack_finished
+		await get_tree().create_timer(0.75).timeout
 	character.board.layout()
 
 func _select_target(minion: Minion) -> Node:
@@ -152,7 +152,7 @@ func _play_cards_from_hand() -> void:
 		if card.data.cost > mana.current_mana:
 			continue
 		
-		if card is MinionCard:
+		if card is MinionCard and not character.board._is_full():
 			_play_minion_card(card)
 		
 		if card is SpellCard:
