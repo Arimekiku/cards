@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dpclu562nhmhh"]
+[gd_scene load_steps=17 format=3 uid="uid://dpclu562nhmhh"]
 
 [ext_resource type="Script" uid="uid://brnvnnnlib2bl" path="res://scripts/game/character_runtime.gd" id="1_104hf"]
 [ext_resource type="Script" uid="uid://bqwsoxyf5d00q" path="res://scripts/enemy/EnemyAIController.gd" id="2_i0rvx"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://c0vthsq306log" path="res://scripts/game/hand.gd" id="7_nrexm"]
 [ext_resource type="PackedScene" uid="uid://djm87ttssld7i" path="res://scenes/hero_face.tscn" id="8_fgn6i"]
 [ext_resource type="PackedScene" uid="uid://dq6dxo14vjgch" path="res://scenes/deck_presenter.tscn" id="10_1ss63"]
+[ext_resource type="Script" uid="uid://7scfv6w5mt1k" path="res://scripts/enemy/default_ai_profile.gd" id="10_y4bv0"]
 [ext_resource type="PackedScene" uid="uid://bmg3ixh420n4y" path="res://scenes/effects/discover_effect_prefab.tscn" id="11_yvuf7"]
 
 [sub_resource type="Resource" id="Resource_qbqua"]
@@ -25,6 +26,10 @@ point_count = 3
 _limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, -1), 0.0, 3.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 3.0, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="Resource" id="Resource_1a3hy"]
+script = ExtResource("10_y4bv0")
+metadata/_custom_type_script = "uid://7scfv6w5mt1k"
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_104hf")
@@ -149,6 +154,7 @@ offset_bottom = 370.0
 script = ExtResource("2_i0rvx")
 character = NodePath("..")
 hand = NodePath("../ui/hand")
+ai_profile = SubResource("Resource_1a3hy")
 
 [node name="hero_enemy_place" type="Node2D" parent="."]
 position = Vector2(950, 132)

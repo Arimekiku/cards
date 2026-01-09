@@ -1,174 +1,213 @@
 {
-  "manual_scribe": {
-	"name": "Манул-Писар",
-	"cost": 2,
-	"card_type": "creature",
-	"health": 3,
-	"damage": 1,
-	"effects": {
-	  "on_play_effects": {
-		"summon_minion": {
-		  "minion_id": "manual_scribe",
-		  "amount": 1
-		}
-	  }
+	"manual_scribe": {
+		"name": "Манул-Писар",
+		"cost": 2.0,
+		"card_type": "creature",
+		"health": 3.0,
+		"damage": 1.0,
+		"effects": {
+			"on_play_effects": {
+				"summon_minion": {
+					"minion_id": "manual_scribe",
+					"amount": 1.0
+				}
+			}
+		},
+		"keywords": [
+			"summon"
+		],
+		"tribes": [
+			"manul",
+			"beast"
+		],
+		"image": "res://resources/images/cards/manuls/manual_scribe.png",
+		"description": "При розігруванні викликає ще одного Манула-Писаря"
 	},
-	"keywords": ["summon"],
-	"tribes": ["manul", "beast"],
-	"image": "res://resources/images/cards/manuls/manual_scribe.png",
-	"description": "При розігруванні викликає ще одного Манула-Писаря"
-  },
-"manual_researcher": {
-  "name": "Манул-Дослідник",
-  "cost": 1,
-  "card_type": "creature",
-  "health": 1,
-  "damage": 1,
-  "effects": {
-	"on_play_effects": {
-	  "discover_and_summon": {
-		"tribe": "manul",
-		"choices": 3
-	  }
+	"manual_researcher": {
+		"name": "Манул-Дослідник",
+		"cost": 1.0,
+		"card_type": "creature",
+		"health": 1.0,
+		"damage": 1.0,
+		"effects": {
+			"on_play_effects": {
+				"discover_and_summon": {
+					"tribe": "manul",
+					"choices": 3.0
+				}
+			}
+		},
+		"keywords": [
+			"discover"
+		],
+		"tribes": [
+			"manul",
+			"scout"
+		],
+		"image": "res://resources/images/cards/manuls/manual_researcher.png",
+		"description": "Розкопує манула та викликає обраного"
+	},
+	"archive_keeper": {
+		"name": "Хранитель Архіву",
+		"cost": 3.0,
+		"card_type": "creature",
+		"health": 4.0,
+		"damage": 2.0,
+		"effects": {
+			"on_death_effects": {
+				"draw_cards": {
+					"amount": 2.0,
+					"filter": "spell"
+				}
+			}
+		},
+		"keywords": [
+			"draw"
+		],
+		"tribes": [
+			"manul",
+			"archive"
+		],
+		"image": "res://resources/images/cards/manuls/archive_keeper.png",
+		"description": "Смерть: доберіть 2 заклинання"
+	},
+	"archive_expansion": {
+		"name": "Розширення Архіву",
+		"cost": 2.0,
+		"card_type": "spell",
+		"effects": {
+			"on_play_effects": {
+				"draw_cards": {
+					"amount": 3.0
+				}
+			}
+		},
+		"keywords": [
+			"draw"
+		],
+		"tribes": [
+			"spell",
+			"archive"
+		],
+		"image": "res://resources/images/cards/manuls/archive_expansion.png",
+		"description": "Доберіть 3 карти"
+	},
+	"manual_incantation": {
+		"name": "Манульське Заклинання",
+		"cost": 3.0,
+		"card_type": "spell",
+		"effects": {
+			"on_play_effects": {
+				"summon_minion": {
+					"minion_id": "manual_guard",
+					"amount": 2.0
+				}
+			}
+		},
+		"keywords": [
+			"summon"
+		],
+		"tribes": [
+			"spell",
+			"manul"
+		],
+		"image": "res://resources/images/cards/manuls/manual_incantation.png",
+		"description": "Викликає двох Манулів-Охоронців"
+	},
+	"manual_guard": {
+		"name": "Манул-Охоронець",
+		"cost": 2.0,
+		"card_type": "creature",
+		"health": 2.0,
+		"damage": 2.0,
+		"effects": {
+			"passive_effects": {
+				"apply_status": {
+					"status": "taunt",
+					"target": "self",
+					"duration": -1.0
+				}
+			}
+		},
+		"keywords": [
+			"taunt"
+		],
+		"tribes": [
+			"manul",
+			"guard"
+		],
+		"image": "res://resources/images/cards/manuls/manual_guard.png",
+		"description": "Таунт"
+	},
+	"archive_cataclysm": {
+		"name": "Катастрофа Архіву",
+		"cost": 6.0,
+		"card_type": "spell",
+		"effects": {
+			"on_play_effects": {
+				"discard_scaled_aoe": {
+					"damage_per_cards": 1.0,
+					"target": "enemy_minions"
+				}
+			}
+		},
+		"keywords": [
+			"aoe"
+		],
+		"tribes": [
+			"spell",
+			"archive"
+		],
+		"image": "res://resources/images/cards/archive_cataclysm.png",
+		"description": "Завдає шкоди всім ворогам залежно від кількості карт у відбої"
+	},
+	"archive_colossus": {
+		"name": "Манул-Архівний Колос",
+		"cost": 7.0,
+		"card_type": "creature",
+		"health": 6.0,
+		"damage": 6.0,
+		"effects": {
+			"on_play_effects": {
+				"discard_scaled_buff": {
+					"cards_per_stack": 1.0,
+					"duration": -1.0
+				}
+			}
+		},
+		"keywords": [
+			"win_condition"
+		],
+		"tribes": [
+			"manul",
+			"boss"
+		],
+		"image": "res://resources/images/cards/archive_colossus.png",
+		"description": "Отримує +1/+1 за кожні 3 карти у відбої"
+	},
+	"archive_freeze": {
+		"name": "Замороження Архіву",
+		"cost": 4.0,
+		"card_type": "spell",
+		"effects": {
+			"on_play_effects": {
+				"freeze_and_draw": {
+					"target": "enemy_minions",
+					"duration": 1.0
+				}
+			}
+		},
+		"keywords": [
+			"freeze",
+			"aoe",
+			"draw"
+		],
+		"tribes": [
+			"spell",
+			"freeze",
+			"archive"
+		],
+		"image": "res://resources/images/cards/archive_freeze.png",
+		"description": "Заморожує всіх ворожих істот. За кожну заморожену — доберіть карту"
 	}
-  },
-  "keywords": ["discover"],
-  "tribes": ["manul", "scout"],
-  "image": "res://resources/images/cards/manuls/manual_researcher.png",
-  "description": "Розкопує манула та викликає обраного"
-},
-
-  "archive_keeper": {
-  "name": "Хранитель Архіву",
-  "cost": 3,
-  "card_type": "creature",
-  "health": 4,
-  "damage": 2,
-  "effects": {
-	"on_death_effects": {
-	  "draw_cards": {
-		"amount": 2,
-		"filter": "spell"
-	  }
-	}
-  },
-  "keywords": ["draw"],
-  "tribes": ["manul", "archive"],
-  "image": "res://resources/images/cards/manuls/archive_keeper.png",
-  "description": "Смерть: доберіть 2 заклинання"
-},
-
-  "archive_expansion": {
-	"name": "Розширення Архіву",
-	"cost": 2,
-	"card_type": "spell",
-	"effects": {
-	  "on_play_effects": {
-		"draw_cards": {
-		  "amount": 3
-		}
-	  }
-	},
-	"keywords": ["draw"],
-	"tribes": ["spell", "archive"],
-	"image": "res://resources/images/cards/manuls/archive_expansion.png",
-	"description": "Доберіть 3 карти"
-  },
-
-  "manual_incantation": {
-	"name": "Манульське Заклинання",
-	"cost": 3,
-	"card_type": "spell",
-	"effects": {
-	  "on_play_effects": {
-		"summon_minion": {
-		  "minion_id": "manual_guard",
-		  "amount": 2
-		}
-	  }
-	},
-	"keywords": ["summon"],
-	"tribes": ["spell", "manul"],
-	"image": "res://resources/images/cards/manuls/manual_incantation.png",
-	"description": "Викликає двох Манулів-Охоронців"
-  },
-
-  "manual_guard": {
-  "name": "Манул-Охоронець",
-  "cost": 2,
-  "card_type": "creature",
-  "health": 2,
-  "damage": 2,
-  "effects": {
-	"passive_effects": {
-	  "apply_status": {
-		"status": "taunt",
-		"target": "self",
-		"duration": -1
-	  }
-	}
-  },
-  "keywords": ["taunt"],
-  "tribes": ["manul", "guard"],
-  "image": "res://resources/images/cards/manuls/manual_guard.png",
-  "description": "Таунт"
-},
-
-
-  "archive_cataclysm": {
-	"name": "Катастрофа Архіву",
-	"cost": 6,
-	"card_type": "spell",
-	"effects": {
-	  "on_play_effects": {
-		"discard_scaled_aoe": {
-		  "damage_per_cards": 1,
-		  "target": "enemy_minions"
-		}
-	  }
-	},
-	"keywords": ["aoe"],
-	"tribes": ["spell", "archive"],
-	"image": "res://resources/images/cards/archive_cataclysm.png",
-	"description": "Завдає шкоди всім ворогам залежно від кількості карт у відбої"
-  },
-
-  "archive_colossus": {
-	"name": "Манул-Архівний Колос",
-	"cost": 7,
-	"card_type": "creature",
-	"health": 6,
-	"damage": 6,
-	"effects": {
-	  "on_play_effects": {
-		"discard_scaled_buff": {
-		  "cards_per_stack": 1,
-		  "duration": -1
-		}
-	  }
-	},
-	"keywords": ["win_condition"],
-	"tribes": ["manul", "boss"],
-	"image": "res://resources/images/cards/archive_colossus.png",
-	"description": "Отримує +1/+1 за кожні 3 карти у відбої"
-  },
-
-"archive_freeze": {
-  "name": "Замороження Архіву",
-  "cost": 4,
-  "card_type": "spell",
-  "effects": {
-	"on_play_effects": {
-	  "freeze_and_draw": {
-		"target": "enemy_minions",
-		"duration": 1
-	  }
-	}
-  },
-  "keywords": ["freeze", "aoe", "draw"],
-  "tribes": ["spell", "freeze", "archive"],
-  "image": "res://resources/images/cards/archive_freeze.png",
-  "description": "Заморожує всіх ворожих істот. За кожну заморожену — доберіть карту"
-}
-
 }
