@@ -87,7 +87,7 @@ func _on_turn_started(current_turn):
 			draw_card(deck)
 	
 	if side == Enums.CharacterType.ENEMY and current_turn == side:
-		ai.play_turn()
+		await ai.play_turn()
 		turn_manager.end_turn()
 
 func create_card_from_data(value: CardData) -> Card:

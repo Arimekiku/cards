@@ -9,7 +9,7 @@ const MIN_ATTACK_SCORE := 20
 func play_turn() -> void:
 	print("[AI] Turn start")
 	await _play_cards_from_hand()
-	_attack_with_minions()
+	await _attack_with_minions()
 
 func _attack_with_minions() -> void:
 	for minion in character.board.minions:
