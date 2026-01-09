@@ -17,21 +17,19 @@ func _init(_attack: int, _health: int, _duration: int = -1) -> void:
 func apply(target) -> void:
 	target_node = target
 	_events = ServiceLocator.get_service(EventBus)
-
+	
 	_apply_buff()
-
+	
 	if target_node.has_signal("died_event"):
 		target_node.died_event.connect(_on_target_died)
 
 func _apply_buff() -> void:
 	if not is_instance_valid(target_node):
 		return
-
+	
 	target_node.damage += attack_bonus
-	target_node.health += health_bonus
-
-	target_node._ui_update_damage(target_node.damage)
-	target_node._ui_update_health(target_node.health)
+	target_node.health_component.health += health_bonus
+	target_node.ui_update()
 
 func on_turn_start() -> void:
 	if duration < 0:
@@ -47,18 +45,15 @@ func _on_target_died(_m) -> void:
 func remove() -> void:
 	if not target_node:
 		return
-
-	# відкочуємо баф
+	
 	target_node.damage -= attack_bonus
-	target_node.health -= health_bonus
-
-	target_node._ui_update_damage(target_node.damage)
-	target_node._ui_update_health(target_node.health)
-
+	target_node.health_component.health -= health_bonus
+	target_node.ui_update()
+	
 	if target_node.has_signal("died_event"):
 		target_node.died_event.disconnect(_on_target_died)
-
+	
 	if target_node.has_method("remove_status"):
 		target_node.remove_status(self)
-
+	
 	target_node = null

@@ -132,12 +132,12 @@ func _score_spell_target(_spell_card: SpellCard, target: Minion) -> float:
 	var score := 0.0
 
 	# Добиваємо міньйона
-	if damage >= target.health:
+	if damage >= target.health_component.health:
 		score += 100
 
 	# Чим сильніший міньйон — тим краще
 	score += target.damage * 3
-	score += target.health
+	score += target.health_component.health
 	
 	if target.is_in_group("taunt_minions"):
 		score += 20
