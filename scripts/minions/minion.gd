@@ -232,8 +232,12 @@ func on_turn_start() -> void:
 	_resolve_effects(data.card_context.on_turn_start_effects, self)
 
 func ui_update() -> void:
-	health_component.process_health()
+	if health_component.health > data.card_context.health:
+		health_component.health_label.modulate = Color.GREEN
+	if damage > data.card_context.damage:
+		damage_text.modulate = Color.GREEN
 	
+	health_component.process_health()
 	_ui_update_damage()
 
 func _ui_update_damage() -> void:
