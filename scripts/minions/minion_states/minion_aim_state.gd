@@ -28,24 +28,29 @@ func on_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_mouse") or event.is_action_released("left_mouse"):
 		if target.potential_targets.is_empty():
 			return
-	
+		
 		var allowed := TargetResolver.resolve_attack_targets(target)
 		var has_taunt := allowed.any(func(m): return m.is_in_group("taunt_minions"))
-	
+		
 		var areas := target.potential_targets.filter(func(a):
 			var m = a.get_parent()
 			if not is_instance_valid(m):
 				return false
 			return m.is_in_group("taunt_minions") if has_taunt else true
 		)
-	
+		
 		if areas.is_empty():
 			return
-	
+		
 		var real_target = areas[0].get_parent()
 		if not is_instance_valid(real_target):
 			return
-	
+		
+		var health_component: HealthComponent = real_target.health_component
+		if health_component != null:
+			if health_component.should_die():
+				return
+		
 		target.current_target = real_target
 		target.get_viewport().set_input_as_handled()
 		transition.emit(self, MinionAttackState)

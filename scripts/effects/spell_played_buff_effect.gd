@@ -20,7 +20,7 @@ func resolve(context) -> void:
 			return
 
 		_minion.damage += 1
-		_minion._ui_update_damage(_minion.damage)
+		_minion.ui_update()
 
 	_events.spell_played.connect(_callback)
 

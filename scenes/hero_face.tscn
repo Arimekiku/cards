@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://djm87ttssld7i"]
+[gd_scene load_steps=5 format=3 uid="uid://djm87ttssld7i"]
 
 [ext_resource type="Script" uid="uid://dmfmbw0lojivo" path="res://scripts/game/hero_face.gd" id="1_rpo41"]
 [ext_resource type="Texture2D" uid="uid://dldtuabrsjn80" path="res://resources/images/imcrying.png" id="2_rpo41"]
+[ext_resource type="Script" uid="uid://cm5wdmr5aqhe5" path="res://scripts/components/health_component.gd" id="2_stmam"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rpo41"]
 size = Vector2(133, 134)
@@ -13,6 +14,11 @@ anchors_preset = 0
 offset_right = 128.0
 offset_bottom = 128.0
 script = ExtResource("1_rpo41")
+
+[node name="health_component" type="Node" parent="." node_paths=PackedStringArray("health_label")]
+script = ExtResource("2_stmam")
+health_label = NodePath("../health")
+metadata/_custom_type_script = "uid://cm5wdmr5aqhe5"
 
 [node name="collider" type="Area2D" parent="."]
 

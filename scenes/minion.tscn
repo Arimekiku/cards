@@ -1,7 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://c22whlxirxvqy"]
+[gd_scene load_steps=34 format=3 uid="uid://c22whlxirxvqy"]
 
 [ext_resource type="Script" uid="uid://du1y1qmodf36l" path="res://scripts/minions/minion.gd" id="1_1ddg2"]
 [ext_resource type="Shader" uid="uid://bs15jvlh5m8do" path="res://resources/circle_cutout.gdshader" id="1_b4arb"]
+[ext_resource type="Script" uid="uid://cm5wdmr5aqhe5" path="res://scripts/components/health_component.gd" id="2_8f5at"]
 [ext_resource type="Texture2D" uid="uid://ovopul5l8hrj" path="res://resources/images/greta.jpg" id="3_1ddg2"]
 [ext_resource type="Material" uid="uid://ctss8cgrddw1q" path="res://resources/materials/freeze_material.tres" id="4_qqrhl"]
 [ext_resource type="Texture2D" uid="uid://2h2rltd1bvpq" path="res://resources/images/vfx/flash.png" id="5_ll15l"]
@@ -115,6 +116,11 @@ custom_minimum_size = Vector2(80, 100)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_1ddg2")
+
+[node name="health_component" type="Node" parent="." node_paths=PackedStringArray("health_label")]
+script = ExtResource("2_8f5at")
+health_label = NodePath("../minion_canvas/battle_outline/health_portrait/health")
+metadata/_custom_type_script = "uid://cm5wdmr5aqhe5"
 
 [node name="collider_detector" type="Area2D" parent="."]
 unique_name_in_owner = true

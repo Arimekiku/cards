@@ -27,6 +27,8 @@ func init() -> void:
 	add_minion(minion3)
 	minion3.add_status("freeze", 3)
 	minion3.add_status("taunt", 3)
+	minion3.health_component.health = 1
+	minion3.ui_update()
 
 func add_minion(minion: Minion, index: int = 0) -> bool:
 	if minions.size() >= max_minions: return false

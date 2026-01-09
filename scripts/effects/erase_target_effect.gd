@@ -15,22 +15,26 @@ func resolve(context):
 	
 	_pending = 0
 	
-	_callback = func(target):
-		_erase_callback(target)
+	_callback = func(ctx):
+		_erase_callback(ctx)
 	
 	_vfx.effect_finished.connect(_callback)
 	
 	for t in targets:
-		if t is not Minion: continue
+		if t is not Minion:
+			continue
 		
 		_pending += 1
 		_vfx.play("erase", t)
 
-func _erase_callback(target) -> void:
-	if target is not Minion: return
-	if not is_instance_valid(target): return
+func _erase_callback(ctx) -> void:
+	if ctx is not Minion:
+		return
+	if not is_instance_valid(ctx):
+		return
 	
-	target.die(Enums.DeathCause.ERASE)
+	ctx.die(Enums.DeathCause.ERASE)
 	
 	_pending -= 1
-	if _pending <= 0: _vfx.effect_finished.disconnect(_callback)
+	if _pending <= 0:
+		_vfx.effect_finished.disconnect(_callback)

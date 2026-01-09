@@ -25,9 +25,8 @@ func _copy_minion(character: CharacterRuntime, minion: Minion) -> void:
 	copy_minion.setup(minion.data, true)
 	copy_minion.minion_owner = character.side
 	copy_minion.damage = minion.damage
-	copy_minion._ui_update_damage(minion.damage)
 	copy_minion.health = minion.health
-	copy_minion._ui_update_health(minion.health)
+	copy_minion.ui_update()
 	
 	for status in minion.statuses:
 		copy_minion.copy_status(status)

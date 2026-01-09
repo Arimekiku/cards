@@ -3,7 +3,7 @@ extends Control
 
 @onready var potential_targets: Array[Node] = []
 
-@onready var health_text := %health
+@onready var health_component: HealthComponent = $health_component
 @onready var damage_text := %damage
 @onready var collision_detector: Area2D = %collider_detector
 @onready var vfx: VFXHost = $vfx
@@ -17,7 +17,6 @@ var _pending_owner_apply := false
 signal died_event(minion: Minion, cause: Enums.DeathCause)
 signal attack_finished(minion: Minion)
 
-var health: int
 var damage: int
 var data: CardData
 var has_attacked: bool
@@ -38,8 +37,9 @@ func _ready():
 
 func setup(card_data: CardData, is_summoned := false) -> void:
 	if not self.is_node_ready(): await self.ready
-	 
-	var context := card_data.card_context as MinionContext
+	data = card_data
+	
+	var context := data.card_context as MinionContext
 	if context == null:
 		push_error("Wrong type expected MINION")
 		return
@@ -51,8 +51,8 @@ func setup(card_data: CardData, is_summoned := false) -> void:
 	]
 	state_machine = MinionStateMachine.new(self, states, MinionIdleState)
 	
-	data = card_data
-	health = context.health
+	health_component.health = context.health
+	health_component.on_health_processed.connect(on_health_changed)
 	damage = context.damage
 	
 	character_icon.texture = card_data.image
@@ -61,9 +61,8 @@ func setup(card_data: CardData, is_summoned := false) -> void:
 	mat.set_shader_parameter("zoom", context.portrait_zoom)
 	character_icon.material = mat
 	
-	_ui_update_health(health)
-	_ui_update_damage(damage)
-	
+	ui_update()
+
 	if not is_summoned:
 		_resolve_effects(context.on_play_effects, self)
 	
@@ -82,23 +81,21 @@ func apply_encounter_bonuses(card_data: CardData) -> void:
 	if bonus.has("attack"):
 		damage += bonus.attack
 	if bonus.has("health"):
-		health += bonus.health
+		health_component.health += bonus.health
 	
-	_ui_update_health(health)
-	_ui_update_damage(damage)
+	ui_update()
 
 func _input(event: InputEvent) -> void:
 	if not state_machine: return
 	state_machine.on_input(event)
 
 func take_damage(value: int) -> void:
-	health -= value
+	health_component.health -= value
+
+func on_health_changed(new_value) -> void:
+	if new_value > 0 or not health_component.can_die: return
 	
-	if health <= 0:
-		die(Enums.DeathCause.NORMAL)
-		return
-	
-	_ui_update_health(health)
+	die(Enums.DeathCause.NORMAL)
 
 func die(cause: Enums.DeathCause = Enums.DeathCause.NORMAL) -> void:
 	if cause == Enums.DeathCause.NORMAL:
@@ -142,12 +139,6 @@ func _on_mouse_exited() -> void:
 func _resolve_effects(effects: Array[CardEffect], context) -> void:
 	for effect in effects:
 		effect.resolve(context)
-
-func _ui_update_health(value: int) -> void:
-	%health.text = str(value)
-
-func _ui_update_damage(value: int) -> void:
-	%damage.text = str(value)
 
 func _set_owned(owned):
 	minion_owner = owned
@@ -239,3 +230,11 @@ func on_turn_start() -> void:
 			s.on_turn_start()
 	
 	_resolve_effects(data.card_context.on_turn_start_effects, self)
+
+func ui_update() -> void:
+	health_component.process_health()
+	
+	_ui_update_damage()
+
+func _ui_update_damage() -> void:
+	damage_text.text = str(damage)

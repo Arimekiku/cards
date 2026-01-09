@@ -6,6 +6,7 @@ extends Control
 const PLAYER_LAYER := 4
 const ENEMY_LAYER  := 3
 
+@onready var health_component: HealthComponent = $health_component
 @onready var owned: Enums.CharacterType
 @onready var collider: Area2D = $collider
 @onready var icon: TextureRect = $TextureRect
@@ -13,12 +14,13 @@ const ENEMY_LAYER  := 3
 
 signal died(owned)
 
-var health := 30
 var potential_targets := []
 
 func init():
-	health = max_health
-	update_ui()
+	health_component.health = max_health
+	health_component.on_health_processed.connect(on_health_changed)
+	
+	ui_update()
 	_configure_collision()
 
 func _configure_collision():
@@ -38,14 +40,15 @@ func fix_children_mirroring():
 			c.scale.x = -scale.x
 
 func take_damage(value: int):
-	health -= value
-	update_ui()
-	
-	if health <= 0:
-		died.emit(owned)
+	health_component.health -= value
 
-func update_ui():
-	health_label.text = str(health)
+func ui_update():
+	health_component.process_health()
+
+func on_health_changed(new_value):
+	if new_value > 0 or not health_component.can_die: return
+	
+	died.emit(owned)
 
 func _on_collider_area_entered(area):
 	if not potential_targets.has(area):

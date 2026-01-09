@@ -71,12 +71,12 @@ func _score_face_attack(attacker: Minion) -> float:
 		if hero.owned != Enums.CharacterType.ENEMY:
 			attacked_hero = hero
 	
-	if attacked_hero.health <= attacker.damage:
+	if attacked_hero.health_component.health <= attacker.damage:
 		return 999999999
 	# Бити в лице завжди корисно, якщо немає розмінів
 	score += attacker.damage * 10
 	# Якщо міньйон слабкий — не шкода
-	score += max(0, 5 - attacker.health)
+	score += max(0, 5 - attacker.health_component.health)
 	return score
 
 

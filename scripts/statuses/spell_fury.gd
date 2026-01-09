@@ -37,7 +37,7 @@ func _on_spell_played(card) -> void:
 	
 	# баф атаки
 	target_node.damage += 1
-	target_node._ui_update_damage(target_node.damage)
+	target_node.ui_update()
 
 func _on_target_died(_m) -> void:
 	remove()
