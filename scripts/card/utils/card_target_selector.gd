@@ -10,6 +10,7 @@ const ALLIES_COLLISION_LAYER := 4
 var selection_context: Control
 var targeting: bool
 var events: EventBus
+var selected_target: Node = null
 
 func _ready() -> void:
 	events = ServiceLocator.get_service(EventBus)
@@ -26,8 +27,9 @@ func _input(event: InputEvent) -> void:
 		
 		var area = selection_context.potential_targets[0]
 		var target = area.get_parent()
-		selection_context.potential_targets.clear()
 		
+		selected_target = target
+		selection_context.potential_targets.clear()
 		events.target_selector_resolved_event.emit(target)
 		return
 

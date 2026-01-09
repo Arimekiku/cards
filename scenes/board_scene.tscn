@@ -29,6 +29,14 @@ enemy = NodePath("Enemy")
 end_menu = NodePath("battle_finished_menu")
 metadata/_edit_lock_ = true
 
+[node name="Casters" type="Node2D" parent="."]
+
+[node name="PlayerCasterContainer" type="Node2D" parent="Casters" groups=["player_casters"]]
+position = Vector2(570, 476)
+
+[node name="EnemyCasterContainer" type="Node2D" parent="Casters" groups=["enemy_casters"]]
+position = Vector2(549, 17)
+
 [node name="Board" type="Sprite2D" parent="."]
 position = Vector2(588, 363)
 scale = Vector2(0.7645173, 0.7645173)
