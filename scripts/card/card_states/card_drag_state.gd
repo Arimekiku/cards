@@ -48,7 +48,11 @@ func _check_for_mana() -> bool:
 	return true
 
 func _handle_spell(event: InputEvent) -> void:
-	if not target.requires_target():
+	if event.is_action_pressed("right_mouse"):
+		transition.emit(self, CardIdleState)
+		return
+	
+	if not target.requires_target() and not target.potential_targets.is_empty():
 		if event.is_action_pressed("left_mouse") or event.is_action_released("left_mouse"):
 			transition.emit(self, CardReleasedState)
 		return
