@@ -82,24 +82,26 @@ func _score_face_attack(attacker: Minion) -> float:
 
 func _score_attack_target(attacker: Minion, target: Minion) -> float:
 	var score := 0.0
+	var target_health = target.health_component.health
+	var attracker_health = target.health_component.health
 
 	# Вбиваємо і виживаємо
-	if attacker.damage >= target.health and target.damage < attacker.health:
+	if attacker.damage >= target_health and target.damage < attracker_health:
 		score += 100
 
 	# Обидва помруть — менш бажано
-	if attacker.damage >= target.health and target.damage >= attacker.health:
+	if attacker.damage >= target_health and target.damage >= attracker_health:
 		score += 30
 
 	# Ми помремо — погано
-	if target.damage >= attacker.health and attacker.damage < target.health:
+	if target.damage >= attracker_health and attacker.damage < target_health:
 		score -= 50
 		
 	if target.is_in_group("taunt_minions"):
 		score += 20
 	# Цінність цілі
 	score += target.damage * 2
-	score += target.health
+	score += target_health
 	#print(score)
 	return score*5
 
