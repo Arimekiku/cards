@@ -19,7 +19,9 @@ func on_turn_start() -> void:
 	if duration <= 0: remove()
 
 func remove() -> void:
+	for effect in connected_effects:
+		print(target_node)
+		effect.resolve(target_node)
+
 	target_node.remove_status(self)
 	
-	for effect in connected_effects:
-		effect.resolve(target_node)
