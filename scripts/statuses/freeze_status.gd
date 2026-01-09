@@ -1,5 +1,5 @@
-extends RefCounted
 class_name FreezeStatus
+extends Resource
 
 var freeze_material := preload("res://resources/materials/freeze_material.tres")
 

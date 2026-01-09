@@ -1,8 +1,7 @@
 class_name TargetResolver
 
 static func resolve(target_type: Enums.SpellTargetType, context) -> Array:
-	if context == null:
-		return []
+	if context == null: return []
 	
 	match target_type:
 		Enums.SpellTargetType.TARGET:

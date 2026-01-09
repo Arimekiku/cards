@@ -6,7 +6,7 @@ class_name TargetDamageEffect
 func resolve(context):
 	if context == null:
 		return
-
+	
 	var targets = TargetResolver.resolve(target, context)
 	for t in targets:
 		if t.has_method("take_damage"):

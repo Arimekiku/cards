@@ -22,3 +22,4 @@ func play(effect_id: String, target: Node) -> void:
 func _play_async(effect_id: String, host: VFXHost, target: Node) -> void:
 	await host.play_and_wait(effect_id)
 	emit_signal("effect_finished", target)
+	print("finish play")

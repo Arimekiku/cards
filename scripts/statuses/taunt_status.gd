@@ -1,4 +1,5 @@
 class_name TauntStatus
+extends Resource
 
 var target_node = null
 

@@ -214,9 +214,22 @@ func add_status(status_name: String, duration: int, params := {}) -> void:
 			s.duration = duration
 			s.apply(self)
 			statuses.append(s)
+		"timer":
+			var s = TimerStatus.new(
+				params.get("effects", 0),
+				duration
+			)
+			s.duration = duration
+			s.apply(self)
+			statuses.append(s)
 		_:
 			# тут можна додати інші статуси/реєстр
 			push_warning("Unknown status: %s" % status_name)
+
+func copy_status(status) -> void:
+	var copy = status.duplicate()
+	copy.apply(self)
+	statuses.append(copy)
 
 func add_status_variant(status: Variant, duration: int) -> void:
 	var s = status.new()

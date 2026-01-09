@@ -50,7 +50,7 @@
 	"health": 5,
 	"damage": 5,
 	"effects": {
-	  "on_play": {
+	  "on_play_effects": {
 		"deathrattle": {
 		  "target": "ally_target"
 		}
@@ -64,16 +64,30 @@
 	"description": "Викликає ефект смерті союзної істоти"
   },
 
-  "dark_reflection": {
+"dark_reflection": {
 	"name": "Чорне Віддзеркалення",
 	"cost": 3,
 	"card_type": "spell",
 	"effects": {
-	  "on_play": {
-		"summon_copy_of_ally_target": {
-			"on_turn": "die"
+		"on_play_effects": {
+			"copy_minion": {
+				"target": "target",
+				"on_copy_created": {
+					"apply_status": {
+						"status": "timer",
+						"target": "self",
+						"duration": 1,
+						"params": {
+							"effects": {
+								"erase_target_effect": {
+									"target": "self"
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-	  }
 	},
 	"keywords": ["summon"],
 	"tribes": ["spell", "copy"],
@@ -81,7 +95,7 @@
 	"portrait_offset": { "x": -0.1, "y": -0.23 },
 	"portrait_zoom": 1.2,
 	"description": "Викликає копію обраної союзної істоти, вбиває її на початку наступного ходу"
-  },
+},
 
   "call_the_steed": {
 	"name": "Клич Конюшні",

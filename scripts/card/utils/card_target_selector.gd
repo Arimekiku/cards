@@ -26,8 +26,8 @@ func _input(event: InputEvent) -> void:
 		
 		var area = selection_context.potential_targets[0]
 		var target = area.get_parent()
-		
 		selection_context.potential_targets.clear()
+		
 		events.target_selector_resolved_event.emit(target)
 		return
 

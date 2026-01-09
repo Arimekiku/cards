@@ -13,7 +13,6 @@ class_name MinionContext
 @export var on_turn_start_effects: Array[CardEffect]
 @export var on_turn_end_effects: Array[CardEffect]
 
-
 @export_group("Visual")
 @export var portrait_zoom: float
 @export var portrait_offset: Vector2

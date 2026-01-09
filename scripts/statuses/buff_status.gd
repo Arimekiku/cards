@@ -1,5 +1,5 @@
-extends RefCounted
 class_name BuffStatus
+extends Resource
 
 var target_node = null
 var duration: int = -1
