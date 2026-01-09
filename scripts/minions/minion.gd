@@ -65,11 +65,11 @@ func setup(card_data: CardData, is_summoned := false) -> void:
 	_ui_update_damage(damage)
 	
 	if not is_summoned:
-		_resolve_effects(context.on_spawn_effects, self)
+		_resolve_effects(context.on_play_effects, self)
 	
 	for effect in context.passive_effects:
 		effect.resolve(self)
-		
+	
 	var events: EventBus = ServiceLocator.get_service(EventBus)
 	events.minion_spawned.emit(self)
 	

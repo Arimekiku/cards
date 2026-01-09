@@ -6,7 +6,7 @@ class_name MinionContext
 @export var damage: int
 
 @export_group("Effects")
-@export var on_spawn_effects: Array[CardEffect]
+@export var on_play_effects: Array[CardEffect]
 @export var on_attack_effects: Array[CardEffect]
 @export var on_die_effects: Array[CardEffect]
 @export var passive_effects: Array[CardEffect]
@@ -22,7 +22,7 @@ func get_card_type() -> Enums.CardType:
 
 func requires_target() -> bool:
 	for group in [
-		on_spawn_effects,
+		on_play_effects,
 		on_die_effects
 	]:
 		for effect in group:
