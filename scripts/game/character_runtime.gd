@@ -40,7 +40,6 @@ func _ready():
 	
 	if side == Enums.CharacterType.ENEMY:
 		hand.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		#$ui.hide()
 		$hero_face.position = $hero_enemy_place.position
 	
 	turn_manager.turn_changed.connect(_on_turn_started)

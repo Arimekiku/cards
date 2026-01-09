@@ -15,6 +15,7 @@ var _pending_owner_apply := false
 @onready var outline_icon := %battle_outline
 
 signal died_event(minion: Minion, cause: Enums.DeathCause)
+@warning_ignore("unused_signal")
 signal attack_finished(minion: Minion)
 
 var damage: int

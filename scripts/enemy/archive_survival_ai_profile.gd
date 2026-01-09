@@ -1,5 +1,5 @@
-extends AIScoringProfile
 class_name ArchiveSurvivalAIProfile
+extends AIScoringProfile
 
 func play_turn(controller: Node, character: CharacterRuntime) -> void:
 	await _play_cards_from_hand(controller, character)

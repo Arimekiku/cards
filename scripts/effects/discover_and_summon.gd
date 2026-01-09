@@ -42,7 +42,7 @@ func resolve(context) -> void:
 func _auto_pick_for_ai(
 	context,
 	cards: Array[CardData],
-	character: CharacterRuntime
+	_character: CharacterRuntime
 ) -> void:
 	var events: EventBus = ServiceLocator.get_service(EventBus)
 	
