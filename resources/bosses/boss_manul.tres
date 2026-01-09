@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharacterMetadata" load_steps=4 format=3 uid="uid://04x7nqujam8o"]
+
+[ext_resource type="Script" uid="uid://0j6060vw6o6s" path="res://scripts/game/deck_metadata.gd" id="1_3agc1"]
+[ext_resource type="Script" uid="uid://cdrnx4slri5l6" path="res://scripts/game/character.gd" id="2_g4a45"]
+
+[sub_resource type="Resource" id="Resource_iwspc"]
+script = ExtResource("1_3agc1")
+cards = Array[String](["manual_scribe", "manual_scribe", "manual_researcher", "archive_keeper", "archive_expansion", "manual_incantation", "manual_guard", "archive_cataclysm", "archive_colossus", "archive_freeze"])
+metadata/_custom_type_script = "uid://0j6060vw6o6s"
+
+[resource]
+script = ExtResource("2_g4a45")
+character_name = "Manul"
+character_phrase = "Catching anus"
+deck = SubResource("Resource_iwspc")
+metadata/_custom_type_script = "uid://cdrnx4slri5l6"
