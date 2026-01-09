@@ -42,7 +42,7 @@ func _animate_attack(enemy: Node) -> void:
 	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
 	tween.tween_property(target, "global_position", wind_up_pos, 0.2)
-	tween.tween_property(target, "global_position", target_pos, 5.15)
+	tween.tween_property(target, "global_position", target_pos, 0.15)
 	tween.tween_callback(func(): _on_impact(enemy))
 	tween.tween_property(target, "global_position", start_pos, 0.4)\
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
