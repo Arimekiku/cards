@@ -74,6 +74,7 @@ func _handle_creature(event: InputEvent) -> void:
 	
 	var cancel = event.is_action_pressed("right_mouse")
 	if cancel:
+		output_zone.layout()
 		transition.emit(self, CardIdleState)
 		return
 	
