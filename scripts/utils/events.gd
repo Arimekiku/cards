@@ -13,8 +13,6 @@ signal target_selector_resolved_event(context)
 
 # game-state events
 @warning_ignore("unused_signal")
-signal card_played(card)
-@warning_ignore("unused_signal")
 signal spell_played(card)
 @warning_ignore("unused_signal")
 signal minion_spawned(minion)

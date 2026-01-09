@@ -47,7 +47,6 @@ func play() -> void:
 	
 	var events: EventBus = ServiceLocator.get_service(EventBus)
 	events.spell_played.emit(self)
-	events.card_played.emit(self)
 	
 	played_event.emit(self)
 
