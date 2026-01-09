@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://ddqh41bpny64"]
+
+[ext_resource type="Shader" uid="uid://cdubpcgotrl30" path="res://resources/dissolve.gdshader" id="1_k6pit"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ruyt4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0u53v"]
+noise = SubResource("FastNoiseLite_ruyt4")
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_k6pit")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_0u53v")
+shader_parameter/dissolve_progress = 0.0
+shader_parameter/burn_size = 0.0400000019
+shader_parameter/burn_color = Color(1, 0.4, 0, 1)
+shader_parameter/target_point = Vector2(0.5, 0)
+shader_parameter/curve_power = 0.30000001099011997
+shader_parameter/fire_core = Color(1, 1, 0.5, 1)
+shader_parameter/fire_mid = Color(1, 0.5, 0, 1)
+shader_parameter/fire_edge = Color(0.5, 0, 0, 1)

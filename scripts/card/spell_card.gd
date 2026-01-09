@@ -1,6 +1,7 @@
 class_name SpellCard
 extends Card
 
+@onready var canvas: CanvasGroup = $graphics
 @onready var collision_detector := %collision_detector
 
 func setup(card_data: CardData) -> void:
@@ -39,6 +40,8 @@ func play() -> void:
 	else:
 		context = self
 	
+	await _animate_dissolve().finished
+	
 	for effect in data.card_context.on_play_effects:
 		effect.resolve(context)
 	
@@ -75,3 +78,13 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	super()
+
+func _animate_dissolve() -> Tween:
+	var mat = canvas.material
+	
+	var animation = self.create_tween()
+	animation.tween_property(mat, "shader_parameter/dissolve_progress", 1.0, 0.5)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_OUT)
+	
+	return animation

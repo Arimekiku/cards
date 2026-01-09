@@ -1,28 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://s2nouishoia4"]
+[gd_scene load_steps=11 format=3 uid="uid://s2nouishoia4"]
 
 [ext_resource type="Script" uid="uid://dk5gb0ifeigp4" path="res://scripts/card/minion_card.gd" id="1_185mk"]
 [ext_resource type="Texture2D" uid="uid://dgm44y6krxlke" path="res://resources/images/card_base_back.png" id="2_6d7je"]
 [ext_resource type="Texture2D" uid="uid://cdqy0egc8h5ai" path="res://resources/images/card_base.png" id="2_185mk"]
 [ext_resource type="Texture2D" uid="uid://6bjp3vc5hu56" path="res://resources/images/cards/jaba.png" id="3_n0rmn"]
-[ext_resource type="Shader" uid="uid://cdubpcgotrl30" path="res://resources/dissolve.gdshader" id="4_ruyt4"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ruyt4"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0u53v"]
-noise = SubResource("FastNoiseLite_ruyt4")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0u53v"]
-resource_local_to_scene = true
-shader = ExtResource("4_ruyt4")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_0u53v")
-shader_parameter/dissolve_progress = 0.0
-shader_parameter/burn_size = 0.0400000019
-shader_parameter/burn_color = Color(1, 0.4, 0, 1)
-shader_parameter/target_point = Vector2(0.5, 0)
-shader_parameter/curve_power = 0.30000001099011997
-shader_parameter/fire_core = Color(1, 1, 0.5, 1)
-shader_parameter/fire_mid = Color(1, 0.5, 0, 1)
-shader_parameter/fire_edge = Color(0.5, 0, 0, 1)
+[ext_resource type="Material" uid="uid://ddqh41bpny64" path="res://resources/materials/card_material.tres" id="4_ruyt4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ruyt4"]
 
@@ -45,7 +27,7 @@ backside_image = ExtResource("2_6d7je")
 frontside_image = ExtResource("2_185mk")
 
 [node name="graphics" type="CanvasGroup" parent="."]
-material = SubResource("ShaderMaterial_0u53v")
+material = ExtResource("4_ruyt4")
 
 [node name="portrait_margin" type="MarginContainer" parent="graphics"]
 custom_minimum_size = Vector2(120, 180)

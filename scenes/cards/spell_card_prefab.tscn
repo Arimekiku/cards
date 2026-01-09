@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqab4dsyv7pix"]
+[gd_scene load_steps=10 format=3 uid="uid://dqab4dsyv7pix"]
 
 [ext_resource type="Script" uid="uid://ch6be0t1k06kp" path="res://scripts/card/spell_card.gd" id="1_d81wr"]
 [ext_resource type="Texture2D" uid="uid://dgm44y6krxlke" path="res://resources/images/card_base_back.png" id="2_4ejio"]
 [ext_resource type="Texture2D" uid="uid://cpi5bit0vlmu6" path="res://resources/images/card_base_spell.png" id="2_d81wr"]
 [ext_resource type="Texture2D" uid="uid://6bjp3vc5hu56" path="res://resources/images/cards/jaba.png" id="2_howen"]
+[ext_resource type="Material" uid="uid://ddqh41bpny64" path="res://resources/materials/card_material.tres" id="4_ah71r"]
 [ext_resource type="Script" uid="uid://df5k3c863mwho" path="res://scripts/card/description_text.gd" id="5_yjwvy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_howen"]
@@ -22,22 +23,13 @@ script = ExtResource("1_d81wr")
 backside_image = ExtResource("2_4ejio")
 frontside_image = ExtResource("2_d81wr")
 
-[node name="graphics" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="graphics" type="CanvasGroup" parent="."]
+material = ExtResource("4_ah71r")
 
 [node name="portrait_margin" type="MarginContainer" parent="graphics"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(120, 180)
+offset_right = 120.0
+offset_bottom = 180.0
 mouse_filter = 2
 mouse_behavior_recursive = 2
 theme_override_constants/margin_left = 16
@@ -53,23 +45,19 @@ texture = ExtResource("2_howen")
 expand_mode = 1
 
 [node name="outline" type="TextureRect" parent="graphics"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(120, 180)
+offset_right = 120.0
+offset_bottom = 180.0
 mouse_filter = 2
 texture = ExtResource("2_d81wr")
 expand_mode = 1
 
 [node name="text_box" type="Control" parent="graphics"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 120.0
+offset_bottom = 180.0
 mouse_filter = 2
 
 [node name="description_panel" type="Panel" parent="graphics/text_box"]
