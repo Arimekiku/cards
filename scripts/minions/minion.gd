@@ -29,8 +29,6 @@ var tween: Tween
 var statuses: Array = []
 var can_attack: bool = true
 
-var event_bus: EventBus = ServiceLocator.get_service(EventBus)
-
 func _ready():
 	if _pending_owner_apply:
 		_apply_owner_settings()
@@ -125,14 +123,10 @@ func _on_gui_input(event: InputEvent) -> void:
 	state_machine.on_gui_input(event)
 
 func _on_mouse_entered() -> void:
-	event_bus.minion_info_show_request.emit(self)
-	
 	if not state_machine: return
 	state_machine.on_mouse_enter()
 
 func _on_mouse_exited() -> void:
-	event_bus.minion_info_destroy_request.emit(self)
-	
 	if not state_machine: return
 	state_machine.on_mouse_exit()
 

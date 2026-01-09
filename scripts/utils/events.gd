@@ -22,6 +22,8 @@ signal minion_spawned(minion)
 signal minion_info_show_request(minion)
 @warning_ignore("unused_signal")
 signal minion_info_destroy_request(minion)
+@warning_ignore("unused_signal")
+signal minion_info_blocking_request(context: bool)
 
 # card selection (discover) events
 @warning_ignore("unused_signal")
