@@ -102,11 +102,11 @@ func take_damage(value: int) -> void:
 
 func die(cause: Enums.DeathCause = Enums.DeathCause.NORMAL) -> void:
 	if cause == Enums.DeathCause.NORMAL:
-		_resolve_effects(data.card_context.on_die_effects, self)
+		_resolve_effects(data.card_context.on_death_effects, self)
 	
 	died_event.emit(self, cause)
 	
-	for s in statuses.duplicate():
+	for s in statuses:
 		if s.has_method("remove"):
 			s.remove()
 	
@@ -169,10 +169,8 @@ func _apply_owner_settings():
 		collision_detector.set_collision_layer_value(3, false)
 
 func request_attack(target_node: Node) -> bool:
-	if has_attacked:
-		return false
-	if not can_attack:
-		return false
+	if has_attacked: return false
+	if not can_attack: return false
 	
 	is_ai_intent = true
 	current_target = target_node
@@ -236,7 +234,6 @@ func set_can_attack(value: bool) -> void:
 	can_attack = value
 
 func on_turn_start() -> void:
-	# обробка статусів
 	for s in statuses.duplicate():
 		if s.has_method("on_turn_start"):
 			s.on_turn_start()
