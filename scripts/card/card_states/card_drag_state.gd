@@ -1,15 +1,17 @@
 class_name CardDragState
 extends CardBaseState
 
+var drag_offset: Vector2
+
 func enter() -> void:
 	var ui_control := target.get_tree().get_first_node_in_group("battle_ui_layer")
 	if not ui_control: return
 	
+	drag_offset = target.global_position - target.get_global_mouse_position()
+	
 	target.rotation = 0
 	target.reparent(ui_control)
-	
-	# Configure collision detector for targeting
-	target.collision_detector.set_collision_mask_value(3, true)  # Enemy layer
+	target.collision_detector.set_collision_mask_value(3, true)
 
 func on_input(event: InputEvent) -> void:
 	if target.potential_targets.size() > 0:
@@ -17,8 +19,8 @@ func on_input(event: InputEvent) -> void:
 	
 	var motion := event is InputEventMouseMotion
 	if motion:
-		var relative_mouse = target.get_global_mouse_position()
-		target.global_position = relative_mouse - target.pivot_offset
+		var relative_mouse = target.get_global_mouse_position() + drag_offset
+		target.global_position = relative_mouse
 	
 	match target.get_script():
 		SpellCard: _handle_spell(event)

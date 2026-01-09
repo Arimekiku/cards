@@ -15,7 +15,6 @@ func enter() -> void:
 func on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_mouse"):
 		_normalize()
-		target.pivot_offset = target.get_global_mouse_position() - target.global_position
 		transition.emit(self, CardClickedState)
 		return
 
