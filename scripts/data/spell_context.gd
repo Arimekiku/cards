@@ -6,7 +6,7 @@ class_name SpellContext
 
 func get_card_type() -> Enums.CardType:
 	return Enums.CardType.SPELL
-	
+
 func requires_target() -> bool:
 	for effect in on_play_effects:
 		if effect.requires_target():

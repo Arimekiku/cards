@@ -8,7 +8,6 @@ func enter() -> void:
 	var character := game.get_character(target.card_owner)
 	
 	played = not target.requires_target() or not target.potential_targets.is_empty()
-	
 	if not played:
 		transition.emit(self, CardIdleState)
 		return

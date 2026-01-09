@@ -10,6 +10,7 @@ func enter() -> void:
 	var offset := Vector2(target.parent.size.x / 2, -target.size.y / 2)
 	offset.x -= target.size.x / 2
 	offset.y -= BASIC_CARD_Y_UPPRISING
+	
 	target.animate_to_position(target.parent.global_position + offset, 0.2)
 	target.collision_detector.monitoring = false
 	

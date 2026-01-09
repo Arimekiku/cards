@@ -143,9 +143,6 @@ func _populate(obj, d: Dictionary) -> void:
 				var effects = _create_effects(effect_value)
 				obj.set(effect_group_name, effects)
 		
-		if key == "on_copy_created":
-			pass
-		
 		if value is Dictionary:
 			var temp = obj.get(key)
 			if temp is Array[CardEffect]:
