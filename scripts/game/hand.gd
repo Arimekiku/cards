@@ -79,19 +79,13 @@ func _animate_card_to_position(card: Card, target_pos: Vector2, target_rot: floa
 	if card.tween: card.tween.kill()
 	card.state_machine.active = false
 	
-	card.tween = create_tween()
+	card.tween = card.create_tween()
 	card.tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	
 	card.tween.parallel().tween_property(card, "position", target_pos, animation_speed)
 	card.tween.parallel().tween_property(card, "rotation_degrees", target_rot, animation_speed)
 	card.tween.parallel().tween_property(card, "scale", Vector2.ONE, animation_speed)
-	card.tween.finished.connect(
-		func(): 
-			#TODO: one more kostil' ooohhh yeahhhhh give me kostils'
-			if card == null: return
-			
-			card.state_machine.active = true
-	)
+	card.tween.finished.connect(func(): card.state_machine.active = true)
 
 func _connect_card_signals(card: Card) -> void:
 	card.reparent_event.connect(_on_reparent_event) 
