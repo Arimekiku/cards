@@ -71,6 +71,7 @@
 	"effects": {
 		"on_play_effects": {
 			"copy_minion": {
+				"target_group": ["ally"],
 				"target_type": ["target"],
 				"on_copy_created": {
 					"apply_status": {

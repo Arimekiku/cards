@@ -10,9 +10,12 @@ class_name CardContext
 
 func get_card_tribes() -> Array[String]:
 	return tribes
-	
+
 func get_card_keywords() -> Array[String]:
 	return keywords
 
 @abstract
 func requires_target() -> bool
+
+@abstract
+func get_target_groups(filter: Enums.TargetType) -> Array[Enums.TargetGroup]

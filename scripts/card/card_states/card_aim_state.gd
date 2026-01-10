@@ -32,6 +32,8 @@ func on_input(event: InputEvent) -> void:
 		transition.emit(self, CardReleasedState)
 
 func _highlight_targets(color: Color) -> void:
-	for in_zone: CardBoard in target.get_tree().get_nodes_in_group("card_zones"):
-		for minion in in_zone.minions:
-			minion.modulate = color
+	var groups = target.data.card_context.get_target_groups(Enums.TargetType.TARGET)
+	var targets = TargetResolver.resolve([Enums.TargetType.MINIONS], groups, target)
+	
+	for t in targets:
+		t.modulate = color

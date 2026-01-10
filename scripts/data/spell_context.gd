@@ -15,3 +15,19 @@ func requires_target() -> bool:
 		return true
 	
 	return false
+
+func get_target_groups(filter: Enums.TargetType) -> Array[Enums.TargetGroup]:
+	var filtered := on_play_effects.filter(
+		func(e: CardEffect):
+			return e.target_type.has(filter)
+	)
+	
+	var map := filtered.map(
+		func(f: CardEffect):
+			return f.target_group
+	)
+	
+	var target_groups: Array[Enums.TargetGroup] = []
+	#TODO: kostil'
+	target_groups.assign(map[0])
+	return target_groups
