@@ -10,7 +10,7 @@ func resolve(context):
 	if context == null:
 		return
 	
-	var targets = TargetResolver.resolve(target, context)
+	var targets = TargetResolver.resolve(target_type, target_group, context)
 	
 	var caster_group := "player_casters"
 	if context is Card and context.card_owner == Enums.CharacterType.ENEMY:

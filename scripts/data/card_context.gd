@@ -14,5 +14,5 @@ func get_card_tribes() -> Array[String]:
 func get_card_keywords() -> Array[String]:
 	return keywords
 
-func requires_target() -> bool:
-	return false
+@abstract
+func requires_target() -> bool

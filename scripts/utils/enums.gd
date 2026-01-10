@@ -11,16 +11,18 @@ enum DeathCause {
 	ERASE
 }
 
-enum SpellTargetType {
-	TARGET,            # один довільний таргет (міньйон або герой)
-	NON_HERO_TARGET,   # один таргет, але не герой
-	ENEMY_TARGET,      # один ворожий таргет
-	ALLY_TARGET,       # один союзний таргет
-	HERO,              # герой (вибір або авто)
-	ENEMY_MINIONS,
-	ALLY_MINIONS,
-	ALL_MINIONS,
-	ALL,
+enum TargetType {
 	NO_TARGET,
-	SELF
+	TARGET,
+	SELF,
+	MINIONS,
+	FACE,
+	RANDOM
+}
+
+enum TargetGroup {
+	NO_GROUP,
+	ALLY,
+	ENEMY,
+	FILTER,
 }

@@ -102,26 +102,27 @@
 	"description": "On Play: розкопує випадкове заклинання з бази та додає в руку"
   },
 
-  "volatile_research": {
+"volatile_research": {
 	"name": "Volatile Research",
 	"cost": 2,
 	"card_type": "spell",
 	"effects": {
-	  "on_play_effects": {
-		"draw": {
-		  "target": "self",
-		  "params": {
-			"count": 2
-		  }
-		},
-		"damage": {
-		  "target": "random_enemy",
-		  "params": {
-			"damage": 1,
-			"hits": 1
-		  }
+		"on_play_effects": {
+			"draw": {
+				"target_type": ["self"],
+				"params": {
+					"count": 2
+				}
+			},
+			"damage": {
+				"target_group": ["enemy"],
+				"target_type": ["random"],
+				"params": {
+					"damage": 1,
+					"hits": 1
+				}
+			}
 		}
-	  }
 	},
 	"keywords": ["draw"],
 	"tribes": ["spell", "chaos"],
@@ -129,7 +130,7 @@
 	"portrait_offset": { "x": 0, "y": 0 },
 	"portrait_zoom": 1.0,
 	"description": "Доберіть 2 карти. Завдає 1 шкоди випадковому ворогу"
-  },
+},
 
   "cataclysm_barrage": {
 	"name": "Cataclysm Barrage",

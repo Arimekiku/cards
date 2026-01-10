@@ -8,3 +8,7 @@ layer = 90
 script = ExtResource("1_g7guq")
 
 [node name="info_card" parent="." instance=ExtResource("1_xfyps")]
+
+[node name="info_request_timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="info_request_timer" to="." method="_on_info_request_timer_timeout"]

@@ -8,7 +8,7 @@ class_name ApplyStatusEffect
 func resolve(context):
 	if context == null: return
 	
-	var targets = TargetResolver.resolve(target, context)
+	var targets = TargetResolver.resolve(target_type, target_group, context)
 	for t in targets:
 		if t.has_method("add_status"):
 			t.add_status(status, duration, params)

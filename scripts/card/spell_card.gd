@@ -32,7 +32,7 @@ func play() -> void:
 		if potential_targets.is_empty():
 			push_error("Spell requires target but none provided")
 			return
-	
+		
 		if card_owner == Enums.CharacterType.PLAYER:
 			context = potential_targets[0].get_parent()
 		else:

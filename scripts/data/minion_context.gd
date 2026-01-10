@@ -21,11 +21,10 @@ func get_card_type() -> Enums.CardType:
 	return Enums.CardType.MINION
 
 func requires_target() -> bool:
-	for group in [
-		on_play_effects,
-		on_death_effects
-	]:
-		for effect in group:
-			if effect.requires_target():
-				return true
+	for effect in on_play_effects:
+		if not effect.requires_target():
+			continue
+		
+		return true
+	
 	return false

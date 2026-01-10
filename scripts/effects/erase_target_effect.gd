@@ -9,7 +9,7 @@ func resolve(context):
 	if context == null:
 		return
 	
-	var targets = TargetResolver.resolve(target, context)
+	var targets = TargetResolver.resolve(target_type, target_group, context)
 	if targets.is_empty():
 		return
 	

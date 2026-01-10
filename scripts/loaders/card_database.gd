@@ -28,17 +28,18 @@ var EFFECT_FACTORY_TYPES = {
 	"increase_future_copies": IncreaseFutureCopiesEffect
 }
 
-const TARGET_MAP := {
-	"target": Enums.SpellTargetType.TARGET,
-	"non_hero_target": Enums.SpellTargetType.NON_HERO_TARGET,
-	"enemy_target": Enums.SpellTargetType.ENEMY_TARGET,
-	"ally_target": Enums.SpellTargetType.ALLY_TARGET,
-	"hero": Enums.SpellTargetType.HERO,
-	"enemy_minions": Enums.SpellTargetType.ENEMY_MINIONS,
-	"ally_minions": Enums.SpellTargetType.ALLY_MINIONS,
-	"all_minions": Enums.SpellTargetType.ALL_MINIONS,
-	"all": Enums.SpellTargetType.ALL,
-	"self": Enums.SpellTargetType.SELF
+const TARGET_TYPE_MAP := {
+	"self": Enums.TargetType.SELF,
+	"target": Enums.TargetType.TARGET,
+	"face": Enums.TargetType.FACE,
+	"minions": Enums.TargetType.MINIONS,
+	"random": Enums.TargetType.RANDOM
+}
+
+const TARGET_GROUP_MAP := {
+	"ally": Enums.TargetGroup.ALLY,
+	"enemy": Enums.TargetGroup.ENEMY,
+	"filter": Enums.TargetGroup.FILTER
 }
 
 @export var cards_dir := "res://data/cards/"
@@ -149,11 +150,22 @@ func _populate(obj, d: Dictionary) -> void:
 				var effects = _create_effects(value)
 				obj.set(key, effects)
 		
-		if key == "target":
-			if TARGET_MAP.has(value):
-				obj.set(key, TARGET_MAP[value])
-			else:
-				push_error("Unknown target type: %s" % value)
+		if key == "target_type":
+			var result: Array[Enums.TargetType] = []
+			for ctx in value:
+				if TARGET_TYPE_MAP.has(ctx):
+					result.append(TARGET_TYPE_MAP[ctx])
+				else:
+					push_error("Unknown target type: %s" % ctx)
+			obj.set(key, result)
+		elif key == "target_group":
+			var result: Array[Enums.TargetGroup] = []
+			for ctx in value:
+				if TARGET_GROUP_MAP.has(ctx):
+					result.append(TARGET_GROUP_MAP[ctx])
+				else:
+					push_error("Unknown target type: %s" % ctx)
+			obj.set(key, result)
 		else:
 			obj.set(key, value)
 

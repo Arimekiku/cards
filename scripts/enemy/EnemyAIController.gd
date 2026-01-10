@@ -56,3 +56,23 @@ func _select_target(minion: Minion) -> Node:
 		return null
 	
 	return best_target
+
+func _select_spell_target(spell_card: SpellCard) -> Node:
+	var best_target: Node = null
+	var best_score := -INF
+	
+	var player_board: CardBoard = spell_card.get_tree().get_nodes_in_group("card_zones")[0]
+	
+	for minion in player_board.minions:
+		var score := ai_profile.score_spell_target(spell_card, minion)
+		if score > best_score:
+			best_score = score
+			best_target = minion
+	
+	if best_target == null:
+		var heroes = spell_card.get_tree().get_nodes_in_group("heroes")
+		for hero in heroes:
+			if hero.owned != spell_card.card_owner:
+				return hero
+	
+	return best_target

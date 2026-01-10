@@ -9,6 +9,9 @@ func get_card_type() -> Enums.CardType:
 
 func requires_target() -> bool:
 	for effect in on_play_effects:
-		if effect.requires_target():
-			return true
+		if not effect.requires_target():
+			continue
+		
+		return true
+	
 	return false

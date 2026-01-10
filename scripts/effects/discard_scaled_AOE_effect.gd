@@ -15,7 +15,7 @@ func resolve(context) -> void:
 	if damage <= 0:
 		return
 	
-	var targets := TargetResolver.resolve(target, context)
+	var targets := TargetResolver.resolve(target_type, target_group, context)
 	for t in targets:
 		if t and t.has_method("take_damage"):
 			t.take_damage(damage)

@@ -8,8 +8,8 @@
 	"effects": {
 		"on_death_effects": {
 			"increase_future_copies": {
-				  "attack": 1,
-				  "health": 1
+				"attack": 1,
+				"health": 1
 			}
 		}
 	},
@@ -71,16 +71,16 @@
 	"effects": {
 		"on_play_effects": {
 			"copy_minion": {
-				"target": "target",
+				"target_type": ["target"],
 				"on_copy_created": {
 					"apply_status": {
 						"status": "timer",
-						"target": "self",
+						"target_type": ["self"],
 						"duration": 1,
 						"params": {
 							"effects": {
 								"erase_target_effect": {
-									"target": "self"
+									"target_type": ["self"],
 								}
 							}
 						}
@@ -142,7 +142,8 @@
 		"on_play_effects": {
 			"kill_friendly_and_damage": {
 				"damage_from_attack": true,
-				"target": "enemy_minions"
+				"target_group": ["enemy"],
+				"target_type": ["minions"],
 			}
 		}
 	},

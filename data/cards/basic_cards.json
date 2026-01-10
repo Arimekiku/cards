@@ -1,207 +1,207 @@
 {
-  "frost_frog": {
+
+"frost_frog": {
 	"name": "Морозна жаба",
 	"cost": 3,
 	"card_type": "creature",
 	"health": 8,
 	"damage": 2,
 	"effects": {
-	  "on_attack": {
-		"apply_status": {
-		  "status": "freeze",
-		  "target": "attack_target",
-		  "duration": 1
-		}
-	  },
-	  "on_death_effects": {
-		"random": {
-		  "from": "enemy_creatures",
-		  "do": {
+		"on_attack_effects": {
 			"apply_status": {
-			  "status": "freeze",
-			  "duration": 1
+				"status": "freeze",
+				"target_type": ["target"],
+				"duration": 1
 			}
-		  }
+		},
+		"on_death_effects": {
+			"apply_status": {
+				"status": "freeze",
+				"target_group": ["enemy"],
+				"target_type": ["minions", "face"],
+				"duration": 1
+			}
 		}
-	  }
 	},
 	"keywords": ["freeze"],
-		"tribes": ["amphibian", "beast", "frog"],
-		"image": "res://resources/images/cards/jaba.png",
-		"portrait_offset": {
-			"x": -0.1,
-			"y": -0.23
-		},
-		"portrait_zoom": 1.2,
-		"description": "Заморожує ціль при атаці",
-  },
+	"tribes": ["amphibian", "beast", "frog"],
+	"image": "res://resources/images/cards/jaba.png",
+	"portrait_offset": {
+		"x": -0.1,
+		"y": -0.23
+	},
+	"portrait_zoom": 1.2,
+	"description": "Заморожує ціль при атаці",
+},
 
-  "wise_owl": {
+"wise_owl": {
 	"name": "Мудра сова",
 	"cost": 4,
 	"card_type": "creature",
 	"health": 3,
 	"damage": 2,
 	"effects": {
-	  "on_play_effects": {
-		"draw_cards": {
-		  "amount": 2
+		"on_play_effects": {
+			"draw_cards": {
+			"amount": 2
+			}
 		}
-	  }
 	},
 	"keywords": ["draw"],
-		"tribes": ["flying", "beast", "bird"],
-		"image": "res://resources/images/cards/wise_owl.png",
-		"portrait_offset": {
-			"x": -0.1,
-			"y": -0.23
-		},
-		"portrait_zoom": 1.2,
-		"description": "При розігруванні візьміть 2 карти",
-  },
+	"tribes": ["flying", "beast", "bird"],
+	"image": "res://resources/images/cards/wise_owl.png",
+	"portrait_offset": {
+		"x": -0.1,
+		"y": -0.23
+	},
+	"portrait_zoom": 1.2,
+	"description": "При розігруванні візьміть 2 карти",
+},
 
-  "stone_guardian": {
+"stone_guardian": {
 	"name": "Камʼяний захисник",
 	"cost": 2,
 	"card_type": "creature",
 	"health": 5,
 	"damage": 1,
 	"effects": {
-	  "passive_effects": {
+	"passive_effects": {
 		"apply_status": {
-		  "status": "taunt",
-		  "target": "self",
-		  "duration": -1
+			"status": "taunt",
+				"target_type": ["self"],
+				"duration": -1
+			}
 		}
-	  }
 	},
 	"keywords": ["taunt"],
-		"tribes": ["golem", "taunt"],
-		"image": "res://resources/images/cards/stone_guardian.png",
-		"portrait_offset": {
-			"x": -0.1,
-			"y": -0.23
-		},
-		"portrait_zoom": 1.2,
-		"description": "Таунт",
-  },
-
-  "blade_apprentice": {
-  "name": "Учень клинка",
-  "cost": 1,
-  "card_type": "creature",
-  "health": 2,
-  "damage": 1,
-  "effects": {
-	"on_play_effects": {
-	  "apply_status": {
-		"status": "spell_fury",
-		"target": "self",
-		"duration": -1
-	  }
-	}
-  },
-	"keywords": ["human"],
-		"tribes": ["spell", "buff"],
-		"image": "res://resources/images/cards/blade_apprentice.png",
-		"portrait_offset": {
-			"x": -0.1,
-			"y": -0.23
-		},
-		"portrait_zoom": 1.2,
-		"description": "Отримує +1 до атаки коли застосовано заклинання",
+	"tribes": ["golem", "taunt"],
+	"image": "res://resources/images/cards/stone_guardian.png",
+	"portrait_offset": {
+		"x": -0.1,
+		"y": -0.23
+	},
+	"portrait_zoom": 1.2,
+	"description": "Таунт",
 },
 
-  "fireball": {
+"blade_apprentice": {
+	"name": "Учень клинка",
+	"cost": 1,
+	"card_type": "creature",
+	"health": 2,
+	"damage": 1,
+	"effects": {
+		"on_play_effects": {
+		"apply_status": {
+			"status": "spell_fury",
+				"target_type": ["self"],
+				"duration": -1
+			}
+		}
+	},
+	"keywords": ["human"],
+	"tribes": ["spell", "buff"],
+	"image": "res://resources/images/cards/blade_apprentice.png",
+	"portrait_offset": {
+		"x": -0.1,
+		"y": -0.23
+	},
+	"portrait_zoom": 1.2,
+	"description": "Отримує +1 до атаки коли застосовано заклинання",
+},
+
+"fireball": {
 	"name": "Вогняна куля",
 	"cost": 4,
 	"card_type": "spell",
 	"effects": {
-	  "on_play_effects": {
-		"target_damage_effect": {
-		  "target": "target",
-		  "value": 6
+		"on_play_effects": {
+			"target_damage_effect": {
+				"target_type": ["target"],
+				"value": 6
+			}
 		}
-	  }
 	},
 	"keywords": ["damage"],
-		"tribes": ["spell", "fire"],
-		"image": "res://resources/images/cards/fireball.png",
-		"portrait_offset": {
-			"x": -0.1,
-			"y": -0.23
-		},
-		"portrait_zoom": 1.2,
-		"description": "[url]damage[/url] 6 шкоди у вибрану ціль",
-  },
+	"tribes": ["spell", "fire"],
+	"image": "res://resources/images/cards/fireball.png",
+	"portrait_offset": {
+		"x": -0.1,
+		"y": -0.23
+	},
+	"portrait_zoom": 1.2,
+	"description": "[url]damage[/url] 6 шкоди у вибрану ціль",
+},
 
-  "arcane_intellect": {
+"arcane_intellect": {
 	"name": "Таємні знання",
 	"cost": 3,
 	"card_type": "spell",
 	"effects": {
-	  "on_play_effects": {
-		"draw_cards": {
-		  "amount": 2
+		"on_play_effects": {
+			"draw_cards": {
+				"amount": 2
+			}
 		}
-	  }
 	},
 	"keywords": ["draw"],
-		"tribes": ["spell", "draw"],
-		"image": "res://resources/images/cards/arcane_intellect.png",
-		"portrait_offset": {
-			"x": -0.1,
-			"y": -0.23
-		},
-		"portrait_zoom": 1.2,
-		"description": "При розігруванні візьміть 2 карти",
-  },
+	"tribes": ["spell", "draw"],
+	"image": "res://resources/images/cards/arcane_intellect.png",
+	"portrait_offset": {
+		"x": -0.1,
+		"y": -0.23
+	},
+	"portrait_zoom": 1.2,
+	"description": "При розігруванні візьміть 2 карти",
+},
 
-  "frost_breath": {
+"frost_breath": {
 	"name": "Крижаний подих",
 	"cost": 2,
 	"card_type": "spell",
 	"effects": {
-	  "on_play_effects": {
-		"apply_status": {
-		  "status": "freeze",
-		  "target": "enemy_minions",
-		  "duration": 1
+		"on_play_effects": {
+			"apply_status": {
+				"status": "freeze",
+				"target_group": ["enemy"],
+				"target_type": ["minions"],
+				"duration": 1
+			}
 		}
-	  }
 	},
 	"keywords": ["freeze"],
-		"tribes": ["spell", "freeze", "aoe"],
-		"image": "res://resources/images/cards/frost_breath.png",
-		"portrait_offset": {
-			"x": -0.1,
-			"y": -0.23
-		},
-		"portrait_zoom": 1.2,
-		"description": "При розігруванні заморожує ворожих істот",
-  },
+	"tribes": ["spell", "freeze", "aoe"],
+	"image": "res://resources/images/cards/frost_breath.png",
+	"portrait_offset": {
+	"x": -0.1,
+	"y": -0.23
+	},
+	"portrait_zoom": 1.2,
+	"description": "При розігруванні заморожує ворожих істот",
+},
 
-  "board_purge": {
+"board_purge": {
 	"name": "Очищення поля",
 	"cost": 5,
 	"card_type": "spell",
 	"effects": {
-	  "on_play_effects": {
-		"erase_target_effect": {
-		  "target": "all_minions"
+		"on_play_effects": {
+			"erase_target_effect": {
+				"target_group": ["enemy", "ally"],
+				"target_type": ["minions"],
+			}
 		}
-	  }
 	},
 	"keywords": ["erase"],
-		"tribes": ["spell", "erase", "aoe"],
-		"image": "res://resources/images/cards/board_purge.png",
-		"portrait_offset": {
-			"x": -0.1,
-			"y": -0.23
-		},
-		"portrait_zoom": 1.2,
-		"description": "При розігруванні стирає всіх істот",
-  },
+	"tribes": ["spell", "erase", "aoe"],
+	"image": "res://resources/images/cards/board_purge.png",
+	"portrait_offset": {
+		"x": -0.1,
+		"y": -0.23
+	},
+	"portrait_zoom": 1.2,
+	"description": "При розігруванні стирає всіх істот",
+},
 
   "book_of_fate": {
 	"name": "Книга долі",
@@ -225,31 +225,32 @@
 		"description": "При взятті берете ще одну карту",
   },
 
-  "power_orb": {
+"power_orb": {
 	"name": "Сфера підсилення",
 	"cost": 1,
 	"card_type": "spell",
 	"effects": {
-	  "on_play_effects": {
+	"on_play_effects": {
 		"apply_status": {
-		  "status": "buff",
-		  "target": "target",
-		  "params": {
-			"attack": 2,
-			"health": 2
-		},
-		  "duration": 1
+			"status": "buff",
+				"target_type": ["target"],
+				"params": {
+					"attack": 2,
+					"health": 2
+				},
+				"duration": 1
+			}
 		}
-	  }
 	},
 	"keywords": ["buff"],
-		"tribes": ["spell", "buff"],
-		"image": "res://resources/images/cards/power_orb.png",
-		"portrait_offset": {
-			"x": -0.1,
-			"y": -0.23
-		},
-		"portrait_zoom": 1.2,
-		"description": "Підсилює обрану союзну істоту",
-	}
+	"tribes": ["spell", "buff"],
+	"image": "res://resources/images/cards/power_orb.png",
+	"portrait_offset": {
+	"x": -0.1,
+	"y": -0.23
+	},
+	"portrait_zoom": 1.2,
+	"description": "Підсилює обрану союзну істоту",
+}
+
 }
