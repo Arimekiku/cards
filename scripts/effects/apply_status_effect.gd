@@ -19,6 +19,11 @@ func resolve(context):
 	var caster = _get_caster(context)
 	if caster == null:
 		return
+	
+	if target == Enums.SpellTargetType.SELF:
+		_apply_status(targets[0])
+		return
+		
 
 	# === AOE ===
 	if not requires_target():

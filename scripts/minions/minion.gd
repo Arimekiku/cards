@@ -91,10 +91,10 @@ func _input(event: InputEvent) -> void:
 
 func take_damage(value: int) -> void:
 	health_component.health -= value
+	health_component.process_health()
 
 func on_health_changed(new_value) -> void:
 	if new_value > 0 or not health_component.can_die: return
-	
 	die(Enums.DeathCause.NORMAL)
 
 func die(cause: Enums.DeathCause = Enums.DeathCause.NORMAL) -> void:
@@ -232,13 +232,19 @@ func on_turn_start() -> void:
 	_resolve_effects(data.card_context.on_turn_start_effects, self)
 
 func ui_update() -> void:
-	if health_component.health > data.card_context.health:
-		health_component.health_label.modulate = Color.GREEN
-	if damage > data.card_context.damage:
-		damage_text.modulate = Color.GREEN
+	health_component.health_label.modulate = compare_stats(health_component.health, data.card_context.health)
+	damage_text.modulate = compare_stats(damage, data.card_context.damage)
 	
 	health_component.process_health()
 	_ui_update_damage()
+	
+func compare_stats(current_stat, base_stat):
+	if current_stat > base_stat:
+		return Color.GREEN
+	if current_stat < base_stat:
+		return Color.DARK_RED
+	return Color.WHITE
+	
 
 func _ui_update_damage() -> void:
 	damage_text.text = str(damage)

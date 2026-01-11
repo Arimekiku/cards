@@ -12,15 +12,9 @@ func resolve(context):
 	if targets.is_empty():
 		return
 	
-	var caster_group := "player_casters"
-	if context is Card and context.card_owner == Enums.CharacterType.ENEMY:
-		caster_group = "enemy_casters"
-
-	var casters = context.get_tree().get_nodes_in_group(caster_group)
-	if casters.is_empty():
+	var caster = _get_caster(context)
+	if caster == null:
 		return
-	
-	var caster = casters[0]
 	
 	for t in targets:
 		if not t.has_method("take_damage"):
@@ -33,10 +27,14 @@ func resolve(context):
 			context.get_tree().current_scene
 		)
 		
-		t.take_damage(value)
-
+		var target_ref = t
+		
 		if fireball and fireball.has_signal("finished"):
-			fireball.finished.connect(func():
-				if is_instance_valid(t) and t.has_method("ui_update"):
-					t.ui_update()
+			fireball.finished.connect(func(_target):
+				if is_instance_valid(_target):
+					_target.take_damage(value)
+					if _target.has_method("ui_update"):
+						_target.ui_update()
 			)
+		else:
+			t.take_damage(value)
