@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dk2m7afaj2cba"]
+
+[ext_resource type="Texture2D" uid="uid://ddgw2ry0g3deq" path="res://resources/images/vfx/flare.png" id="1_5m15n"]
+[ext_resource type="Script" uid="uid://b1qcjw7dcvn7h" path="res://scripts/vfx/aoe_freeze_vfx.gd" id="1_ujawo"]
+[ext_resource type="Script" uid="uid://blbnk3etmgj6i" path="res://scripts/vfx/vfx_container.gd" id="2_mfd1e"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6ig43"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 51.185
+initial_velocity_min = 670.54
+initial_velocity_max = 670.54
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.049999997
+
+[node name="AoeFreeze" type="Node2D"]
+script = ExtResource("1_ujawo")
+
+[node name="Visual" type="Node2D" parent="."]
+script = ExtResource("2_mfd1e")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Visual"]
+amount = 200
+texture = ExtResource("1_5m15n")
+process_material = SubResource("ParticleProcessMaterial_6ig43")

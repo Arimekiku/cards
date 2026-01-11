@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://c0vthsq306log" path="res://scripts/game/hand.gd" id="7_nrexm"]
 [ext_resource type="PackedScene" uid="uid://djm87ttssld7i" path="res://scenes/hero_face.tscn" id="8_fgn6i"]
 [ext_resource type="PackedScene" uid="uid://dq6dxo14vjgch" path="res://scenes/deck_presenter.tscn" id="10_1ss63"]
-[ext_resource type="Script" uid="uid://bcfh101gui4sp" path="res://scripts/enemy/archive_survival_ai_profile.gd" id="10_y4bv0"]
+[ext_resource type="Script" uid="uid://7scfv6w5mt1k" path="res://scripts/enemy/default_ai_profile.gd" id="10_y4bv0"]
 [ext_resource type="PackedScene" uid="uid://bmg3ixh420n4y" path="res://scenes/effects/discover_effect_prefab.tscn" id="11_yvuf7"]
 
 [sub_resource type="Resource" id="Resource_qbqua"]
@@ -29,7 +29,7 @@ point_count = 3
 
 [sub_resource type="Resource" id="Resource_1a3hy"]
 script = ExtResource("10_y4bv0")
-metadata/_custom_type_script = "uid://bcfh101gui4sp"
+metadata/_custom_type_script = "uid://7scfv6w5mt1k"
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_104hf")

@@ -26,18 +26,18 @@ func _process(delta: float) -> void:
 		return
 
 	_timer += delta
-	var t := _timer / travel_time
-	if t > 1.0:
-		t = 1.0
+	var t: float= min(_timer / travel_time, 1.0)
 
-	global_position = _start_pos.lerp(_target.global_position, t)
+	var target_pos := _get_target_center(_target)
+	global_position = _start_pos.lerp(target_pos, t)
 
-	var dir = _target.global_position - global_position
+	var dir := target_pos - global_position
 	if dir.length() > 0:
 		rotation = dir.angle()
 
 	if t >= 1.0:
 		_on_hit()
+
 
 func _on_hit() -> void:
 	set_process(false)
@@ -51,3 +51,11 @@ func _on_hit() -> void:
 func _emit_finished() -> void:
 	emit_signal("finished", _target)
 	queue_free()
+
+func _get_target_center(target: Node) -> Vector2:
+	if target is Control:
+		var c := target as Control
+		return c.global_position + c.size * 0.5
+	elif target is Node2D:
+		return target.global_position
+	return Vector2.ZERO
